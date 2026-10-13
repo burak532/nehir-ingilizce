@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Aşama 1 tamamlandı — Aşama 2 (Pedagojik tasarım → `docs/curriculum.md`) kullanıcı onayı bekliyor.**
+**Aşama 2 tamamlandı — `docs/curriculum.md` yazıldı. Aşama 3'e (Teknik plan → `docs/technical-plan.md`) geçiş için kullanıcı onayı bekleniyor.**
 
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
@@ -20,14 +20,14 @@
 - [x] Kullanıcıya tek sayfalık özet verildi.
 
 ## Yarım kalan iş / tam olarak nerede kalındı
-Araştırma aşaması bitti. Sırada Aşama 2 (müfredat/pedagojik tasarım, `docs/curriculum.md`) var ama **kullanıcı onayı alınmadan başlanmayacak** (talimat: "hiçbir aşamada bir sonrakine onay olmadan geçme").
+`docs/curriculum.md` tamamlandı: 13 ünitelik tema sırası (Hello! → Dino Colors → ... → Mix & Match), ünite içi döngü, aralıklı tekrar modeli (1-3-7 gün), uyarlanabilir zorluk kuralı, ödül/geri bildirim kuralları, ebeveyn rehberliği tablosu, Türkçe fading kuralı, ölçme planı, oyun tipi değerlendirmesi ve araştırmayla çelişen/belirsiz noktalar bölümü yazıldı. MVP ilk 2 ünite önerisi (Hello! + Dino Colors) curriculum.md Bölüm 1'de verildi, kullanıcı onayı bekliyor. **Kullanıcı onayı alınmadan Aşama 3'e başlanmayacak.**
 
 ## Sıradaki adımlar
-1. Kullanıcıdan Aşama 2'ye geçiş onayı al.
-2. Onay gelirse: araştırma bulgularına dayanarak `docs/curriculum.md` taslağını hazırla (ünite/tema listesi, oyun döngüsü, aralıklı tekrar modeli, ölçme planı) — Bölüm 3'teki beklentileri araştırmayla karşılaştırıp uyuşmayan noktaları işaretle.
-3. Araştırma sırasında ortaya çıkan açık soruları (özellikle Türkçe fading zamanlaması, kayıt-dinle özelliğinin pedagojik ağırlığı) curriculum.md'de "varsayım, test edilecek" olarak işaretle.
-4. `docs/progress.md`'yi güncelle, kullanıcıya özet ver, açık soruları listele, dur (Aşama 3'e onaysız geçilmeyecek).
-5. Aşama 5 öncesi: `.env` anahtarını düzelt/doğrula, bütçe eşiğini teyit et.
+1. Kullanıcıdan curriculum.md'deki açık soruları (Bölüm 13: MVP ilk 2 ünite, 13 ünite kapsamı, aralıklı tekrar aralıkları, Türkçe fading eşiği) ve Aşama 3'e geçiş onayını al.
+2. Onay gelirse: `docs/technical-plan.md`'yi hazırla — framework seçimi (teknik araştırma Svelte+Vite+TS veya Vanilla TS+Vite önerdi), klasör yapısı, service worker/offline strateji, IndexedDB veri modeli, ses kilidi/AudioContext unlock deseni, GitHub Pages+Actions CI, ebeveyn paneli kapsamı.
+3. `CLAUDE.md`'deki "Kodlama kuralları" ve "İçerik/veri yapısı" bölümlerini Aşama 3 kararlarıyla doldur.
+4. `docs/progress.md`'yi güncelle, kullanıcıya özet ver, açık soruları listele, dur (Aşama 4'e onaysız geçilmeyecek).
+5. Aşama 5 öncesi: `.env` anahtarını düzelt/doğrula, TTS bütçe eşiğini teyit et, Nehir adının telaffuzu için örnek ses üret.
 
 ## Bekleyen sorular (kullanıcıya sorulacak/teyit edilecek — şimdilik engelleyici değil)
 - TTS üretim maliyeti onay eşiği şu an örnek olarak "5 USD" — Aşama 5'te gerçek rakamı teyit et.
