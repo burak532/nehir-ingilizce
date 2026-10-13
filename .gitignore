@@ -29,3 +29,6 @@ playwright-report/
 
 # Ses üretim hattı: dinleme örnekleri geçici, commit edilmez (üretim sesleri public/audio/'da)
 tools/generate_audio/samples/
+
+# Ebeveyn panelinden indirilen CSV dışa aktarmaları (test/gerçek kullanım çıktısı, içerik değil)
+/nehir-*.csv
