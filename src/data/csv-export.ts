@@ -6,9 +6,9 @@ function escapeCsvValue(value: unknown): string {
   return str;
 }
 
-export function toCsv<T extends Record<string, unknown>>(rows: T[]): string {
+export function toCsv<T extends object>(rows: T[]): string {
   if (rows.length === 0) return "";
-  const headers = Object.keys(rows[0]);
+  const headers = Object.keys(rows[0]) as Array<keyof T>;
   const lines = [headers.join(",")];
   for (const row of rows) {
     lines.push(headers.map((h) => escapeCsvValue(row[h])).join(","));
