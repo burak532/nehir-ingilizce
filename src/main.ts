@@ -1,9 +1,9 @@
 import "./style.css";
-import { renderStartScreen } from "./core/start-screen";
+import { startRouter } from "./core/router";
 
 const app = document.querySelector<HTMLDivElement>("#app");
 if (!app) {
   throw new Error("#app kök elemanı bulunamadı");
 }
 
-renderStartScreen(app);
+startRouter(app);
