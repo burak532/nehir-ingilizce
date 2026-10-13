@@ -39,7 +39,8 @@ class AudioManager {
   private async loadBuffer(path: string): Promise<void> {
     if (!this.context || this.buffers.has(path)) return;
     try {
-      const response = await fetch(`/audio/${path}`);
+      // BASE_URL: GitHub Pages alt-yol dağıtımında sesler köke değil doğru alt-yola göre çözülsün.
+      const response = await fetch(`${import.meta.env.BASE_URL}audio/${path}`);
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
