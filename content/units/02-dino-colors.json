@@ -89,7 +89,13 @@
       "audioEn": "en/02-dino-colors/i-like-color-{wordId}.mp3",
       "template": true
     },
-    { "id": "what-color", "en": "What color is it?", "audioEn": "en/02-dino-colors/what-color.mp3" }
+    { "id": "what-color", "en": "What color is it?", "audioEn": "en/02-dino-colors/what-color.mp3" },
+    {
+      "id": "put-in-nest",
+      "en": "Put the {word} one in the nest!",
+      "audioEn": "en/02-dino-colors/put-in-nest-{wordId}.mp3",
+      "template": true
+    }
   ],
   "games": ["listen-touch", "drag-drop", "record"]
 }
