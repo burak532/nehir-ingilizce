@@ -24,13 +24,14 @@ Tam gereksinimler için `ingilizce-uygulama-prompt.md`'ye bakılmalı — bu dos
 | 2026-10-13 | Aşama 0 (kurulum) + Aşama 1 (araştırma) planı onaylandı; Aşama 1'de 3 paralel araştırma ajanı kullanılacak | `ingilizce-uygulama-prompt.md` Bölüm 0 ve 2 |
 | 2026-10-13 | Aşama 1 (araştırma) tamamlandı: `docs/research/evidence.md`, `prior-art.md`, `technical.md` yazıldı | Detaylar `docs/progress.md` → "Araştırmadan çıkan önemli bulgular" |
 | 2026-10-13 | Aşama 2 (pedagojik tasarım) tamamlandı: `docs/curriculum.md` yazıldı; 13 ünite, MVP ilk 2 ünite Hello!+Dino Colors **onaylandı** (kullanıcı tüm Bölüm 13 sorularını onayladı) | `docs/curriculum.md` |
-| 2026-10-13 | Aşama 3 (teknik plan) tamamlandı: `docs/technical-plan.md` yazıldı; framework **Vanilla TypeScript + Vite**, hosting GitHub Pages+Actions, IndexedDB veri modeli, service worker (vite-plugin-pwa injectManifest) | `docs/technical-plan.md`; framework kararı ve repo adı onay bekliyor |
+| 2026-10-13 | Aşama 3 (teknik plan) tamamlandı: `docs/technical-plan.md` yazıldı; framework **Vanilla TypeScript + Vite**, hosting GitHub Pages+Actions, IndexedDB veri modeli, service worker (vite-plugin-pwa injectManifest) | `docs/technical-plan.md`; framework kararı onaylandı, repo adı Aşama 4 sonunda belirlenecek |
+| 2026-10-13 | Aşama 4 (MVP) tamamlandı: Node.js kuruldu, proje iskeleti, Ünite 1-2 içerik+görseller, tüm oyun tipleri, IndexedDB veri katmanı, ebeveyn paneli, PWA/service worker, Vitest testleri, ses üretim scripti yazıldı — **ses üretimi henüz çalıştırılmadı** (bozuk API anahtarı + bütçe/ses onayı bekleniyor) | `docs/progress.md` |
 
 ## Bilinen açık konular (bkz. `docs/progress.md` → "Bekleyen sorular")
-- `.env` içindeki `OPENAI_API_KEY` değeri bozuk/tekrarlı görünüyor; Aşama 5'ten (ses üretimi) önce düzeltilmesi/doğrulanması gerekiyor.
-- TTS üretim maliyeti onay eşiği ("5 USD") şu an sadece örnek; gerçek rakam Aşama 5'te teyit edilecek.
-- Nehir adının İngilizce TTS telaffuzu Aşama 5'te örneklerle onaylanacak.
-- Framework kararı (Vanilla TS+Vite) ve GitHub repo adı/görünürlüğü onay bekliyor (`docs/technical-plan.md` sonu).
+- `.env` içindeki `OPENAI_API_KEY` değeri bozuk/tekrarlı görünüyor (`npm run audio:sample` bunu otomatik tespit edip hata veriyor) — gerçek sesler üretilmeden önce kullanıcıdan geçerli bir anahtar gerekiyor.
+- TTS üretim maliyeti onay eşiği şu an örnek olarak "5 USD" — `npm run audio:cost` ile mevcut içerik için tahmini ~$0.03 çıktı (61 satır), ama gerçek rakamı kullanıcı teyit etmeli.
+- Nehir adının İngilizce TTS telaffuzu `npm run audio:sample` ile üretilip kullanıcıya dinletilmeli, henüz yapılmadı.
+- GitHub repo adı/görünürlüğü MVP sonunda belirlenecek.
 
 ## Kodlama kuralları
 - **Dil/araç:** TypeScript + Vite, framework yok ("Vanilla TS"). Gerekçe ve alternatif değerlendirmesi: `docs/technical-plan.md` §1.
@@ -45,6 +46,12 @@ Tam gereksinimler için `ingilizce-uygulama-prompt.md`'ye bakılmalı — bu dos
 - Ses dosyaları: `public/audio/en/<unitId>/<wordId>.mp3`, `public/audio/tr/<lineId>.mp3`; üretim/önbellekleme kontratı `docs/technical-plan.md` §4.
 - İlerleme/ölçüm verisi IndexedDB object store'ları (`trials`, `wordProgress`, `sessions`, `parentObservations`, `settings`) — şema: `docs/technical-plan.md` §6.
 - **Yeni ünite eklemenin adımları:** (1) `content/units/` altına yeni JSON dosyası ekle, şemaya uy; (2) görselleri/ses referanslarını JSON'da tanımla; (3) `tools/generate_audio` ile sesleri üret; (4) haritada bölge/sıra ata; kod dosyalarına dokunulmaz.
+- **Ses üretim hattı (`tools/generate_audio/generate.mjs`):**
+  - `npm run audio:cost` — API çağrısı yapmadan toplam satır/karakter/tahmini maliyeti gösterir.
+  - `npm run audio:sample -- --yes` — birkaç örnek cümleyi (Nehir adı dahil) birden fazla sesle üretip `tools/generate_audio/samples/` altına yazar; kullanıcı dinleyip ses seçer.
+  - `npm run audio:generate -- --voice=<seçilen-ses> --yes` — tüm içerik satırlarını (sadece yeni/değişenleri, hash önbellekli) üretip `public/audio/`'ya yazar.
+  - `--yes` verilmeden hiçbir ücretli istek yapılmaz, sadece tahmini maliyet gösterilir.
+  - `.env`'deki `OPENAI_API_KEY` otomatik doğrulanır (uzunluk/önek kontrolü); bozuksa script hata verip durur.
 
 ## Dosya/klasör yapısı (şu an)
 ```
@@ -52,14 +59,28 @@ nehir/
 ├── CLAUDE.md                     # bu dosya
 ├── ingilizce-uygulama-prompt.md  # orijinal süreç talimatı
 ├── .env                          # OPENAI_API_KEY (gitignore'da, commit edilmez)
-├── .gitignore
+├── package.json / vite.config.ts / vitest.config.ts / tsconfig.json
+├── index.html
+├── src/
+│   ├── main.ts, style.css
+│   ├── core/                     # store, router, content loader, aralıklı tekrar, ses kaydı/tarih, sw-register
+│   ├── audio/                    # AudioContext unlock + preload
+│   ├── games/                    # listen-touch, tpr, drag-drop, record
+│   ├── map/                      # harita + ünite giriş ekranı
+│   ├── parent/                   # ebeveyn paneli + kilit
+│   ├── data/                     # IndexedDB katmanı, CSV export
+│   └── sw.ts                     # özel service worker kaynağı (vite-plugin-pwa injectManifest)
+├── content/
+│   ├── schema/unit.schema.json
+│   ├── units/01-hello.json, 02-dino-colors.json
+│   └── shared/tpr.json
+├── public/
+│   ├── images/units/...           # özgün SVG illüstrasyonlar
+│   ├── icons/                     # PWA app ikonları
+│   └── audio/                     # TTS çıktısı (henüz üretilmedi)
+├── tools/generate_audio/generate.mjs
+├── tests/unit/                    # Vitest
 └── docs/
-    ├── progress.md               # oturum devamlılığı
-    ├── curriculum.md             # Aşama 2 çıktısı
-    ├── technical-plan.md         # Aşama 3 çıktısı
-    └── research/                 # Aşama 1 çıktıları
-        ├── evidence.md
-        ├── prior-art.md
-        └── technical.md
+    ├── progress.md, curriculum.md, technical-plan.md
+    └── research/evidence.md, prior-art.md, technical.md
 ```
-Aşama 4'te oluşturulacak hedef yapı için `docs/technical-plan.md` §2'ye bakılmalı.

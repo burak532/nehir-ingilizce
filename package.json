@@ -9,7 +9,10 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "audio:cost": "node tools/generate_audio/generate.mjs --mode=cost",
+    "audio:sample": "node tools/generate_audio/generate.mjs --mode=sample",
+    "audio:generate": "node tools/generate_audio/generate.mjs --mode=full"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",

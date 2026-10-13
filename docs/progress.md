@@ -3,9 +3,9 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Aşama 3 tamamlandı — `docs/technical-plan.md` yazıldı. Aşama 4'e (MVP geliştirme + ses üretim hattı) geçiş için kullanıcı onayı bekleniyor.**
+**Aşama 4 (MVP geliştirme) kod tarafı tamamlandı. Ses üretimi (tools/generate_audio ile gerçek TTS dosyalarının üretilmesi) kullanıcı girdisine bağlı olarak bekliyor — bkz. "Bekleyen sorular".**
 
-Not: Kullanıcı Aşama 2'nin tüm açık sorularını (MVP ilk 2 ünite, 13 ünite kapsamı, 1-3-7 gün aralıklı tekrar, "3 kez" Türkçe fading eşiği) onayladı.
+Not: Kullanıcı Aşama 2'nin tüm açık sorularını ve Aşama 3'teki framework kararını (Vanilla TS+Vite) onayladı; GitHub repo adı MVP sonunda belirlenecek.
 
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
@@ -20,23 +20,37 @@ Not: Kullanıcı Aşama 2'nin tüm açık sorularını (MVP ilk 2 ünite, 13 ün
   - [x] `docs/research/prior-art.md` — mevcut uygulamalar ve açık kaynak örnekler
   - [x] `docs/research/technical.md` — iPad Safari PWA kısıtları, framework/hosting/TTS önerileri
 - [x] Kullanıcıya tek sayfalık özet verildi.
+- [x] Node.js v24 (LTS) ve npm kuruldu (kullanıcı onayıyla, resmi nodejs.org paketi).
+- [x] Proje iskeleti: Vite+TS, çalışan build/dev server.
+- [x] Ünite 1 (Hello!) ve Ünite 2 (Dino Colors) içerik JSON'ları + şema.
+- [x] 30 özgün SVG illüstrasyon (her kelime için 2 varyant — genelleme testi için).
+- [x] Core: store, router (cleanup destekli), içerik yükleyici, aralıklı tekrar motoru (1-3-7 gün).
+- [x] Ses sistemi: tek AudioContext ile kilit açma + preload.
+- [x] Harita ekranı (ünite kartları, ilerleme göstergesi, 3sn basılı tutma ile ebeveyn kilidi).
+- [x] 4 oyun tipi: Dinle ve dokun, TPR, Sürükle-bırak (Pointer Events), Kaydet-dinle (MediaRecorder, izin reddinde sessiz atlama).
+- [x] IndexedDB veri katmanı: trials/wordProgress/sessions/parentObservations/settings, CSV export, persist() isteği.
+- [x] Ebeveyn paneli: süre, Türkçe destek düzeyi+fading eşiği, ünite aç/kapa, kelime durumu, gözlem ekleme, CSV indirme, ilerleme sıfırlama (yedek hatırlatmalı), güncelleme bölümü.
+- [x] PWA: vite-plugin-pwa (injectManifest), manifest+app ikonları (PIL ile üretildi), kontrollü güncelleme akışı (sadece açılışta veya ebeveyn panelinde), jest engelleme CSS, standalone-mod hatırlatması.
+- [x] Vitest: aralıklı tekrar, CSV, içerik şema doğrulama (ajv), IndexedDB katmanı (fake-indexeddb) — 14 test, hepsi geçiyor.
+- [x] `tools/generate_audio/generate.mjs`: cost/sample/full modları, hash önbellek, maliyet tahmini, `.env` anahtar doğrulama. `npm run audio:cost` ile test edildi (61 satır, ~$0.03 tahmini — API çağrısı yapılmadan).
 
 ## Yarım kalan iş / tam olarak nerede kalındı
-`docs/technical-plan.md` tamamlandı: framework kararı (Vanilla TS+Vite), klasör yapısı, içerik/veri modeli (ünite JSON şeması), ses sistemi (AudioContext unlock), offline/service worker stratejisi (vite-plugin-pwa injectManifest), IndexedDB şeması (trials/wordProgress/sessions/parentObservations/settings), ebeveyn paneli kapsamı, mikrofon/kayıt stratejisi, jest engelleme, GitHub Pages+Actions CI, test stratejisi (Vitest+Playwright WebKit), native taşınabilirlik ilkesi. `CLAUDE.md`'nin "Kodlama kuralları" ve "İçerik/veri yapısı" bölümleri bu kararlarla dolduruldu. **Kullanıcı onayı alınmadan Aşama 4'e (MVP geliştirme) başlanmayacak.**
+Kod tarafı MVP kapsamını (prompt Bölüm 7) karşılıyor ve `npm run build`/`npm run test` temiz geçiyor. **Gerçek ses dosyaları henüz üretilmedi** — bu, kullanıcı onayı/girdisi gerektiren 3 noktada bekliyor (aşağıdaki "Bekleyen sorular"). Playwright uçtan uca testleri ve gerçek iPad'de deneme henüz yapılmadı (Aşama 5/8 kapsamında).
 
 ## Sıradaki adımlar
-1. Kullanıcıdan technical-plan.md'deki açık soruları (framework kararı, GitHub repo adı/görünürlüğü) ve Aşama 4'e geçiş onayını al.
-2. Onay gelirse: proje iskeletini kur (`npm create vite` + TS template, klasör yapısı, `vite-plugin-pwa`, temel manifest), ilk commit.
-3. Ünite 1 (Hello!) ve Ünite 2 (Dino Colors) için `content/units/*.json` içerik dosyalarını curriculum.md'deki kelime/kalıp listesine göre oluştur.
-4. Harita, 3 oyun tipi (dinle-dokun, TPR, sürükle-bırak) ve kaydet-dinle akışını MVP kapsamında (prompt Bölüm 7) geliştir.
-5. Ses üretim hattını (`tools/generate_audio`) kur — bu noktada `.env` anahtarını düzelt/doğrula, TTS bütçe eşiğini teyit et, Nehir adının telaffuzu için örnek ses üretip kullanıcıya dinlet.
-6. `docs/progress.md`'yi sık güncelle, her görevi commit'le.
+1. Kullanıcıdan: (a) `.env`'e geçerli bir `OPENAI_API_KEY` girmesini, (b) `npm run audio:sample -- --yes` ile üretilecek birkaç örnek sesin (~$0.01 altı) maliyetini onaylamasını iste.
+2. Onay gelince `npm run audio:sample -- --yes` çalıştırıp örnekleri kullanıcıya dinlet; İngilizce ses (ve Türkçe destek sesi) seçimini ve Nehir adının telaffuzunu onaylat.
+3. Seçilen seslerle `npm run audio:generate -- --voice=<seçilen> --yes` çalıştırıp tüm içerik satırlarının sesini üret (tahmini maliyet ~$0.03, ama kullanıcıya tekrar göster).
+4. Playwright WebKit/iPad boyutu uçtan uca testlerini yaz (Aşama 8 kalite kontrolü ile birlikte ya da önce temel bir akış testi).
+5. MVP'yi tamamladıktan sonra GitHub'da yayınlamayı, iPad'de Safari'den ana ekrana eklemeyi ve aynı Wi-Fi'de Mac'ten deneme yapmayı adım adım anlat (prompt Bölüm 7).
+6. Bu dosyayı sık güncellemeye devam et.
 
-## Bekleyen sorular (kullanıcıya sorulacak/teyit edilecek — şimdilik engelleyici değil)
-- TTS üretim maliyeti onay eşiği şu an örnek olarak "5 USD" — Aşama 5'te gerçek rakamı teyit et.
-- MVP'deki 2 ünite örneği "Selamlaşma + Dinozor renkleri" — Aşama 7'de teyit et.
-- `.env`'deki `OPENAI_API_KEY` değeri bozuk/tekrarlı görünüyor (aynı anahtar ~3 kez art arda yapıştırılmış gibi) — Aşama 5'ten önce kullanıcıdan doğru anahtarı iste.
-- Nehir adının İngilizce TTS'teki telaffuzu — Aşama 5'te örnek üretip kullanıcıya dinlet, onay al.
+## Bekleyen sorular (kullanıcıdan onay/girdi gerekiyor)
+- **`.env`'deki `OPENAI_API_KEY` bozuk** (aynı anahtar ~3 kez art arda yapıştırılmış, 492 karakter) — `npm run audio:sample` bunu otomatik tespit edip hata veriyor. Geçerli bir anahtar girilmeden ses üretilemez.
+- **TTS maliyet onayı:** `npm run audio:cost` şu an için ~$0.03 (61 satır, 1338 karakter) gösteriyor — örnek üretim (birkaç ses × birkaç cümle) daha da ucuz. Kullanıcının onayı gerekiyor (prompt Bölüm 9: ücretli her işlem için onay şart).
+- **Ses seçimi:** İngilizce ve Türkçe destek sesleri için örnekler henüz üretilmedi/dinletilmedi.
+- **Nehir adının telaffuzu:** `npm run audio:sample` çıktısında test edilecek, henüz onaylanmadı.
+- MVP'deki 2 ünite "Selamlaşma + Dinozor renkleri" zaten curriculum.md onayıyla netleşti (artık açık değil).
 
 ## Alınan kararlar ve gerekçeleri
 - **Git deposu + .gitignore ile başlangıç:** `.env` içindeki API anahtarının yanlışlıkla commit'lenmesini önlemek için proje en başından itibaren versiyon kontrollü ve `.env` gitignore'da.
