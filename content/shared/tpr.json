@@ -1,0 +1,8 @@
+{
+  "description": "Ünite-bağımsız TPR hareket molası komutları (bkz. src/games/tpr.ts, curriculum.md §6).",
+  "lines": [
+    { "id": "wave", "en": "Wave your hands!", "audioEn": "en/shared/tpr-wave.mp3" },
+    { "id": "jump", "en": "Jump up!", "audioEn": "en/shared/tpr-jump.mp3" },
+    { "id": "spin", "en": "Spin around!", "audioEn": "en/shared/tpr-spin.mp3" }
+  ]
+}
