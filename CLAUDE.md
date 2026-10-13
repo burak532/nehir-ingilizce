@@ -22,6 +22,7 @@ Tam gereksinimler için `ingilizce-uygulama-prompt.md`'ye bakılmalı — bu dos
 |---|---|---|
 | 2026-10-13 | Proje git deposu olarak başlatıldı, `.env` gitignore'a eklendi | API anahtarının commit'lenmemesi gerekiyor |
 | 2026-10-13 | Aşama 0 (kurulum) + Aşama 1 (araştırma) planı onaylandı; Aşama 1'de 3 paralel araştırma ajanı kullanılacak | `ingilizce-uygulama-prompt.md` Bölüm 0 ve 2 |
+| 2026-10-13 | Aşama 1 (araştırma) tamamlandı: `docs/research/evidence.md`, `prior-art.md`, `technical.md` yazıldı | Detaylar `docs/progress.md` → "Araştırmadan çıkan önemli bulgular" |
 
 ## Bilinen açık konular (bkz. `docs/progress.md` → "Bekleyen sorular")
 - `.env` içindeki `OPENAI_API_KEY` değeri bozuk/tekrarlı görünüyor; Aşama 5'ten (ses üretimi) önce düzeltilmesi/doğrulanması gerekiyor.
