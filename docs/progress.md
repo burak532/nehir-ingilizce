@@ -3,9 +3,9 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Aşama 4 (MVP geliştirme) tamamen bitti — kod + gerçek ses dosyaları. MVP, prompt Bölüm 7'deki kapsamı karşılıyor.** Sırada: Aşama 5 (test, iPad'de deneme, iyileştirme) için kullanıcı onayı.
+**Aşama 4 (MVP) tamamen bitti ve GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Sırada: Aşama 5 (test, iPad'de deneme, iyileştirme) için kullanıcı onayı.
 
-Not: Kullanıcı Aşama 2'nin tüm açık sorularını, Aşama 3'teki framework kararını (Vanilla TS+Vite) ve Aşama 4'teki ses üretim maliyetini/sesini (cedar) onayladı; GitHub repo adı MVP sonunda belirlenecek.
+Not: Kullanıcı Aşama 2'nin tüm açık sorularını, Aşama 3'teki framework kararını (Vanilla TS+Vite), Aşama 4'teki ses üretim maliyetini/sesini (cedar) ve GitHub yayınlamasını (public, `nehir-ingilizce`, gh CLI ile) onayladı.
 
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
@@ -38,20 +38,24 @@ Not: Kullanıcı Aşama 2'nin tüm açık sorularını, Aşama 3'teki framework 
 - [x] Tüm 61 satırın sesi `cedar` ile üretildi (~$0.03 harcandı), `public/audio/`'ya yazıldı.
 - [x] Chrome'da gerçek tarayıcı testi yapıldı: açılış→harita→ünite→Dinle-dokun akışı, IndexedDB kaydı, 3sn ebeveyn kilidi, ebeveyn paneli UI, production build'de service worker (41→106 precache girişi, gerçek seslerle) — hepsi çalışıyor.
 - [x] Test sırasında bulunan hata düzeltildi: dev modda service worker kaydı artık denenmiyor (sadece production build'de).
+- [x] Homebrew yok, bu yüzden GitHub CLI (`gh`) resmi .pkg ile kuruldu; kullanıcı `gh auth login --web` ile giriş yaptı (ilk denemede iki kez gerekti: önce login, sonra `workflow` scope eksikliği için `gh auth refresh`).
+- [x] `burak532/nehir-ingilizce` adında **public** repo oluşturuldu, GitHub Pages "GitHub Actions" kaynağıyla etkinleştirildi (`gh api repos/.../pages -X POST -f build_type=workflow`).
+- [x] `.github/workflows/deploy.yml` eklendi (checkout→setup-node→npm ci→npm test→npm run build→upload-pages-artifact→deploy-pages), push edildi, ilk deploy başarılı.
+- [x] **Bulunup düzeltilen hata:** `vite.config.ts`'deki `base: "./"` doğruydu ama `src/core/image-path.ts` ve `src/audio/audio-manager.ts` mutlak `/images/...`, `/audio/...` yolu kullanıyordu — alt-yolda (`/nehir-ingilizce/`) köke gidip görseller/sesler 404 veriyordu. `import.meta.env.BASE_URL` ile düzeltildi, yerel alt-yol simülasyonuyla ve canlı sitede doğrulandı.
+- [x] Canlı site https://burak532.github.io/nehir-ingilizce/ üzerinde tam akış test edildi: harita, görseller, service worker aktif, 102 dosya önbellekte.
 
 ## Yarım kalan iş / tam olarak nerede kalındı
-MVP (prompt Bölüm 7 kapsamı: harita + 2 ünite, 3 oyun tipi + kaydet-dinle, ses üretim hattı + sesler, ebeveyn paneli, offline çalışma) **tamamen bitti**. `npm run build`/`npm run test` temiz geçiyor, gerçek sesle tarayıcıda doğrulandı. Henüz yapılmayanlar: Playwright uçtan uca testleri (Aşama 8 kalite kontrolü kapsamında), gerçek iPad'de deneme (Aşama 5), GitHub Pages'e yayınlama (repo adı henüz belirlenmedi).
+MVP (prompt Bölüm 7 kapsamı: harita + 2 ünite, 3 oyun tipi + kaydet-dinle, ses üretim hattı + sesler, ebeveyn paneli, offline çalışma) **tamamen bitti ve GitHub Pages'te canlı**. `npm run build`/`npm run test` temiz geçiyor. Henüz yapılmayanlar: Playwright uçtan uca testleri (Aşama 8 kalite kontrolü kapsamında), gerçek iPad'de deneme (Aşama 5). Kullanıcıya iPad'de "Ana Ekrana Ekle" adımları ve aynı Wi-Fi'de Mac'ten dev sürümü deneme açıklanmayı bekliyor (prompt Bölüm 7).
 
 ## Sıradaki adımlar
-1. Kullanıcıdan Aşama 5'e (test, iPad'de deneme, iyileştirme) geçiş onayı al — ya da önce GitHub'a yayınlama adımlarını (repo adı dahil) konuşmak isteyip istemediğini sor.
-2. GitHub repo adı/görünürlüğü netleşince: `.github/workflows/deploy.yml` ekle, `vite.config.ts`'deki `base` alanını repo adıyla güncelle, ilk deploy'u yap.
-3. Kullanıcıya adım adım anlat: GitHub'da yayınlama, iPad Safari'den "Ana Ekrana Ekle", aynı Wi-Fi'de Mac'ten deneme (prompt Bölüm 7).
-4. Playwright WebKit/iPad boyutu uçtan uca testlerini yaz.
-5. Gerçek iPad'de Nehir ile deneyip geri bildirim topla (prompt Bölüm 7: "Ben çocukla test edip geri bildirim vermeden yeni ünite ekleme").
-6. Bu dosyayı sık güncellemeye devam et.
+1. Kullanıcıya iPad Safari'den "Ana Ekrana Ekle" adımlarını, güncellemelerin nasıl alınacağını ve aynı Wi-Fi'de Mac'ten dev sürümü (`npm run dev -- --host`) deneme yöntemini anlat.
+2. Kullanıcıdan Aşama 5'e (test, iPad'de deneme, iyileştirme) geçiş onayı al.
+3. Playwright WebKit/iPad boyutu uçtan uca testlerini yaz.
+4. Gerçek iPad'de Nehir ile deneyip geri bildirim topla (prompt Bölüm 7: "Ben çocukla test edip geri bildirim vermeden yeni ünite ekleme").
+5. Bu dosyayı sık güncellemeye devam et.
 
 ## Bekleyen sorular
-- GitHub repo adı/görünürlüğü (prompt'un kendi önerisiyle MVP sonuna bırakıldı, şimdi gündemde).
+_(şu an yok — GitHub repo adı/görünürlüğü dahil tüm açık sorular yanıtlandı)_
 
 ## Alınan kararlar ve gerekçeleri
 - **Git deposu + .gitignore ile başlangıç:** `.env` içindeki API anahtarının yanlışlıkla commit'lenmesini önlemek için proje en başından itibaren versiyon kontrollü ve `.env` gitignore'da.

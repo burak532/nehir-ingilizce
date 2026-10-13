@@ -2,6 +2,9 @@
 
 Bu dosya, bu proje üzerinde çalışan her Claude Code oturumunun önce okuması gereken referans dosyasıdır. Kararlar değiştikçe burayı güncelle. Detaylı süreç talimatı: `ingilizce-uygulama-prompt.md`. Oturum devamlılığı için: `docs/progress.md`.
 
+## Canlı site
+https://burak532.github.io/nehir-ingilizce/ — `main`'e her push'ta otomatik yayınlanır (`.github/workflows/deploy.yml`). GitHub repo: https://github.com/burak532/nehir-ingilizce (public).
+
 ## Proje özeti
 4 yaşındaki Nehir için iPad'de (Safari, ana ekrana eklenmiş PWA) çalışacak, ebeveynle birlikte kullanılan bir İngilizce öğrenme uygulaması. Nehir İngilizce bilmiyor, Türkçe yaşına göre ileri düzeyde. İlgi alanları: dinozorlar, hayvanlar, uzay. Günde 15-30 dakika, her zaman bir ebeveynle.
 
@@ -27,9 +30,10 @@ Tam gereksinimler için `ingilizce-uygulama-prompt.md`'ye bakılmalı — bu dos
 | 2026-10-13 | Aşama 3 (teknik plan) tamamlandı: `docs/technical-plan.md` yazıldı; framework **Vanilla TypeScript + Vite**, hosting GitHub Pages+Actions, IndexedDB veri modeli, service worker (vite-plugin-pwa injectManifest) | `docs/technical-plan.md`; framework kararı onaylandı, repo adı Aşama 4 sonunda belirlenecek |
 | 2026-10-13 | Aşama 4 (MVP) kod tarafı tamamlandı: Node.js kuruldu, proje iskeleti, Ünite 1-2 içerik+görseller, tüm oyun tipleri, IndexedDB veri katmanı, ebeveyn paneli, PWA/service worker, Vitest testleri, ses üretim scripti yazıldı | `docs/progress.md` |
 | 2026-10-13 | Kullanıcı geçerli `OPENAI_API_KEY` sağladı (.env güncellendi); her iki dil için de **"cedar"** sesi onaylandı; tüm 61 satırın sesi üretildi (`public/audio/`, ~$0.03 harcandı) ve tarayıcıda gerçek sesle doğrulandı | `tools/generate_audio/` |
+| 2026-10-13 | GitHub'da **public** `burak532/nehir-ingilizce` reposu oluşturuldu, GitHub Pages "GitHub Actions" kaynağıyla etkinleştirildi, `.github/workflows/deploy.yml` eklendi, ilk deploy yapıldı | Canlı: https://burak532.github.io/nehir-ingilizce/ |
+| 2026-10-13 | **Bulunup düzeltilen hata:** `imagePath`/`audio-manager.ts` mutlak kök yol (`/images/...`, `/audio/...`) kullanıyordu — GitHub Pages alt-yolunda (`/nehir-ingilizce/`) köke gidip 404 veriyordu. `import.meta.env.BASE_URL` ile düzeltildi, canlı sitede doğrulandı | commit 1b6f115 |
 
 ## Bilinen açık konular (bkz. `docs/progress.md` → "Bekleyen sorular")
-- GitHub repo adı/görünürlüğü MVP sonunda belirlenecek.
 - Playwright uçtan uca testleri henüz yazılmadı (Aşama 8 kalite kontrolü kapsamında).
 - Gerçek iPad'de deneme henüz yapılmadı (Aşama 5).
 
