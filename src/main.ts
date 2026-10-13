@@ -9,5 +9,9 @@ if (!app) {
 }
 
 startRouter(app);
-registerServiceWorker();
+// Service worker sadece production build'de var (devOptions.enabled: false,
+// bkz. vite.config.ts) — dev modda /sw.js servis edilmediği için kayıt denenmemeli.
+if (import.meta.env.PROD) {
+  registerServiceWorker();
+}
 void requestPersistentStorage();
