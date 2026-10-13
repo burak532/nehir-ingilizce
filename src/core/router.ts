@@ -9,43 +9,57 @@ import { renderRecord } from "../games/record";
 import { renderClosingScreen } from "./closing-screen";
 import { renderParentPanel } from "../parent/parent-panel";
 
+export type Cleanup = void | (() => void);
+
 export function startRouter(root: HTMLElement): void {
+  let cleanup: (() => void) | undefined;
+
   const render = () => {
+    if (cleanup) {
+      cleanup();
+      cleanup = undefined;
+    }
+
     const { screen } = store.getState();
     root.innerHTML = "";
+    let result: Cleanup;
 
     switch (screen.name) {
       case "start":
-        renderStartScreen(root);
+        result = renderStartScreen(root);
         break;
       case "map":
-        renderMapScreen(root);
+        result = renderMapScreen(root);
         break;
       case "unit-intro":
-        renderUnitIntro(root, screen.unitId);
+        result = renderUnitIntro(root, screen.unitId);
         break;
       case "game":
         switch (screen.gameType) {
           case "listen-touch":
-            renderListenTouch(root, screen.unitId);
+            result = renderListenTouch(root, screen.unitId);
             break;
           case "tpr":
-            renderTpr(root, screen.unitId);
+            result = renderTpr(root, screen.unitId);
             break;
           case "drag-drop":
-            renderDragDrop(root, screen.unitId);
+            result = renderDragDrop(root, screen.unitId);
             break;
           case "record":
-            renderRecord(root, screen.unitId);
+            result = renderRecord(root, screen.unitId);
             break;
         }
         break;
       case "closing":
-        renderClosingScreen(root);
+        result = renderClosingScreen(root);
         break;
       case "parent":
-        renderParentPanel(root);
+        result = renderParentPanel(root);
         break;
+    }
+
+    if (typeof result === "function") {
+      cleanup = result;
     }
   };
 
