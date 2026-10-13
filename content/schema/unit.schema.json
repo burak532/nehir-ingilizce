@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Ünite içerik şeması",
+  "type": "object",
+  "required": ["id", "titleEn", "mapRegion", "words", "chunks", "games"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[0-9]{2}-[a-z-]+$" },
+    "titleEn": { "type": "string" },
+    "mapRegion": { "type": "string" },
+    "words": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "en", "tr", "image", "imageVariants", "audioEn", "introTr"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "en": { "type": "string" },
+          "tr": { "type": "string" },
+          "image": { "type": "string" },
+          "imageVariants": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" }
+          },
+          "audioEn": { "type": "string" },
+          "introTr": { "type": "string" }
+        }
+      }
+    },
+    "chunks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "en", "audioEn"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "en": { "type": "string" },
+          "audioEn": { "type": "string" },
+          "template": {
+            "type": "boolean",
+            "description": "true ise 'en' ve 'audioEn' içindeki {word} yer tutucusu, her kelime için ayrı bir ses dosyasıyla üretim scriptinde doldurulur (bkz. CLAUDE.md İçerik/veri yapısı)."
+          }
+        }
+      }
+    },
+    "games": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["listen-touch", "tpr", "drag-drop", "record"]
+      }
+    }
+  }
+}

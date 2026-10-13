@@ -1,0 +1,76 @@
+{
+  "id": "01-hello",
+  "titleEn": "Hello!",
+  "mapRegion": "dino-island",
+  "words": [
+    {
+      "id": "hello",
+      "en": "hello",
+      "tr": "merhaba",
+      "image": "units/01-hello/hello.svg",
+      "imageVariants": ["units/01-hello/hello.svg", "units/01-hello/hello-alt.svg"],
+      "audioEn": "en/01-hello/hello.mp3",
+      "introTr": "Rex seni görünce 'hello' der — bu 'merhaba' demek."
+    },
+    {
+      "id": "bye-bye",
+      "en": "bye-bye",
+      "tr": "güle güle",
+      "image": "units/01-hello/bye-bye.svg",
+      "imageVariants": ["units/01-hello/bye-bye.svg", "units/01-hello/bye-bye-alt.svg"],
+      "audioEn": "en/01-hello/bye-bye.mp3",
+      "introTr": "Ayrılırken Rex el sallar ve 'bye-bye' der."
+    },
+    {
+      "id": "yes",
+      "en": "yes",
+      "tr": "evet",
+      "image": "units/01-hello/yes.svg",
+      "imageVariants": ["units/01-hello/yes.svg", "units/01-hello/yes-alt.svg"],
+      "audioEn": "en/01-hello/yes.mp3",
+      "introTr": "Başını sallayınca İngilizce'de 'yes' denir."
+    },
+    {
+      "id": "no",
+      "en": "no",
+      "tr": "hayır",
+      "image": "units/01-hello/no.svg",
+      "imageVariants": ["units/01-hello/no.svg", "units/01-hello/no-alt.svg"],
+      "audioEn": "en/01-hello/no.mp3",
+      "introTr": "Başını sağa sola sallayınca İngilizce'de 'no' denir."
+    },
+    {
+      "id": "please",
+      "en": "please",
+      "tr": "lütfen",
+      "image": "units/01-hello/please.svg",
+      "imageVariants": ["units/01-hello/please.svg", "units/01-hello/please-alt.svg"],
+      "audioEn": "en/01-hello/please.mp3",
+      "introTr": "Bir şey istediğinde 'please' dersin — 'lütfen' demek."
+    },
+    {
+      "id": "thank-you",
+      "en": "thank you",
+      "tr": "teşekkür ederim",
+      "image": "units/01-hello/thank-you.svg",
+      "imageVariants": ["units/01-hello/thank-you.svg", "units/01-hello/thank-you-alt.svg"],
+      "audioEn": "en/01-hello/thank-you.mp3",
+      "introTr": "Rex sana bir şey verince 'thank you' dersin."
+    },
+    {
+      "id": "good-morning",
+      "en": "good morning",
+      "tr": "günaydın",
+      "image": "units/01-hello/good-morning.svg",
+      "imageVariants": ["units/01-hello/good-morning.svg", "units/01-hello/good-morning-alt.svg"],
+      "audioEn": "en/01-hello/good-morning.mp3",
+      "introTr": "Sabah güneş doğunca Rex 'good morning' der."
+    }
+  ],
+  "chunks": [
+    { "id": "im-rex", "en": "Hello! I'm Rex!", "audioEn": "en/01-hello/im-rex.mp3" },
+    { "id": "see-you", "en": "Bye-bye! See you!", "audioEn": "en/01-hello/see-you.mp3" },
+    { "id": "thank-you-chunk", "en": "Thank you!", "audioEn": "en/01-hello/thank-you-chunk.mp3" }
+  ],
+  "games": ["listen-touch", "tpr", "record"]
+}
