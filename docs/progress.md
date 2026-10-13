@@ -3,9 +3,9 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Aşama 4 (MVP geliştirme) kod tarafı tamamlandı. Ses üretimi (tools/generate_audio ile gerçek TTS dosyalarının üretilmesi) kullanıcı girdisine bağlı olarak bekliyor — bkz. "Bekleyen sorular".**
+**Aşama 4 (MVP geliştirme) tamamen bitti — kod + gerçek ses dosyaları. MVP, prompt Bölüm 7'deki kapsamı karşılıyor.** Sırada: Aşama 5 (test, iPad'de deneme, iyileştirme) için kullanıcı onayı.
 
-Not: Kullanıcı Aşama 2'nin tüm açık sorularını ve Aşama 3'teki framework kararını (Vanilla TS+Vite) onayladı; GitHub repo adı MVP sonunda belirlenecek.
+Not: Kullanıcı Aşama 2'nin tüm açık sorularını, Aşama 3'teki framework kararını (Vanilla TS+Vite) ve Aşama 4'teki ses üretim maliyetini/sesini (cedar) onayladı; GitHub repo adı MVP sonunda belirlenecek.
 
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
@@ -32,25 +32,26 @@ Not: Kullanıcı Aşama 2'nin tüm açık sorularını ve Aşama 3'teki framewor
 - [x] Ebeveyn paneli: süre, Türkçe destek düzeyi+fading eşiği, ünite aç/kapa, kelime durumu, gözlem ekleme, CSV indirme, ilerleme sıfırlama (yedek hatırlatmalı), güncelleme bölümü.
 - [x] PWA: vite-plugin-pwa (injectManifest), manifest+app ikonları (PIL ile üretildi), kontrollü güncelleme akışı (sadece açılışta veya ebeveyn panelinde), jest engelleme CSS, standalone-mod hatırlatması.
 - [x] Vitest: aralıklı tekrar, CSV, içerik şema doğrulama (ajv), IndexedDB katmanı (fake-indexeddb) — 14 test, hepsi geçiyor.
-- [x] `tools/generate_audio/generate.mjs`: cost/sample/full modları, hash önbellek, maliyet tahmini, `.env` anahtar doğrulama. `npm run audio:cost` ile test edildi (61 satır, ~$0.03 tahmini — API çağrısı yapılmadan).
+- [x] `tools/generate_audio/generate.mjs`: cost/sample/full modları, hash önbellek, maliyet tahmini, `.env` anahtar doğrulama.
+- [x] Kullanıcı geçerli `OPENAI_API_KEY` sağladı; `.env` güncellendi.
+- [x] 15 örnek ses üretildi (4 İngilizce ses × 3 cümle + 3 Türkçe ses × 1 cümle, ~$0.0075) — kullanıcı dinleyip her iki dil için de **"cedar"** seçti.
+- [x] Tüm 61 satırın sesi `cedar` ile üretildi (~$0.03 harcandı), `public/audio/`'ya yazıldı.
+- [x] Chrome'da gerçek tarayıcı testi yapıldı: açılış→harita→ünite→Dinle-dokun akışı, IndexedDB kaydı, 3sn ebeveyn kilidi, ebeveyn paneli UI, production build'de service worker (41→106 precache girişi, gerçek seslerle) — hepsi çalışıyor.
+- [x] Test sırasında bulunan hata düzeltildi: dev modda service worker kaydı artık denenmiyor (sadece production build'de).
 
 ## Yarım kalan iş / tam olarak nerede kalındı
-Kod tarafı MVP kapsamını (prompt Bölüm 7) karşılıyor ve `npm run build`/`npm run test` temiz geçiyor. **Gerçek ses dosyaları henüz üretilmedi** — bu, kullanıcı onayı/girdisi gerektiren 3 noktada bekliyor (aşağıdaki "Bekleyen sorular"). Playwright uçtan uca testleri ve gerçek iPad'de deneme henüz yapılmadı (Aşama 5/8 kapsamında).
+MVP (prompt Bölüm 7 kapsamı: harita + 2 ünite, 3 oyun tipi + kaydet-dinle, ses üretim hattı + sesler, ebeveyn paneli, offline çalışma) **tamamen bitti**. `npm run build`/`npm run test` temiz geçiyor, gerçek sesle tarayıcıda doğrulandı. Henüz yapılmayanlar: Playwright uçtan uca testleri (Aşama 8 kalite kontrolü kapsamında), gerçek iPad'de deneme (Aşama 5), GitHub Pages'e yayınlama (repo adı henüz belirlenmedi).
 
 ## Sıradaki adımlar
-1. Kullanıcıdan: (a) `.env`'e geçerli bir `OPENAI_API_KEY` girmesini, (b) `npm run audio:sample -- --yes` ile üretilecek birkaç örnek sesin (~$0.01 altı) maliyetini onaylamasını iste.
-2. Onay gelince `npm run audio:sample -- --yes` çalıştırıp örnekleri kullanıcıya dinlet; İngilizce ses (ve Türkçe destek sesi) seçimini ve Nehir adının telaffuzunu onaylat.
-3. Seçilen seslerle `npm run audio:generate -- --voice=<seçilen> --yes` çalıştırıp tüm içerik satırlarının sesini üret (tahmini maliyet ~$0.03, ama kullanıcıya tekrar göster).
-4. Playwright WebKit/iPad boyutu uçtan uca testlerini yaz (Aşama 8 kalite kontrolü ile birlikte ya da önce temel bir akış testi).
-5. MVP'yi tamamladıktan sonra GitHub'da yayınlamayı, iPad'de Safari'den ana ekrana eklemeyi ve aynı Wi-Fi'de Mac'ten deneme yapmayı adım adım anlat (prompt Bölüm 7).
+1. Kullanıcıdan Aşama 5'e (test, iPad'de deneme, iyileştirme) geçiş onayı al — ya da önce GitHub'a yayınlama adımlarını (repo adı dahil) konuşmak isteyip istemediğini sor.
+2. GitHub repo adı/görünürlüğü netleşince: `.github/workflows/deploy.yml` ekle, `vite.config.ts`'deki `base` alanını repo adıyla güncelle, ilk deploy'u yap.
+3. Kullanıcıya adım adım anlat: GitHub'da yayınlama, iPad Safari'den "Ana Ekrana Ekle", aynı Wi-Fi'de Mac'ten deneme (prompt Bölüm 7).
+4. Playwright WebKit/iPad boyutu uçtan uca testlerini yaz.
+5. Gerçek iPad'de Nehir ile deneyip geri bildirim topla (prompt Bölüm 7: "Ben çocukla test edip geri bildirim vermeden yeni ünite ekleme").
 6. Bu dosyayı sık güncellemeye devam et.
 
-## Bekleyen sorular (kullanıcıdan onay/girdi gerekiyor)
-- **`.env`'deki `OPENAI_API_KEY` bozuk** (aynı anahtar ~3 kez art arda yapıştırılmış, 492 karakter) — `npm run audio:sample` bunu otomatik tespit edip hata veriyor. Geçerli bir anahtar girilmeden ses üretilemez.
-- **TTS maliyet onayı:** `npm run audio:cost` şu an için ~$0.03 (61 satır, 1338 karakter) gösteriyor — örnek üretim (birkaç ses × birkaç cümle) daha da ucuz. Kullanıcının onayı gerekiyor (prompt Bölüm 9: ücretli her işlem için onay şart).
-- **Ses seçimi:** İngilizce ve Türkçe destek sesleri için örnekler henüz üretilmedi/dinletilmedi.
-- **Nehir adının telaffuzu:** `npm run audio:sample` çıktısında test edilecek, henüz onaylanmadı.
-- MVP'deki 2 ünite "Selamlaşma + Dinozor renkleri" zaten curriculum.md onayıyla netleşti (artık açık değil).
+## Bekleyen sorular
+- GitHub repo adı/görünürlüğü (prompt'un kendi önerisiyle MVP sonuna bırakıldı, şimdi gündemde).
 
 ## Alınan kararlar ve gerekçeleri
 - **Git deposu + .gitignore ile başlangıç:** `.env` içindeki API anahtarının yanlışlıkla commit'lenmesini önlemek için proje en başından itibaren versiyon kontrollü ve `.env` gitignore'da.

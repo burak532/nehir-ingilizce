@@ -25,13 +25,13 @@ Tam gereksinimler için `ingilizce-uygulama-prompt.md`'ye bakılmalı — bu dos
 | 2026-10-13 | Aşama 1 (araştırma) tamamlandı: `docs/research/evidence.md`, `prior-art.md`, `technical.md` yazıldı | Detaylar `docs/progress.md` → "Araştırmadan çıkan önemli bulgular" |
 | 2026-10-13 | Aşama 2 (pedagojik tasarım) tamamlandı: `docs/curriculum.md` yazıldı; 13 ünite, MVP ilk 2 ünite Hello!+Dino Colors **onaylandı** (kullanıcı tüm Bölüm 13 sorularını onayladı) | `docs/curriculum.md` |
 | 2026-10-13 | Aşama 3 (teknik plan) tamamlandı: `docs/technical-plan.md` yazıldı; framework **Vanilla TypeScript + Vite**, hosting GitHub Pages+Actions, IndexedDB veri modeli, service worker (vite-plugin-pwa injectManifest) | `docs/technical-plan.md`; framework kararı onaylandı, repo adı Aşama 4 sonunda belirlenecek |
-| 2026-10-13 | Aşama 4 (MVP) tamamlandı: Node.js kuruldu, proje iskeleti, Ünite 1-2 içerik+görseller, tüm oyun tipleri, IndexedDB veri katmanı, ebeveyn paneli, PWA/service worker, Vitest testleri, ses üretim scripti yazıldı — **ses üretimi henüz çalıştırılmadı** (bozuk API anahtarı + bütçe/ses onayı bekleniyor) | `docs/progress.md` |
+| 2026-10-13 | Aşama 4 (MVP) kod tarafı tamamlandı: Node.js kuruldu, proje iskeleti, Ünite 1-2 içerik+görseller, tüm oyun tipleri, IndexedDB veri katmanı, ebeveyn paneli, PWA/service worker, Vitest testleri, ses üretim scripti yazıldı | `docs/progress.md` |
+| 2026-10-13 | Kullanıcı geçerli `OPENAI_API_KEY` sağladı (.env güncellendi); her iki dil için de **"cedar"** sesi onaylandı; tüm 61 satırın sesi üretildi (`public/audio/`, ~$0.03 harcandı) ve tarayıcıda gerçek sesle doğrulandı | `tools/generate_audio/` |
 
 ## Bilinen açık konular (bkz. `docs/progress.md` → "Bekleyen sorular")
-- `.env` içindeki `OPENAI_API_KEY` değeri bozuk/tekrarlı görünüyor (`npm run audio:sample` bunu otomatik tespit edip hata veriyor) — gerçek sesler üretilmeden önce kullanıcıdan geçerli bir anahtar gerekiyor.
-- TTS üretim maliyeti onay eşiği şu an örnek olarak "5 USD" — `npm run audio:cost` ile mevcut içerik için tahmini ~$0.03 çıktı (61 satır), ama gerçek rakamı kullanıcı teyit etmeli.
-- Nehir adının İngilizce TTS telaffuzu `npm run audio:sample` ile üretilip kullanıcıya dinletilmeli, henüz yapılmadı.
 - GitHub repo adı/görünürlüğü MVP sonunda belirlenecek.
+- Playwright uçtan uca testleri henüz yazılmadı (Aşama 8 kalite kontrolü kapsamında).
+- Gerçek iPad'de deneme henüz yapılmadı (Aşama 5).
 
 ## Kodlama kuralları
 - **Dil/araç:** TypeScript + Vite, framework yok ("Vanilla TS"). Gerekçe ve alternatif değerlendirmesi: `docs/technical-plan.md` §1.
@@ -39,7 +39,7 @@ Tam gereksinimler için `ingilizce-uygulama-prompt.md`'ye bakılmalı — bu dos
 - **Animasyon:** CSS transition/keyframe + Web Animations API; framework transition sistemi yok.
 - **Test:** Vitest (birim), Playwright WebKit motoru + iPad ekran boyutu (uçtan uca). Detaylar: `docs/technical-plan.md` §11.
 - **Service worker:** `vite-plugin-pwa` (`injectManifest` modu) — yaşam döngüsü elle kontrol edilir, güncelleme asla oyun ortasında uygulanmaz (`docs/technical-plan.md` §5).
-- **Ses:** Tek, oturum boyunca yeniden kullanılan `AudioContext`; TTS üretimi sadece build-time'da (`tools/generate_audio`), runtime'da hiçbir dış API çağrısı yok.
+- **Ses:** Tek, oturum boyunca yeniden kullanılan `AudioContext`; TTS üretimi sadece build-time'da (`tools/generate_audio`), runtime'da hiçbir dış API çağrısı yok. Seçilen ses: **cedar** (hem İngilizce hem Türkçe destek satırları için).
 
 ## İçerik/veri yapısı
 - Üniteler `content/units/NN-slug.json` dosyalarında tutulur, kod değişmeden yeni ünite eklenir. Şema ve örnek: `docs/technical-plan.md` §3.
