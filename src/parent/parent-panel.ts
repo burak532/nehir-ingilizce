@@ -14,6 +14,7 @@ import {
 } from "../data/repository";
 import { downloadCsv, toCsv } from "../data/csv-export";
 import type { TurkishSupportLevel } from "../data/types";
+import { applyUpdate, hasUpdateAvailable } from "../core/update-manager";
 
 export function renderParentPanel(root: HTMLElement): void {
   root.innerHTML = `<p style="text-align:center; margin-top:2rem;">Yükleniyor...</p>`;
@@ -90,10 +91,20 @@ async function renderPanel(root: HTMLElement): Promise<void> {
         <button id="export-csv" style="min-height:60px; font-size:1rem;">Verileri CSV olarak indir</button>
       </section>
 
-      <section>
+      <section style="margin-bottom:1.5rem;">
         <h2>İlerlemeyi sıfırla</h2>
         <button id="reset-progress" style="min-height:60px; background:#e76f51; color:#fff;">Tüm ilerlemeyi sıfırla</button>
       </section>
+
+      ${
+        hasUpdateAvailable()
+          ? `<section>
+              <h2>Güncelleme</h2>
+              <p>Yeni bir sürüm hazır.</p>
+              <button id="apply-update" style="min-height:60px; background:#219ebc; color:#fff;">Şimdi güncelle</button>
+            </section>`
+          : ""
+      }
     </div>
   `;
 
@@ -159,6 +170,10 @@ function wireEvents(
     );
     if (!confirmed) return;
     void resetAllProgress().then(() => renderPanel(root));
+  });
+
+  root.querySelector<HTMLButtonElement>("#apply-update")?.addEventListener("click", () => {
+    applyUpdate();
   });
 }
 
