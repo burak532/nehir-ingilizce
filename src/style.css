@@ -1,0 +1,36 @@
+/* Çocuk arayüzü: istenmeyen jestleri engelle (bkz. docs/technical-plan.md §9) */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #0b1b33;
+  font-family: "Baloo 2", "Comic Sans MS", system-ui, sans-serif;
+}
+
+#app {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+button {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
