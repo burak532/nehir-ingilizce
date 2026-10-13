@@ -3,7 +3,9 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Aşama 2 tamamlandı — `docs/curriculum.md` yazıldı. Aşama 3'e (Teknik plan → `docs/technical-plan.md`) geçiş için kullanıcı onayı bekleniyor.**
+**Aşama 3 tamamlandı — `docs/technical-plan.md` yazıldı. Aşama 4'e (MVP geliştirme + ses üretim hattı) geçiş için kullanıcı onayı bekleniyor.**
+
+Not: Kullanıcı Aşama 2'nin tüm açık sorularını (MVP ilk 2 ünite, 13 ünite kapsamı, 1-3-7 gün aralıklı tekrar, "3 kez" Türkçe fading eşiği) onayladı.
 
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
@@ -20,14 +22,15 @@
 - [x] Kullanıcıya tek sayfalık özet verildi.
 
 ## Yarım kalan iş / tam olarak nerede kalındı
-`docs/curriculum.md` tamamlandı: 13 ünitelik tema sırası (Hello! → Dino Colors → ... → Mix & Match), ünite içi döngü, aralıklı tekrar modeli (1-3-7 gün), uyarlanabilir zorluk kuralı, ödül/geri bildirim kuralları, ebeveyn rehberliği tablosu, Türkçe fading kuralı, ölçme planı, oyun tipi değerlendirmesi ve araştırmayla çelişen/belirsiz noktalar bölümü yazıldı. MVP ilk 2 ünite önerisi (Hello! + Dino Colors) curriculum.md Bölüm 1'de verildi, kullanıcı onayı bekliyor. **Kullanıcı onayı alınmadan Aşama 3'e başlanmayacak.**
+`docs/technical-plan.md` tamamlandı: framework kararı (Vanilla TS+Vite), klasör yapısı, içerik/veri modeli (ünite JSON şeması), ses sistemi (AudioContext unlock), offline/service worker stratejisi (vite-plugin-pwa injectManifest), IndexedDB şeması (trials/wordProgress/sessions/parentObservations/settings), ebeveyn paneli kapsamı, mikrofon/kayıt stratejisi, jest engelleme, GitHub Pages+Actions CI, test stratejisi (Vitest+Playwright WebKit), native taşınabilirlik ilkesi. `CLAUDE.md`'nin "Kodlama kuralları" ve "İçerik/veri yapısı" bölümleri bu kararlarla dolduruldu. **Kullanıcı onayı alınmadan Aşama 4'e (MVP geliştirme) başlanmayacak.**
 
 ## Sıradaki adımlar
-1. Kullanıcıdan curriculum.md'deki açık soruları (Bölüm 13: MVP ilk 2 ünite, 13 ünite kapsamı, aralıklı tekrar aralıkları, Türkçe fading eşiği) ve Aşama 3'e geçiş onayını al.
-2. Onay gelirse: `docs/technical-plan.md`'yi hazırla — framework seçimi (teknik araştırma Svelte+Vite+TS veya Vanilla TS+Vite önerdi), klasör yapısı, service worker/offline strateji, IndexedDB veri modeli, ses kilidi/AudioContext unlock deseni, GitHub Pages+Actions CI, ebeveyn paneli kapsamı.
-3. `CLAUDE.md`'deki "Kodlama kuralları" ve "İçerik/veri yapısı" bölümlerini Aşama 3 kararlarıyla doldur.
-4. `docs/progress.md`'yi güncelle, kullanıcıya özet ver, açık soruları listele, dur (Aşama 4'e onaysız geçilmeyecek).
-5. Aşama 5 öncesi: `.env` anahtarını düzelt/doğrula, TTS bütçe eşiğini teyit et, Nehir adının telaffuzu için örnek ses üret.
+1. Kullanıcıdan technical-plan.md'deki açık soruları (framework kararı, GitHub repo adı/görünürlüğü) ve Aşama 4'e geçiş onayını al.
+2. Onay gelirse: proje iskeletini kur (`npm create vite` + TS template, klasör yapısı, `vite-plugin-pwa`, temel manifest), ilk commit.
+3. Ünite 1 (Hello!) ve Ünite 2 (Dino Colors) için `content/units/*.json` içerik dosyalarını curriculum.md'deki kelime/kalıp listesine göre oluştur.
+4. Harita, 3 oyun tipi (dinle-dokun, TPR, sürükle-bırak) ve kaydet-dinle akışını MVP kapsamında (prompt Bölüm 7) geliştir.
+5. Ses üretim hattını (`tools/generate_audio`) kur — bu noktada `.env` anahtarını düzelt/doğrula, TTS bütçe eşiğini teyit et, Nehir adının telaffuzu için örnek ses üretip kullanıcıya dinlet.
+6. `docs/progress.md`'yi sık güncelle, her görevi commit'le.
 
 ## Bekleyen sorular (kullanıcıya sorulacak/teyit edilecek — şimdilik engelleyici değil)
 - TTS üretim maliyeti onay eşiği şu an örnek olarak "5 USD" — Aşama 5'te gerçek rakamı teyit et.

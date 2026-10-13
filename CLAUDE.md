@@ -23,19 +23,28 @@ Tam gereksinimler için `ingilizce-uygulama-prompt.md`'ye bakılmalı — bu dos
 | 2026-10-13 | Proje git deposu olarak başlatıldı, `.env` gitignore'a eklendi | API anahtarının commit'lenmemesi gerekiyor |
 | 2026-10-13 | Aşama 0 (kurulum) + Aşama 1 (araştırma) planı onaylandı; Aşama 1'de 3 paralel araştırma ajanı kullanılacak | `ingilizce-uygulama-prompt.md` Bölüm 0 ve 2 |
 | 2026-10-13 | Aşama 1 (araştırma) tamamlandı: `docs/research/evidence.md`, `prior-art.md`, `technical.md` yazıldı | Detaylar `docs/progress.md` → "Araştırmadan çıkan önemli bulgular" |
-| 2026-10-13 | Aşama 2 (pedagojik tasarım) tamamlandı: `docs/curriculum.md` yazıldı; 13 ünite, MVP ilk 2 ünite önerisi Hello!+Dino Colors | Detaylar `docs/curriculum.md`; onay bekleniyor |
+| 2026-10-13 | Aşama 2 (pedagojik tasarım) tamamlandı: `docs/curriculum.md` yazıldı; 13 ünite, MVP ilk 2 ünite Hello!+Dino Colors **onaylandı** (kullanıcı tüm Bölüm 13 sorularını onayladı) | `docs/curriculum.md` |
+| 2026-10-13 | Aşama 3 (teknik plan) tamamlandı: `docs/technical-plan.md` yazıldı; framework **Vanilla TypeScript + Vite**, hosting GitHub Pages+Actions, IndexedDB veri modeli, service worker (vite-plugin-pwa injectManifest) | `docs/technical-plan.md`; framework kararı ve repo adı onay bekliyor |
 
 ## Bilinen açık konular (bkz. `docs/progress.md` → "Bekleyen sorular")
 - `.env` içindeki `OPENAI_API_KEY` değeri bozuk/tekrarlı görünüyor; Aşama 5'ten (ses üretimi) önce düzeltilmesi/doğrulanması gerekiyor.
 - TTS üretim maliyeti onay eşiği ("5 USD") şu an sadece örnek; gerçek rakam Aşama 5'te teyit edilecek.
-- MVP'deki ilk 2 ünite ("Selamlaşma + Dinozor renkleri") şu an sadece örnek; Aşama 7'de teyit edilecek.
 - Nehir adının İngilizce TTS telaffuzu Aşama 5'te örneklerle onaylanacak.
+- Framework kararı (Vanilla TS+Vite) ve GitHub repo adı/görünürlüğü onay bekliyor (`docs/technical-plan.md` sonu).
 
 ## Kodlama kuralları
-_(Aşama 3 — Teknik plan sırasında doldurulacak: dil/araç seçimi, klasör yapısı, test stratejisi, linting/format kuralları.)_
+- **Dil/araç:** TypeScript + Vite, framework yok ("Vanilla TS"). Gerekçe ve alternatif değerlendirmesi: `docs/technical-plan.md` §1.
+- **State yönetimi:** `src/core/` içinde elle yazılmış küçük bir store/event-emitter; dış state kütüphanesi kullanılmıyor.
+- **Animasyon:** CSS transition/keyframe + Web Animations API; framework transition sistemi yok.
+- **Test:** Vitest (birim), Playwright WebKit motoru + iPad ekran boyutu (uçtan uca). Detaylar: `docs/technical-plan.md` §11.
+- **Service worker:** `vite-plugin-pwa` (`injectManifest` modu) — yaşam döngüsü elle kontrol edilir, güncelleme asla oyun ortasında uygulanmaz (`docs/technical-plan.md` §5).
+- **Ses:** Tek, oturum boyunca yeniden kullanılan `AudioContext`; TTS üretimi sadece build-time'da (`tools/generate_audio`), runtime'da hiçbir dış API çağrısı yok.
 
 ## İçerik/veri yapısı
-_(Aşama 3/4 sırasında doldurulacak: ünite/kelime JSON şeması, ses dosyası referans kuralları, yeni ünite eklemenin adımları.)_
+- Üniteler `content/units/NN-slug.json` dosyalarında tutulur, kod değişmeden yeni ünite eklenir. Şema ve örnek: `docs/technical-plan.md` §3.
+- Ses dosyaları: `public/audio/en/<unitId>/<wordId>.mp3`, `public/audio/tr/<lineId>.mp3`; üretim/önbellekleme kontratı `docs/technical-plan.md` §4.
+- İlerleme/ölçüm verisi IndexedDB object store'ları (`trials`, `wordProgress`, `sessions`, `parentObservations`, `settings`) — şema: `docs/technical-plan.md` §6.
+- **Yeni ünite eklemenin adımları:** (1) `content/units/` altına yeni JSON dosyası ekle, şemaya uy; (2) görselleri/ses referanslarını JSON'da tanımla; (3) `tools/generate_audio` ile sesleri üret; (4) haritada bölge/sıra ata; kod dosyalarına dokunulmaz.
 
 ## Dosya/klasör yapısı (şu an)
 ```
@@ -46,8 +55,11 @@ nehir/
 ├── .gitignore
 └── docs/
     ├── progress.md               # oturum devamlılığı
+    ├── curriculum.md             # Aşama 2 çıktısı
+    ├── technical-plan.md         # Aşama 3 çıktısı
     └── research/                 # Aşama 1 çıktıları
         ├── evidence.md
         ├── prior-art.md
         └── technical.md
 ```
+Aşama 4'te oluşturulacak hedef yapı için `docs/technical-plan.md` §2'ye bakılmalı.
