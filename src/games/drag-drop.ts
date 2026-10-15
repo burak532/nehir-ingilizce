@@ -61,8 +61,8 @@ export function renderDragDrop(root: HTMLElement, unitId: string): void {
     const options = shuffle([correct, ...distractors]);
 
     root.innerHTML = `
-      <div style="position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:2rem 0; background:#3a6b35;">
-        <div id="draggables" style="display:flex; gap:2rem; justify-content:center;"></div>
+      <div style="position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2.5rem; padding:1.5rem 1rem; background:#3a6b35; overflow:hidden; box-sizing:border-box;">
+        <div id="draggables" style="display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;"></div>
         <div id="nest" style="
           width:180px; height:140px; border-radius:50% 50% 20% 20%; background:#8a5a2b;
           display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.1rem; text-align:center;

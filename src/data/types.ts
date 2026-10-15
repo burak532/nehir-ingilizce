@@ -40,12 +40,6 @@ export interface SettingsRecord {
   parentTipsEnabled: boolean;
   unitsEnabled: Record<string, boolean>;
   deviceLocalId: string;
-  /**
-   * Ünite başına, tanıtma ekranı gösterildiğindeki içerik hash'i (bkz. core/content.ts
-   * getUnitContentHash). İçerik (introTr metni vb.) değişince hash de değişir ve
-   * tanıtma ekranı otomatik tekrar gösterilir.
-   */
-  unitsIntroducedHash: Record<string, string>;
   /** Oyun tipi başına kaç kez tamamlandığı — Türkçe "nasıl oynanır" açıklamasının azalma eşiği için. */
   gamePlaysCount: Partial<Record<GameType, number>>;
 }
@@ -58,6 +52,5 @@ export const DEFAULT_SETTINGS: SettingsRecord = {
   parentTipsEnabled: true,
   unitsEnabled: {},
   deviceLocalId: "",
-  unitsIntroducedHash: {},
   gamePlaysCount: {}
 };
