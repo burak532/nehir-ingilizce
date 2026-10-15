@@ -19,7 +19,7 @@
       "image": "units/01-hello/bye-bye.svg",
       "imageVariants": ["units/01-hello/bye-bye.svg", "units/01-hello/bye-bye-alt.svg"],
       "audioEn": "en/01-hello/bye-bye.mp3",
-      "introTr": "Ayrılırken Rex el sallar ve 'bye-bye' der. Bu 'güle güle' demek."
+      "introTr": "Ayrılırken Rex el sallar ve 'bye-bye' der. Türkçesi güle güle demektir."
     },
     {
       "id": "yes",
