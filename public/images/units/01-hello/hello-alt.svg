@@ -1,7 +1,12 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .hand { transform-origin: 101px 168px; animation: wave 1s ease-in-out infinite; }
+    @keyframes wave { 0%,100% { transform: rotate(-12deg); } 50% { transform: rotate(12deg); } }
+    @media (prefers-reduced-motion: reduce) { .hand { animation: none; } }
+  </style>
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#a8dadc"/>
   <circle cx="156" cy="44" r="14" fill="#ffd166"/>
-  <g fill="#ffffff" transform="translate(100,100) rotate(-12) translate(-100,-100)">
+  <g class="hand" fill="#ffffff">
     <rect x="80" y="112" width="42" height="56" rx="17"/>
     <g transform="translate(101,112)">
       <rect x="-27" y="-50" width="15" height="42" rx="7" transform="rotate(-30)"/>

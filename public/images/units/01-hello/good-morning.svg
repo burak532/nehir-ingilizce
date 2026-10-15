@@ -1,7 +1,11 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .rays { transform-origin: 100px 100px; animation: spin 6s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .rays { animation: none; } }
+  </style>
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#ffd166"/>
-  <circle cx="100" cy="100" r="38" fill="#ffffff"/>
-  <g stroke="#ffffff" stroke-width="10" stroke-linecap="round">
+  <g class="rays" stroke="#ffffff" stroke-width="10" stroke-linecap="round">
     <line x1="100" y1="36" x2="100" y2="20"/>
     <line x1="100" y1="164" x2="100" y2="180"/>
     <line x1="36" y1="100" x2="20" y2="100"/>
@@ -11,4 +15,5 @@
     <line x1="54" y1="146" x2="42" y2="158"/>
     <line x1="146" y1="146" x2="158" y2="158"/>
   </g>
+  <circle cx="100" cy="100" r="38" fill="#ffffff"/>
 </svg>

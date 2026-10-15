@@ -38,7 +38,10 @@ Tam gereksinimler için `ingilizce-uygulama-prompt.md`'ye bakılmalı — bu dos
 
 ## Bilinen açık konular (bkz. `docs/progress.md` → "Bekleyen sorular")
 - Playwright uçtan uca testleri henüz yazılmadı (Aşama 8 kalite kontrolü kapsamında).
-- Kullanıcının düzeltmeleri iPad'de yeniden denemesi bekleniyor.
+- Kullanıcının 2. tur düzeltmeleri (ses üst üste binmesi + ikon animasyonu) iPad'de denemesi bekleniyor.
+
+## Not: SVG ikon animasyonu (`<img src="...svg">` + içine gömülü CSS `@keyframes`)
+Chrome'da doğrulandı: hem `<img>` hem `<object>` ile embed edilen SVG'lerde CSS animasyonları çalışıyor — mimari değişiklik (inline SVG / `<object>` geçişi) gerekmedi. Animasyonu test ederken ekran görüntüleri arasında **animasyon periyoduna eşit veya tam katı bir bekleme süresi kullanma** (örn. 1s periyotluk animasyon + 1s bekleme = yanıltıcı şekilde "değişmiyor" görünür, aliasing). Periyotla örtüşmeyen bir gecikme (örn. 0.35s, 2.5s) kullan.
 
 ## Kodlama kuralları
 - **Dil/araç:** TypeScript + Vite, framework yok ("Vanilla TS"). Gerekçe ve alternatif değerlendirmesi: `docs/technical-plan.md` §1.

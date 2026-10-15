@@ -3,7 +3,9 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Aşama 4 (MVP) GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Kullanıcı iPad'de kendi denedi ve 3 gerçek eksiklik/hata bildirdi (aşağıda), hepsi düzeltildi ve push edildi. Kullanıcının yeniden denemesi bekleniyor; Aşama 5'e (Playwright testleri, iyileştirme) henüz geçilmedi.
+**Aşama 4 (MVP) GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Kullanıcı iki tur geri bildirim verdi, ikisi de düzeltildi ve push edildi (aşağıda). Kullanıcının 2. tur düzeltmeleri iPad'de yeniden denemesi bekleniyor; Aşama 5'e (Playwright testleri, iyileştirme) henüz geçilmedi.
+
+**Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
 Not: Kullanıcı Aşama 2'nin tüm açık sorularını, Aşama 3'teki framework kararını (Vanilla TS+Vite), Aşama 4'teki ses üretim maliyetini/sesini (cedar) ve GitHub yayınlamasını (public, `nehir-ingilizce`, gh CLI ile) onayladı.
 
@@ -18,6 +20,12 @@ Kullanıcı üçünü de düzeltmemi onayladı, soyut kelimeler için "somutlaş
 - **Oyun tipi Türkçe "nasıl oynanır" açıklaması** (`src/core/game-intro.ts`): her oyun tipi ilk `turkishFadeThresholdPlays` (varsayılan 3) kez tamamlanana kadar başlamadan önce kısa Türkçe açıklama gösteriliyor (`settings.gamePlaysCount` ile takip).
 - **Hello ünitesi ikonları yeniden çizildi** (14 SVG): thumbs-up (yes), düz "dur" eli (no), kenetlenmiş eller (please), kalp (thank-you), güneş (good-morning) gibi daha evrensel semboller; hello/bye-bye zemin rengi+bağlam farkıyla (güneş vs ufuk çizgisi) birbirinden ayrıldı. Kelime değiştirilmedi — ikon kalitesi + artık gösterilen Türkçe anlatım yeterli görüldü.
 - Chrome'da sıfır IndexedDB ile uçtan uca test edildi: Türkçe tanıtma ekranı, oyun Türkçe açıklaması ve yeni ikonlar hepsi doğrulandı.
+
+## 2. tur geri bildirim ve düzeltmeler
+Kullanıcı (tam kapat-aç ile güncellemeyi gördükten sonra) 2 yeni sorun bildirdi:
+1. **"İngilizce kelimelerin sesleri üst üste biniyor."** Kök neden: `word-intro.ts`'de Türkçe sesten 1.8sn sonra İngilizce sesi çalan `setTimeout`, kullanıcı "İleri"ye hızlı basınca iptal edilmiyordu — önceki kelimenin gecikmeli İngilizce sesi yeni kelimenin üzerine biniyordu. Düzeltme: (a) `audioManager.play()` artık yeni ses başlarken önceki çalan sesi kesiyor (genel/savunmacı çözüm), (b) `word-intro.ts`'de bekleyen timeout artık kelime değişince `clearTimeout` ile iptal ediliyor (kök neden çözümü).
+2. **"Görseller yine anlaşılmıyor, bazıları çerçeve dışına taşıyor."** Kullanıcı çözüm olarak animasyon önerdi ("hello'daki el sallamak iyi fikir, böyle somut şeyler bul"); ücretsiz yol (kendi SVG'lerimize CSS animasyonu) ile ücretli yol (AI ile video/GIF üretimi) arasında seçim sundum, kullanıcı ücretsiz yolu onayladı. 14 ikon komple yeniden tasarlandı: başparmak zıplaması (yes), sallanan surat (no, artık yüz bazlı — daha evrensel), kenetli ellerin "yalvarma" zıplaması + parmak detayları (please), atan kalp (thank-you), dönen güneş ışınları (good-morning), el sallarken uzaklaşma hareketi (bye-bye). Her SVG'ye gömülü `<style>` + `@keyframes` eklendi, `prefers-reduced-motion` desteklendi. Önceki taşma hatası (bye-bye-alt) da bu yeniden yazımda düzeltildi.
+3. **Test sırasında önemli bir yanlış pozitif bulundu ve düzeltildi:** Chrome'da animasyonu doğrularken iki ekran görüntüsü arasında 1 saniye beklemek "animasyon çalışmıyor" izlenimi verdi — sebep, animasyon periyodunun (1s) tam olarak bekleme süresiyle çakışması (aliasing). 0.35sn ve 2.5sn gibi periyotla örtüşmeyen gecikmelerle tekrar test edilip hem `<img>` hem `<object>` embed'de animasyonun gerçekten çalıştığı doğrulandı — mimari değişiklik gerekmedi.
 
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.

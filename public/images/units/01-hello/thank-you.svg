@@ -1,4 +1,9 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .heart { transform-origin: 100px 115px; animation: heartbeat 1s ease-in-out infinite; }
+    @keyframes heartbeat { 0%,100% { transform: scale(1); } 25% { transform: scale(1.15); } 40% { transform: scale(1); } 60% { transform: scale(1.08); } 80% { transform: scale(1); } }
+    @media (prefers-reduced-motion: reduce) { .heart { animation: none; } }
+  </style>
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#ffafcc"/>
-  <path d="M100 150 C60 122 50 96 68 80 C84 66 100 78 100 92 C100 78 116 66 132 80 C150 96 140 122 100 150 Z" fill="#ffffff"/>
+  <path class="heart" d="M100 150 C60 122 50 96 68 80 C84 66 100 78 100 92 C100 78 116 66 132 80 C150 96 140 122 100 150 Z" fill="#ffffff"/>
 </svg>

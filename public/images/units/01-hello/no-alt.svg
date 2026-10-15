@@ -1,9 +1,12 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .arms { transform-origin: 100px 100px; animation: sway 1.2s ease-in-out infinite; }
+    @keyframes sway { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+    @media (prefers-reduced-motion: reduce) { .arms { animation: none; } }
+  </style>
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#9e3a24"/>
-  <circle cx="100" cy="100" r="48" fill="#ffffff"/>
-  <circle cx="86" cy="96" r="7" fill="#5c1f12"/>
-  <circle cx="114" cy="96" r="7" fill="#5c1f12"/>
-  <path d="M84 122 Q100 112 116 122" stroke="#5c1f12" stroke-width="7" fill="none" stroke-linecap="round"/>
-  <path d="M46 70 L62 70 M46 100 L62 100" stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round"/>
-  <path d="M138 70 L154 70 M138 100 L154 100" stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <g class="arms" fill="#ffffff">
+    <rect x="60" y="92" width="80" height="20" rx="10" transform="rotate(28 100 102)"/>
+    <rect x="60" y="92" width="80" height="20" rx="10" transform="rotate(-28 100 102)"/>
+  </g>
 </svg>

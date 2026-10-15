@@ -1,11 +1,14 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .face { transform-origin: 100px 100px; animation: shake 0.8s ease-in-out infinite; }
+    @keyframes shake { 0%,100% { transform: rotate(-9deg); } 50% { transform: rotate(9deg); } }
+    @media (prefers-reduced-motion: reduce) { .face { animation: none; } }
+  </style>
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#e76f51"/>
-  <g fill="#ffffff">
-    <rect x="76" y="104" width="48" height="60" rx="14"/>
-    <rect x="58" y="112" width="20" height="38" rx="9" transform="rotate(-18 68 131)"/>
-    <rect x="80" y="68" width="12" height="42" rx="6"/>
-    <rect x="94" y="64" width="12" height="46" rx="6"/>
-    <rect x="108" y="64" width="12" height="46" rx="6"/>
-    <rect x="122" y="68" width="12" height="42" rx="6"/>
+  <g class="face">
+    <circle cx="100" cy="100" r="48" fill="#ffffff"/>
+    <circle cx="86" cy="96" r="7" fill="#5c1f12"/>
+    <circle cx="114" cy="96" r="7" fill="#5c1f12"/>
+    <path d="M84 122 Q100 112 116 122" stroke="#5c1f12" stroke-width="7" fill="none" stroke-linecap="round"/>
   </g>
 </svg>

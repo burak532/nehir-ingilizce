@@ -1,6 +1,14 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .heart { transform-origin: 92px 111px; animation: heartbeat 1s ease-in-out infinite; }
+    .spark1 { transform-origin: 150px 70px; animation: twinkle 1s ease-in-out infinite; }
+    .spark2 { transform-origin: 44px 112px; animation: twinkle 1.3s ease-in-out infinite; }
+    @keyframes heartbeat { 0%,100% { transform: scale(1); } 25% { transform: scale(1.15); } 40% { transform: scale(1); } 60% { transform: scale(1.08); } 80% { transform: scale(1); } }
+    @keyframes twinkle { 0%,100% { transform: scale(1); opacity:1; } 50% { transform: scale(1.4); opacity:0.5; } }
+    @media (prefers-reduced-motion: reduce) { .heart, .spark1, .spark2 { animation: none; } }
+  </style>
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#e07a9a"/>
-  <path d="M92 142 C58 116 50 92 66 78 C80 66 92 76 92 88 C92 76 104 66 118 78 C134 92 126 116 92 142 Z" fill="#ffffff"/>
-  <path d="M150 54 L155 64 L166 66 L158 74 L160 85 L150 79 L140 85 L142 74 L134 66 L145 64 Z" fill="#ffffff"/>
-  <path d="M44 100 L48 108 L56 110 L50 116 L52 124 L44 120 L36 124 L38 116 L32 110 L40 108 Z" fill="#ffffff"/>
+  <path class="heart" d="M92 142 C58 116 50 92 66 78 C80 66 92 76 92 88 C92 76 104 66 118 78 C134 92 126 116 92 142 Z" fill="#ffffff"/>
+  <path class="spark1" d="M150 54 L155 64 L166 66 L158 74 L160 85 L150 79 L140 85 L142 74 L134 66 L145 64 Z" fill="#ffffff"/>
+  <path class="spark2" d="M44 100 L48 108 L56 110 L50 116 L52 124 L44 120 L36 124 L38 116 L32 110 L40 108 Z" fill="#ffffff"/>
 </svg>

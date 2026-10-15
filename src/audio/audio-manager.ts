@@ -6,6 +6,7 @@
 class AudioManager {
   private context: AudioContext | null = null;
   private buffers = new Map<string, AudioBuffer>();
+  private currentSource: AudioBufferSourceNode | null = null;
 
   get isUnlocked(): boolean {
     return this.context !== null;
@@ -54,7 +55,10 @@ class AudioManager {
     }
   }
 
-  /** Buffer yüklenmemişse sessizce hiçbir şey yapmaz. */
+  /**
+   * Buffer yüklenmemişse sessizce hiçbir şey yapmaz. Aynı anda tek ses çalsın diye
+   * önceki sesi (varsa) keser — sesler üst üste binmesin (bkz. kullanıcı geri bildirimi).
+   */
   play(path: string): void {
     if (!this.context) return;
     const buffer = this.buffers.get(path);
@@ -62,10 +66,24 @@ class AudioManager {
       console.warn(`[audio] henüz yüklenmemiş, çalınamadı: ${path}`);
       return;
     }
+
+    if (this.currentSource) {
+      try {
+        this.currentSource.stop();
+      } catch {
+        // Zaten durmuşsa stop() hata atar — görmezden gel.
+      }
+      this.currentSource = null;
+    }
+
     const source = this.context.createBufferSource();
     source.buffer = buffer;
     source.connect(this.context.destination);
+    source.onended = () => {
+      if (this.currentSource === source) this.currentSource = null;
+    };
     source.start(0);
+    this.currentSource = source;
   }
 }
 

@@ -1,14 +1,23 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .leave { animation: leave 2.4s ease-in-out infinite; }
+    .hand { transform-origin: 106px 172px; animation: wave 0.9s ease-in-out infinite; }
+    @keyframes leave { 0%,100% { transform: translateX(0); } 50% { transform: translateX(16px); } }
+    @keyframes wave { 0%,100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
+    @media (prefers-reduced-motion: reduce) { .leave, .hand { animation: none; } }
+  </style>
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#219ebc"/>
   <path d="M20 150 Q100 170 180 150" stroke="#126782" stroke-width="10" fill="none" stroke-linecap="round"/>
   <circle cx="150" cy="56" r="13" fill="#ffd166" opacity="0.8"/>
-  <g fill="#ffffff" transform="translate(100,100) rotate(18) translate(-100,-100)">
-    <rect x="86" y="118" width="40" height="54" rx="16"/>
-    <g transform="translate(106,118)">
-      <rect x="-26" y="-54" width="14" height="46" rx="7" transform="rotate(-24)"/>
-      <rect x="-9" y="-60" width="14" height="52" rx="7" transform="rotate(-8)"/>
-      <rect x="8" y="-60" width="14" height="52" rx="7" transform="rotate(8)"/>
-      <rect x="25" y="-54" width="14" height="46" rx="7" transform="rotate(24)"/>
+  <g class="leave">
+    <g class="hand" fill="#ffffff">
+      <rect x="86" y="118" width="40" height="54" rx="16"/>
+      <g transform="translate(106,118)">
+        <rect x="-26" y="-54" width="14" height="46" rx="7" transform="rotate(-24)"/>
+        <rect x="-9" y="-60" width="14" height="52" rx="7" transform="rotate(-8)"/>
+        <rect x="8" y="-60" width="14" height="52" rx="7" transform="rotate(8)"/>
+        <rect x="25" y="-54" width="14" height="46" rx="7" transform="rotate(24)"/>
+      </g>
     </g>
   </g>
 </svg>

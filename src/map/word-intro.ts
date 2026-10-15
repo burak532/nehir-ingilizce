@@ -21,6 +21,7 @@ export function renderWordIntro(root: HTMLElement, unitId: string): Cleanup {
 
   let index = 0;
   let cancelled = false;
+  let pendingEnAudioTimeout: number | undefined;
 
   const trAudioPaths = unit.words.map((w) => `tr/${unitId}/${w.id}-intro.mp3`);
   const enAudioPaths = unit.words.map((w) => w.audioEn);
@@ -38,6 +39,11 @@ export function renderWordIntro(root: HTMLElement, unitId: string): Cleanup {
   });
 
   function showWord(): void {
+    if (pendingEnAudioTimeout !== undefined) {
+      window.clearTimeout(pendingEnAudioTimeout);
+      pendingEnAudioTimeout = undefined;
+    }
+
     if (index >= unit!.words.length) {
       void finish();
       return;
@@ -56,7 +62,8 @@ export function renderWordIntro(root: HTMLElement, unitId: string): Cleanup {
     `;
 
     audioManager.play(trAudio);
-    window.setTimeout(() => {
+    pendingEnAudioTimeout = window.setTimeout(() => {
+      pendingEnAudioTimeout = undefined;
       if (!cancelled) audioManager.play(word.audioEn);
     }, 1800);
 
@@ -78,5 +85,8 @@ export function renderWordIntro(root: HTMLElement, unitId: string): Cleanup {
 
   return () => {
     cancelled = true;
+    if (pendingEnAudioTimeout !== undefined) {
+      window.clearTimeout(pendingEnAudioTimeout);
+    }
   };
 }

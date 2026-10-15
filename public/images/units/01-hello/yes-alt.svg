@@ -1,9 +1,14 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .face { transform-origin: 100px 140px; animation: nod 1s ease-in-out infinite; }
+    @keyframes nod { 0%,100% { transform: rotate(0deg) translateY(0); } 50% { transform: rotate(6deg) translateY(6px); } }
+    @media (prefers-reduced-motion: reduce) { .face { animation: none; } }
+  </style>
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#52734d"/>
-  <circle cx="100" cy="100" r="48" fill="#ffffff"/>
-  <circle cx="86" cy="92" r="7" fill="#2a3d1f"/>
-  <circle cx="114" cy="92" r="7" fill="#2a3d1f"/>
-  <path d="M80 116 Q100 130 120 116" stroke="#2a3d1f" stroke-width="7" fill="none" stroke-linecap="round"/>
-  <path d="M60 60 Q100 44 140 60" stroke="#ffffff" stroke-width="9" fill="none" stroke-linecap="round"/>
-  <path d="M60 150 Q100 166 140 150" stroke="#ffffff" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <g class="face">
+    <circle cx="100" cy="100" r="48" fill="#ffffff"/>
+    <circle cx="86" cy="92" r="7" fill="#2a3d1f"/>
+    <circle cx="114" cy="92" r="7" fill="#2a3d1f"/>
+    <path d="M80 116 Q100 130 120 116" stroke="#2a3d1f" stroke-width="7" fill="none" stroke-linecap="round"/>
+  </g>
 </svg>
