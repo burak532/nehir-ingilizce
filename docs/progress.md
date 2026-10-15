@@ -43,16 +43,17 @@ Not: Kullanıcı Aşama 2'nin tüm açık sorularını, Aşama 3'teki framework 
 - [x] `.github/workflows/deploy.yml` eklendi (checkout→setup-node→npm ci→npm test→npm run build→upload-pages-artifact→deploy-pages), push edildi, ilk deploy başarılı.
 - [x] **Bulunup düzeltilen hata:** `vite.config.ts`'deki `base: "./"` doğruydu ama `src/core/image-path.ts` ve `src/audio/audio-manager.ts` mutlak `/images/...`, `/audio/...` yolu kullanıyordu — alt-yolda (`/nehir-ingilizce/`) köke gidip görseller/sesler 404 veriyordu. `import.meta.env.BASE_URL` ile düzeltildi, yerel alt-yol simülasyonuyla ve canlı sitede doğrulandı.
 - [x] Canlı site https://burak532.github.io/nehir-ingilizce/ üzerinde tam akış test edildi: harita, görseller, service worker aktif, 102 dosya önbellekte.
+- [x] iPad'de "Ana Ekrana Ekle" ve güncelleme akışı kullanıcıya anlatıldı.
+- [x] **Aynı Wi-Fi'de Mac'ten dev sürümü deneme çalışmıyor** — kullanıcının iPad'inde (iPadOS 27) Safari `http://` adresleri otomatik `https://`'ye yükseltiyor, yerel Vite dev sunucusu düz HTTP olduğu için bağlantı hiç kurulamıyor (elle yazma, QR kod taratma denendi, hiçbiri çalışmadı — Mac tarafında istek bile görünmüyor). Kullanıcıyla karar: bunun yerine **push → ~1dk bekle → gerçek HTTPS sitesini iPad'de yenile** iş akışı kullanılacak. Yerel dev sunucusu durduruldu.
 
 ## Yarım kalan iş / tam olarak nerede kalındı
-MVP (prompt Bölüm 7 kapsamı: harita + 2 ünite, 3 oyun tipi + kaydet-dinle, ses üretim hattı + sesler, ebeveyn paneli, offline çalışma) **tamamen bitti ve GitHub Pages'te canlı**. `npm run build`/`npm run test` temiz geçiyor. Henüz yapılmayanlar: Playwright uçtan uca testleri (Aşama 8 kalite kontrolü kapsamında), gerçek iPad'de deneme (Aşama 5). Kullanıcıya iPad'de "Ana Ekrana Ekle" adımları ve aynı Wi-Fi'de Mac'ten dev sürümü deneme açıklanmayı bekliyor (prompt Bölüm 7).
+MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. `npm run build`/`npm run test` temiz geçiyor. Henüz yapılmayanlar: Playwright uçtan uca testleri (Aşama 8 kalite kontrolü kapsamında), gerçek iPad'de Nehir ile deneme (Aşama 5).
 
 ## Sıradaki adımlar
-1. Kullanıcıya iPad Safari'den "Ana Ekrana Ekle" adımlarını, güncellemelerin nasıl alınacağını ve aynı Wi-Fi'de Mac'ten dev sürümü (`npm run dev -- --host`) deneme yöntemini anlat.
-2. Kullanıcıdan Aşama 5'e (test, iPad'de deneme, iyileştirme) geçiş onayı al.
-3. Playwright WebKit/iPad boyutu uçtan uca testlerini yaz.
-4. Gerçek iPad'de Nehir ile deneyip geri bildirim topla (prompt Bölüm 7: "Ben çocukla test edip geri bildirim vermeden yeni ünite ekleme").
-5. Bu dosyayı sık güncellemeye devam et.
+1. Kullanıcıdan Aşama 5'e (test, iPad'de deneme, iyileştirme) geçiş onayı al.
+2. Playwright WebKit/iPad boyutu uçtan uca testlerini yaz.
+3. Gerçek iPad'de Nehir ile deneyip geri bildirim topla (prompt Bölüm 7: "Ben çocukla test edip geri bildirim vermeden yeni ünite ekleme").
+4. Bu dosyayı sık güncellemeye devam et.
 
 ## Bekleyen sorular
 _(şu an yok — GitHub repo adı/görünürlüğü dahil tüm açık sorular yanıtlandı)_

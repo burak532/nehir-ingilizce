@@ -5,6 +5,8 @@ Bu dosya, bu proje üzerinde çalışan her Claude Code oturumunun önce okumas�
 ## Canlı site
 https://burak532.github.io/nehir-ingilizce/ — `main`'e her push'ta otomatik yayınlanır (`.github/workflows/deploy.yml`). GitHub repo: https://github.com/burak532/nehir-ingilizce (public).
 
+**iPad'de test etme:** Mac'ten aynı Wi-Fi üzerinden `npm run dev -- --host` ile canlı deneme **çalışmıyor** — kullanıcının iPad'inde (iPadOS 27) Safari, `http://` adresleri otomatik `https://`'ye yükseltmeye çalışıyor ve yerel dev sunucusu düz HTTP olduğu için bağlantı hiç kurulamıyor (Mac tarafında istek bile görünmüyor). Bu yüzden iş akışı: **değişiklik yap → `main`'e push et → ~1 dk sonra `https://burak532.github.io/nehir-ingilizce/`'yi iPad'de yenile.** Yerel ağ üzerinden anlık deneme istenirse `mkcert` ile yerel HTTPS sertifikası kurmak gerekir (denenmedi, kullanıcı bu karmaşıklığı istemedi).
+
 ## Proje özeti
 4 yaşındaki Nehir için iPad'de (Safari, ana ekrana eklenmiş PWA) çalışacak, ebeveynle birlikte kullanılan bir İngilizce öğrenme uygulaması. Nehir İngilizce bilmiyor, Türkçe yaşına göre ileri düzeyde. İlgi alanları: dinozorlar, hayvanlar, uzay. Günde 15-30 dakika, her zaman bir ebeveynle.
 
