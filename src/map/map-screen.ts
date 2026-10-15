@@ -11,8 +11,10 @@ export function renderMapScreen(root: HTMLElement): void {
       <h1 style="text-align:center; color:#1a1a1a; margin:1rem 0;">Dino Ada 🏝️</h1>
       <div id="unit-cards" style="display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center; padding:1rem;"></div>
       <button id="parent-gate" aria-label="Ebeveyn alanı" style="
-        position:absolute; top:12px; right:12px; width:56px; height:56px; border-radius:9999px;
-        background:rgba(0,0,0,0.25); color:#fff; font-size:1.5rem;
+        position:absolute; top:calc(env(safe-area-inset-top, 0px) + 12px); right:calc(env(safe-area-inset-right, 0px) + 12px);
+        width:56px; height:56px; border-radius:9999px;
+        background:rgba(0,0,0,0.45); color:#fff; font-size:1.5rem;
+        border:2px solid rgba(255,255,255,0.6); box-shadow:0 2px 6px rgba(0,0,0,0.3); z-index:10;
       ">⚙️</button>
     </div>
   `;

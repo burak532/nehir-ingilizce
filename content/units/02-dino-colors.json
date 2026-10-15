@@ -10,7 +10,7 @@
       "image": "units/02-dino-colors/red-dino.svg",
       "imageVariants": ["units/02-dino-colors/red-dino.svg", "units/02-dino-colors/red-dino-alt.svg"],
       "audioEn": "en/02-dino-colors/red.mp3",
-      "introTr": "Bu kırmızı bir dinozor — İngilizce'de 'red' deriz."
+      "introTr": "Bu kırmızı bir dinozor. İngilizce'de kırmızıya 'red' deriz."
     },
     {
       "id": "blue",
@@ -19,7 +19,7 @@
       "image": "units/02-dino-colors/blue-dino.svg",
       "imageVariants": ["units/02-dino-colors/blue-dino.svg", "units/02-dino-colors/blue-dino-alt.svg"],
       "audioEn": "en/02-dino-colors/blue.mp3",
-      "introTr": "Bu mavi bir dinozor — İngilizce'de 'blue' deriz."
+      "introTr": "Bu mavi bir dinozor. İngilizce'de maviye 'blue' deriz."
     },
     {
       "id": "yellow",
@@ -28,7 +28,7 @@
       "image": "units/02-dino-colors/yellow-dino.svg",
       "imageVariants": ["units/02-dino-colors/yellow-dino.svg", "units/02-dino-colors/yellow-dino-alt.svg"],
       "audioEn": "en/02-dino-colors/yellow.mp3",
-      "introTr": "Bu sarı bir dinozor — İngilizce'de 'yellow' deriz."
+      "introTr": "Bu sarı bir dinozor. İngilizce'de sarıya 'yellow' deriz."
     },
     {
       "id": "green",
@@ -37,7 +37,7 @@
       "image": "units/02-dino-colors/green-dino.svg",
       "imageVariants": ["units/02-dino-colors/green-dino.svg", "units/02-dino-colors/green-dino-alt.svg"],
       "audioEn": "en/02-dino-colors/green.mp3",
-      "introTr": "Bu yeşil bir dinozor — İngilizce'de 'green' deriz."
+      "introTr": "Bu yeşil bir dinozor. İngilizce'de yeşile 'green' deriz."
     },
     {
       "id": "orange",
@@ -46,7 +46,7 @@
       "image": "units/02-dino-colors/orange-dino.svg",
       "imageVariants": ["units/02-dino-colors/orange-dino.svg", "units/02-dino-colors/orange-dino-alt.svg"],
       "audioEn": "en/02-dino-colors/orange.mp3",
-      "introTr": "Bu turuncu bir dinozor — İngilizce'de 'orange' deriz."
+      "introTr": "Bu turuncu bir dinozor. İngilizce'de turuncuya 'orange' deriz."
     },
     {
       "id": "purple",
@@ -55,7 +55,7 @@
       "image": "units/02-dino-colors/purple-dino.svg",
       "imageVariants": ["units/02-dino-colors/purple-dino.svg", "units/02-dino-colors/purple-dino-alt.svg"],
       "audioEn": "en/02-dino-colors/purple.mp3",
-      "introTr": "Bu mor bir dinozor — İngilizce'de 'purple' deriz."
+      "introTr": "Bu mor bir dinozor. İngilizce'de mora 'purple' deriz."
     },
     {
       "id": "pink",
@@ -64,7 +64,7 @@
       "image": "units/02-dino-colors/pink-dino.svg",
       "imageVariants": ["units/02-dino-colors/pink-dino.svg", "units/02-dino-colors/pink-dino-alt.svg"],
       "audioEn": "en/02-dino-colors/pink.mp3",
-      "introTr": "Bu pembe bir dinozor — İngilizce'de 'pink' deriz."
+      "introTr": "Bu pembe bir dinozor. İngilizce'de pembeye 'pink' deriz."
     },
     {
       "id": "brown",
@@ -73,7 +73,7 @@
       "image": "units/02-dino-colors/brown-dino.svg",
       "imageVariants": ["units/02-dino-colors/brown-dino.svg", "units/02-dino-colors/brown-dino-alt.svg"],
       "audioEn": "en/02-dino-colors/brown.mp3",
-      "introTr": "Bu kahverengi bir dinozor — İngilizce'de 'brown' deriz."
+      "introTr": "Bu kahverengi bir dinozor. İngilizce'de kahverengiye 'brown' deriz."
     }
   ],
   "chunks": [

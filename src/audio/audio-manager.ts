@@ -3,9 +3,34 @@
  * iPad Safari'de ses yalnızca bir kullanıcı jesti İÇİNDE başlatılabilir; bu nedenle
  * `unlock()` SADECE bir dokunma event handler'ının senkron çağrı zinciri içinde çağrılmalı.
  */
+/** Farklı TTS seslendirmeleri ve oynatma günleri arasında ses seviyesi kaydırağı
+ *  fark edilir biçimde değişiyordu (bkz. kullanıcı geri bildirimi). Her klip bu
+ *  referans RMS'e normalize edilerek çalınır. */
+const TARGET_RMS = 0.1;
+const MIN_GAIN = 0.4;
+const MAX_GAIN = 3;
+
+function computeNormalizationGain(buffer: AudioBuffer): number {
+  let sumSquares = 0;
+  let sampleCount = 0;
+  for (let channel = 0; channel < buffer.numberOfChannels; channel += 1) {
+    const data = buffer.getChannelData(channel);
+    for (let i = 0; i < data.length; i += 1) {
+      sumSquares += data[i] * data[i];
+      sampleCount += 1;
+    }
+  }
+  if (sampleCount === 0) return 1;
+  const rms = Math.sqrt(sumSquares / sampleCount);
+  if (rms === 0) return 1;
+  const gain = TARGET_RMS / rms;
+  return Math.min(MAX_GAIN, Math.max(MIN_GAIN, gain));
+}
+
 class AudioManager {
   private context: AudioContext | null = null;
   private buffers = new Map<string, AudioBuffer>();
+  private gains = new Map<string, number>();
   private currentSource: AudioBufferSourceNode | null = null;
 
   get isUnlocked(): boolean {
@@ -48,6 +73,7 @@ class AudioManager {
       const arrayBuffer = await response.arrayBuffer();
       const audioBuffer = await this.context.decodeAudioData(arrayBuffer);
       this.buffers.set(path, audioBuffer);
+      this.gains.set(path, computeNormalizationGain(audioBuffer));
     } catch (error) {
       // Ses üretim hattı tamamlanana kadar (Aşama 5) dosyalar eksik olabilir —
       // bu durumda sessizce atla, uygulamayı kırma.
@@ -81,10 +107,14 @@ class AudioManager {
     }
 
     const context = this.context;
+    const gainValue = this.gains.get(path) ?? 1;
     return new Promise((resolve) => {
       const source = context.createBufferSource();
       source.buffer = buffer;
-      source.connect(context.destination);
+      const gainNode = context.createGain();
+      gainNode.gain.value = gainValue;
+      source.connect(gainNode);
+      gainNode.connect(context.destination);
       source.onended = () => {
         if (this.currentSource === source) this.currentSource = null;
         resolve();
