@@ -34,10 +34,11 @@ Tam gereksinimler için `ingilizce-uygulama-prompt.md`'ye bakılmalı — bu dos
 | 2026-10-13 | Kullanıcı geçerli `OPENAI_API_KEY` sağladı (.env güncellendi); her iki dil için de **"cedar"** sesi onaylandı; tüm 61 satırın sesi üretildi (`public/audio/`, ~$0.03 harcandı) ve tarayıcıda gerçek sesle doğrulandı | `tools/generate_audio/` |
 | 2026-10-13 | GitHub'da **public** `burak532/nehir-ingilizce` reposu oluşturuldu, GitHub Pages "GitHub Actions" kaynağıyla etkinleştirildi, `.github/workflows/deploy.yml` eklendi, ilk deploy yapıldı | Canlı: https://burak532.github.io/nehir-ingilizce/ |
 | 2026-10-13 | **Bulunup düzeltilen hata:** `imagePath`/`audio-manager.ts` mutlak kök yol (`/images/...`, `/audio/...`) kullanıyordu — GitHub Pages alt-yolunda (`/nehir-ingilizce/`) köke gidip 404 veriyordu. `import.meta.env.BASE_URL` ile düzeltildi, canlı sitede doğrulandı | commit 1b6f115 |
+| 2026-10-15 | **Kullanıcı iPad'de ilk kez denedi, 3 eksiklik bildirdi:** Türkçe destek hiç görünmüyordu (kodlanmış ama bağlanmamıştı), Hello ünitesi ikonları (özellikle "please") anlaşılmıyordu, sürükle-bırak yönergesi ("put the green one in the nest") Türkçe açıklama olmadan anlaşılmıyordu. Üçü de düzeltildi: yeni "tanıtma" ekranı (Türkçe kelime girişi), oyun tipi başına Türkçe "nasıl oynanır" açıklaması (azalan, `gamePlaysCount`), 14 Hello ikonu yeniden çizildi. Kelime değiştirilmedi (kullanıcı izin vermişti, gerek kalmadı) | `docs/progress.md` → "Kullanıcı geri bildirimi" |
 
 ## Bilinen açık konular (bkz. `docs/progress.md` → "Bekleyen sorular")
 - Playwright uçtan uca testleri henüz yazılmadı (Aşama 8 kalite kontrolü kapsamında).
-- Gerçek iPad'de deneme henüz yapılmadı (Aşama 5).
+- Kullanıcının düzeltmeleri iPad'de yeniden denemesi bekleniyor.
 
 ## Kodlama kuralları
 - **Dil/araç:** TypeScript + Vite, framework yok ("Vanilla TS"). Gerekçe ve alternatif değerlendirmesi: `docs/technical-plan.md` §1.
@@ -51,6 +52,7 @@ Tam gereksinimler için `ingilizce-uygulama-prompt.md`'ye bakılmalı — bu dos
 - Üniteler `content/units/NN-slug.json` dosyalarında tutulur, kod değişmeden yeni ünite eklenir. Şema ve örnek: `docs/technical-plan.md` §3.
 - Ses dosyaları: `public/audio/en/<unitId>/<wordId>.mp3`, `public/audio/tr/<lineId>.mp3`; üretim/önbellekleme kontratı `docs/technical-plan.md` §4.
 - İlerleme/ölçüm verisi IndexedDB object store'ları (`trials`, `wordProgress`, `sessions`, `parentObservations`, `settings`) — şema: `docs/technical-plan.md` §6.
+- **Türkçe destek akışı (`src/map/word-intro.ts`, `src/core/game-intro.ts`):** Ünite ilk kez açıldığında "tanıtma" ekranı her kelimenin `introTr` metnini/sesini gösterir (`settings.unitsIntroduced` ile bir kez). Her oyun tipi `settings.gamePlaysCount[gameType] < turkishFadeThresholdPlays` olduğu sürece başlamadan önce Türkçe "nasıl oynanır" açıklaması gösterir (`game-intro.ts` içindeki `INSTRUCTIONS_TR`). Yeni bir oyun tipi eklenirse bu map'e satır eklemeyi unutma.
 - **Yeni ünite eklemenin adımları:** (1) `content/units/` altına yeni JSON dosyası ekle, şemaya uy; (2) görselleri/ses referanslarını JSON'da tanımla; (3) `tools/generate_audio` ile sesleri üret; (4) haritada bölge/sıra ata; kod dosyalarına dokunulmaz.
 - **Ses üretim hattı (`tools/generate_audio/generate.mjs`):**
   - `npm run audio:cost` — API çağrısı yapmadan toplam satır/karakter/tahmini maliyeti gösterir.

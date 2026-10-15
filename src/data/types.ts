@@ -40,6 +40,10 @@ export interface SettingsRecord {
   parentTipsEnabled: boolean;
   unitsEnabled: Record<string, boolean>;
   deviceLocalId: string;
+  /** Hangi ünitenin Türkçe kelime tanıtma ekranı (tanıtma adımı) zaten gösterildi. */
+  unitsIntroduced: Record<string, boolean>;
+  /** Oyun tipi başına kaç kez tamamlandığı — Türkçe "nasıl oynanır" açıklamasının azalma eşiği için. */
+  gamePlaysCount: Partial<Record<GameType, number>>;
 }
 
 export const DEFAULT_SETTINGS: SettingsRecord = {
@@ -49,5 +53,7 @@ export const DEFAULT_SETTINGS: SettingsRecord = {
   turkishFadeThresholdPlays: 3,
   parentTipsEnabled: true,
   unitsEnabled: {},
-  deviceLocalId: ""
+  deviceLocalId: "",
+  unitsIntroduced: {},
+  gamePlaysCount: {}
 };

@@ -3,9 +3,21 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Aşama 4 (MVP) tamamen bitti ve GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Kullanıcı şimdi iPad'de Nehir ile kendi deneyip geri bildirim verecek — **bu geri bildirim gelene kadar bekleniyor**, Aşama 5'e (Playwright testleri, iyileştirme) henüz geçilmedi.
+**Aşama 4 (MVP) GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Kullanıcı iPad'de kendi denedi ve 3 gerçek eksiklik/hata bildirdi (aşağıda), hepsi düzeltildi ve push edildi. Kullanıcının yeniden denemesi bekleniyor; Aşama 5'e (Playwright testleri, iyileştirme) henüz geçilmedi.
 
 Not: Kullanıcı Aşama 2'nin tüm açık sorularını, Aşama 3'teki framework kararını (Vanilla TS+Vite), Aşama 4'teki ses üretim maliyetini/sesini (cedar) ve GitHub yayınlamasını (public, `nehir-ingilizce`, gh CLI ile) onayladı.
+
+## Kullanıcı geri bildirimi (iPad'de ilk deneme) ve yapılan düzeltmeler
+Kullanıcı 3 sorun bildirdi:
+1. **"Türkçe başlayıp azalacak demiştik, hiç Türkçe yok."** Kök neden: `introTr` alanı içerikte vardı, TR sesleri de üretilmişti, ama hiçbir oyun ekranı bunları göstermiyor/çalmıyordu — tasarlandı ama bağlanmamış bir özellikti.
+2. **Hello ünitesindeki ikonlar anlaşılmıyor** (özellikle "please"). Kök neden: soyut sosyal ifadeler (please, thank you, good morning vb.) somut nesnelerden daha zor ikonlanır (zaten `evidence.md`'nin kendi bulgusu). İlk çizimler yetersizdi.
+3. **"Put the green one in the nest" — ne yapılacağı anlaşılmıyor, Türkçe yönerge yok.** Kök neden: curriculum.md'de tasarlanan "oyun tipi ilk kez geldiğinde Türkçe açıklama" kuralı hiçbir oyun ekranında kodlanmamıştı.
+
+Kullanıcı üçünü de düzeltmemi onayladı, soyut kelimeler için "somutlaştıramazsan değiştirebilirsin" dedi. Yapılanlar:
+- **Yeni "tanıtma" ekranı** (`src/map/word-intro.ts`): ünite ilk kez açıldığında her kelime için Türkçe çerçeveleme cümlesi (metin+ses) + İngilizce kelime gösteriliyor. `settings.unitsIntroduced` ile bir kez gösterilip sonraki girişlerde atlanıyor.
+- **Oyun tipi Türkçe "nasıl oynanır" açıklaması** (`src/core/game-intro.ts`): her oyun tipi ilk `turkishFadeThresholdPlays` (varsayılan 3) kez tamamlanana kadar başlamadan önce kısa Türkçe açıklama gösteriliyor (`settings.gamePlaysCount` ile takip).
+- **Hello ünitesi ikonları yeniden çizildi** (14 SVG): thumbs-up (yes), düz "dur" eli (no), kenetlenmiş eller (please), kalp (thank-you), güneş (good-morning) gibi daha evrensel semboller; hello/bye-bye zemin rengi+bağlam farkıyla (güneş vs ufuk çizgisi) birbirinden ayrıldı. Kelime değiştirilmedi — ikon kalitesi + artık gösterilen Türkçe anlatım yeterli görüldü.
+- Chrome'da sıfır IndexedDB ile uçtan uca test edildi: Türkçe tanıtma ekranı, oyun Türkçe açıklaması ve yeni ikonlar hepsi doğrulandı.
 
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.

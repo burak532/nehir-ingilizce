@@ -6,6 +6,7 @@ import { applyTrialResult } from "../data/repository";
 import { nextAfterGame, shuffle } from "../core/game-flow";
 import { sessionId } from "../core/session";
 import { todayIso } from "../core/date";
+import { recordGamePlayed, renderGameIntroOverlay, shouldShowGameIntro } from "../core/game-intro";
 
 /**
  * Sürükle-bırak: "Put the {renk} one in the nest!" — çocuk doğru renkteki dinozoru
@@ -29,10 +30,23 @@ export function renderDragDrop(root: HTMLElement, unitId: string): void {
     );
   }
 
-  void audioManager.preload(words.map((w) => w.audioEn));
+  root.innerHTML = `<p style="color:#fff; text-align:center; margin-top:2rem;">Yükleniyor...</p>`;
+
+  void Promise.all([
+    audioManager.preload(words.map((w) => w.audioEn)),
+    shouldShowGameIntro("drag-drop")
+  ]).then(([, { show }]) => {
+    if (!isStillActive()) return;
+    if (show) {
+      renderGameIntroOverlay(root, "drag-drop", playRound);
+    } else {
+      playRound();
+    }
+  });
 
   function playRound(): void {
     if (wordIndex >= words.length) {
+      void recordGamePlayed("drag-drop");
       store.navigate(nextAfterGame(unitId, "drag-drop"));
       return;
     }
@@ -113,8 +127,6 @@ export function renderDragDrop(root: HTMLElement, unitId: string): void {
       });
     });
   }
-
-  playRound();
 }
 
 function attachDragHandlers(

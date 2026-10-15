@@ -1,12 +1,9 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#9e3a24"/>
-  <g fill="#ffffff">
-    <rect x="80" y="96" width="40" height="64" rx="16"/>
-    <g transform="translate(100,96)">
-      <rect x="-26" y="-48" width="13" height="40" rx="6" transform="rotate(-18)"/>
-      <rect x="-9" y="-54" width="13" height="46" rx="6" transform="rotate(-6)"/>
-      <rect x="7" y="-54" width="13" height="46" rx="6" transform="rotate(6)"/>
-      <rect x="23" y="-48" width="13" height="40" rx="6" transform="rotate(18)"/>
-    </g>
-  </g>
+  <circle cx="100" cy="100" r="48" fill="#ffffff"/>
+  <circle cx="86" cy="96" r="7" fill="#5c1f12"/>
+  <circle cx="114" cy="96" r="7" fill="#5c1f12"/>
+  <path d="M84 122 Q100 112 116 122" stroke="#5c1f12" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M46 70 L62 70 M46 100 L62 100" stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path d="M138 70 L154 70 M138 100 L154 100" stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round"/>
 </svg>

@@ -1,5 +1,11 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#e76f51"/>
-  <circle cx="100" cy="100" r="62" fill="#ffffff"/>
-  <path d="M78 78 L122 122 M122 78 L78 122" stroke="#9e3a24" stroke-width="16" fill="none" stroke-linecap="round"/>
+  <g fill="#ffffff">
+    <rect x="76" y="104" width="48" height="60" rx="14"/>
+    <rect x="58" y="112" width="20" height="38" rx="9" transform="rotate(-18 68 131)"/>
+    <rect x="80" y="68" width="12" height="42" rx="6"/>
+    <rect x="94" y="64" width="12" height="46" rx="6"/>
+    <rect x="108" y="64" width="12" height="46" rx="6"/>
+    <rect x="122" y="68" width="12" height="42" rx="6"/>
+  </g>
 </svg>

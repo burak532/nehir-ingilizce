@@ -1,5 +1,6 @@
 import { store } from "../core/store";
 import { getUnit } from "../core/content";
+import { getSettings } from "../data/repository";
 
 export function renderUnitIntro(root: HTMLElement, unitId: string): void {
   const unit = getUnit(unitId);
@@ -19,7 +20,12 @@ export function renderUnitIntro(root: HTMLElement, unitId: string): void {
   `;
 
   root.querySelector<HTMLButtonElement>("#continue")?.addEventListener("click", () => {
-    const firstGame = unit.games[0];
-    store.navigate({ name: "game", unitId: unit.id, gameType: firstGame });
+    void getSettings().then((settings) => {
+      if (settings.unitsIntroduced[unit.id]) {
+        store.navigate({ name: "game", unitId: unit.id, gameType: unit.games[0] });
+      } else {
+        store.navigate({ name: "word-intro", unitId: unit.id });
+      }
+    });
   });
 }

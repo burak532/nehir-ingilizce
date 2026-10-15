@@ -2,6 +2,7 @@ import { store } from "./store";
 import { renderStartScreen } from "./start-screen";
 import { renderMapScreen } from "../map/map-screen";
 import { renderUnitIntro } from "../map/unit-intro";
+import { renderWordIntro } from "../map/word-intro";
 import { renderListenTouch } from "../games/listen-touch";
 import { renderTpr } from "../games/tpr";
 import { renderDragDrop } from "../games/drag-drop";
@@ -33,6 +34,9 @@ export function startRouter(root: HTMLElement): void {
         break;
       case "unit-intro":
         result = renderUnitIntro(root, screen.unitId);
+        break;
+      case "word-intro":
+        result = renderWordIntro(root, screen.unitId);
         break;
       case "game":
         switch (screen.gameType) {

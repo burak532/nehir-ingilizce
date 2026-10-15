@@ -4,6 +4,7 @@ export type Screen =
   | { name: "start" }
   | { name: "map" }
   | { name: "unit-intro"; unitId: string }
+  | { name: "word-intro"; unitId: string }
   | { name: "game"; unitId: string; gameType: GameType }
   | { name: "closing" }
   | { name: "parent" };

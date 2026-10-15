@@ -64,7 +64,10 @@ export async function getAllParentObservations(): Promise<ParentObservationRecor
 
 export async function getSettings(): Promise<SettingsRecord> {
   const existing = await getRecord<SettingsRecord>(STORE.settings, "default");
-  if (existing) return existing;
+  if (existing) {
+    // Eski kayıtlarda eksik olabilecek alanları (şema genişlemesi) varsayılanla doldur.
+    return { ...DEFAULT_SETTINGS, ...existing };
+  }
   const fresh: SettingsRecord = {
     ...DEFAULT_SETTINGS,
     deviceLocalId: crypto.randomUUID()

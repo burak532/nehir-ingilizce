@@ -1,5 +1,6 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#a8dadc"/>
+  <circle cx="156" cy="44" r="14" fill="#ffd166"/>
   <g fill="#ffffff" transform="translate(100,100) rotate(-12) translate(-100,-100)">
     <rect x="80" y="112" width="42" height="56" rx="17"/>
     <g transform="translate(101,112)">

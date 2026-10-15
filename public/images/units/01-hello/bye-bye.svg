@@ -1,5 +1,7 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#219ebc"/>
+  <path d="M20 150 Q100 170 180 150" stroke="#126782" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <circle cx="150" cy="56" r="13" fill="#ffd166" opacity="0.8"/>
   <g fill="#ffffff" transform="translate(100,100) rotate(18) translate(-100,-100)">
     <rect x="86" y="118" width="40" height="54" rx="16"/>
     <g transform="translate(106,118)">

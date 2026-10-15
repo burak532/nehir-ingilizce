@@ -1,6 +1,7 @@
 import { store } from "../core/store";
 import { audioManager } from "../audio/audio-manager";
 import { nextAfterGame } from "../core/game-flow";
+import { recordGamePlayed, renderGameIntroOverlay, shouldShowGameIntro } from "../core/game-intro";
 
 /**
  * TPR (Total Physical Response) molası: üniteler arası hareketli kısa bir ara
@@ -16,10 +17,22 @@ const TPR_COMMANDS = [
 export function renderTpr(root: HTMLElement, unitId: string): void {
   let index = 0;
 
-  void audioManager.preload(TPR_COMMANDS.map((c) => c.audioEn));
+  root.innerHTML = `<p style="color:#fff; text-align:center; margin-top:2rem;">Yükleniyor...</p>`;
+
+  void Promise.all([
+    audioManager.preload(TPR_COMMANDS.map((c) => c.audioEn)),
+    shouldShowGameIntro("tpr")
+  ]).then(([, { show }]) => {
+    if (show) {
+      renderGameIntroOverlay(root, "tpr", showCommand);
+    } else {
+      showCommand();
+    }
+  });
 
   function showCommand(): void {
     if (index >= TPR_COMMANDS.length) {
+      void recordGamePlayed("tpr");
       store.navigate(nextAfterGame(unitId, "tpr"));
       return;
     }
@@ -40,6 +53,4 @@ export function renderTpr(root: HTMLElement, unitId: string): void {
       showCommand();
     });
   }
-
-  showCommand();
 }

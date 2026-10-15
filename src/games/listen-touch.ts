@@ -6,6 +6,7 @@ import { applyTrialResult } from "../data/repository";
 import { nextAfterGame, shuffle } from "../core/game-flow";
 import { sessionId } from "../core/session";
 import { todayIso } from "../core/date";
+import { recordGamePlayed, renderGameIntroOverlay, shouldShowGameIntro } from "../core/game-intro";
 
 /**
  * Dinle ve dokun: kelime sesle söylenir, çocuk 2-4 görsel arasından doğrusuna dokunur.
@@ -32,12 +33,21 @@ export function renderListenTouch(root: HTMLElement, unitId: string): void {
     );
   }
 
-  void audioManager.preload(words.map((w) => w.audioEn)).then(() => {
-    if (isStillActive()) playRound();
+  void Promise.all([
+    audioManager.preload(words.map((w) => w.audioEn)),
+    shouldShowGameIntro("listen-touch")
+  ]).then(([, { show }]) => {
+    if (!isStillActive()) return;
+    if (show) {
+      renderGameIntroOverlay(root, "listen-touch", playRound);
+    } else {
+      playRound();
+    }
   });
 
   function playRound(): void {
     if (wordIndex >= words.length) {
+      void recordGamePlayed("listen-touch");
       store.navigate(nextAfterGame(unitId, "listen-touch"));
       return;
     }
