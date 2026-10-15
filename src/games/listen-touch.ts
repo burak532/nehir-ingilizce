@@ -7,6 +7,7 @@ import { nextAfterGame, shuffle } from "../core/game-flow";
 import { sessionId } from "../core/session";
 import { todayIso } from "../core/date";
 import { recordGamePlayed, renderGameIntroOverlay, shouldShowGameIntro } from "../core/game-intro";
+import { pickRandomPraisePath, PRAISE_AUDIO_PATHS } from "../core/praise";
 
 /**
  * Dinle ve dokun: kelime sesle söylenir, çocuk 2-4 görsel arasından doğrusuna dokunur.
@@ -34,7 +35,7 @@ export function renderListenTouch(root: HTMLElement, unitId: string): void {
   }
 
   void Promise.all([
-    audioManager.preload(words.map((w) => w.audioEn)),
+    audioManager.preload([...words.map((w) => w.audioEn), ...PRAISE_AUDIO_PATHS]),
     shouldShowGameIntro("listen-touch")
   ]).then(([, { show }]) => {
     if (!isStillActive()) return;
@@ -108,23 +109,40 @@ export function renderListenTouch(root: HTMLElement, unitId: string): void {
 
         if (isCorrect) {
           btn.style.outline = "6px solid #90be6d";
-          window.setTimeout(() => {
+          btn.style.transition = "transform 0.25s ease";
+          btn.style.transform = "scale(1.12)";
+          audioManager.playSuccessChime();
+
+          void (async () => {
+            await new Promise((resolve) => window.setTimeout(resolve, 500));
             if (!isStillActive()) return;
+            if (Math.random() < 0.35) {
+              await audioManager.play(pickRandomPraisePath());
+              if (!isStillActive()) return;
+            }
             wordIndex += 1;
             playRound();
-          }, 700);
+          })();
         } else {
           btn.style.opacity = "0.4";
           const correctBtn = optionsEl.querySelector<HTMLButtonElement>(
             `button[data-word="${correct.id}"]`
           );
-          if (correctBtn) correctBtn.style.outline = "6px solid #90be6d";
-          window.setTimeout(playWordAudio, 150);
-          window.setTimeout(() => {
+          if (correctBtn) {
+            correctBtn.style.outline = "6px solid #90be6d";
+            correctBtn.style.transition = "transform 0.25s ease";
+            correctBtn.style.transform = "scale(1.08)";
+          }
+          audioManager.playGentleRetryTone();
+
+          void (async () => {
+            await new Promise((resolve) => window.setTimeout(resolve, 500));
+            if (!isStillActive()) return;
+            await audioManager.play(correct.audioEn);
             if (!isStillActive()) return;
             wordIndex += 1;
             playRound();
-          }, 1400);
+          })();
         }
       });
     });

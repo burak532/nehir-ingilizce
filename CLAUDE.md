@@ -38,10 +38,11 @@ Tam gereksinimler için `ingilizce-uygulama-prompt.md`'ye bakılmalı — bu dos
 
 | 2026-10-15 | **2. tur geri bildirim + düzeltme:** ses üst üste binmesi (audioManager artık yeni ses başlarken öncekini kesiyor + word-intro.ts'de stale timeout iptali), Hello ikonları animasyonlu+daha somut yeniden tasarlandı (CSS `@keyframes`, img/object'te çalıştığı doğrulandı) | commit 6bdb094 |
 | 2026-10-15 | **3. tur — kritik regresyon bulundu ve düzeltildi:** 2. turdaki "öncekini kes" güvenlik önlemi, sabit 1800ms gecikmeyle birleşince Türkçe sesi (gerçekte 3.5-5.4sn) her seferinde yarıda kesiyordu. `audioManager.play()` artık sesin bitişini bekleyen Promise döndürüyor, `word-intro.ts` sabit gecikme yerine bunu `await` ediyor — `AudioContext.currentTime` ölçümüyle doğrulandı. Ayrıca Hello ünitesinde 5/7 kelimenin Türkçe cümlesi doğrudan çeviriyi hiç söylemiyormuş, düzeltilip TR sesleri yeniden üretildi | `docs/progress.md` → "3. tur geri bildirim" |
+| 2026-10-15 | **4. tur — eksik özellik eklendi:** Doğru/yanlış cevapta belirgin geri bildirim yoktu (sadece ince çerçeve), "Great job, Nehir!" gibi övgü sesleri de hiç eklenmemişti (plandaydı, unutulmuştu). Kullanıcı tekrarlatma yerine net geri bildirimi tercih etti. Ücretsiz sentezlenmiş ding/yumuşak ton (`AudioManager.playSuccessChime/playGentleRetryTone`) + ölçülü İngilizce övgü cümleleri (`content/shared/praise.json`, ~$0.00) eklendi; listen-touch ve drag-drop'a pop animasyonu + ses bağlandı | `docs/progress.md` → "4. tur geri bildirim" |
 
 ## Bilinen açık konular (bkz. `docs/progress.md` → "Bekleyen sorular")
 - Playwright uçtan uca testleri henüz yazılmadı (Aşama 8 kalite kontrolü kapsamında).
-- Kullanıcının 3. tur düzeltmeleri (Türkçe ses sıralaması + eksik çeviriler) iPad'de denemesi bekleniyor.
+- Kullanıcının son düzeltmeleri (ses geri bildirimi + övgü sesleri) iPad'de denemesi bekleniyor.
 - **Ders:** Ses/zamanlama içeren bir düzeltme yaparken, varsayılan gecikme süreleri yerine gerçek ses dosyası sürelerini (`afinfo dosya.mp3`) ölçüp ona göre kodla — tahmini sabit gecikmeler (1800ms gibi) gerçek içerik süresiyle uyuşmayabiliyor.
 
 ## Not: SVG ikon animasyonu (`<img src="...svg">` + içine gömülü CSS `@keyframes`)

@@ -1,0 +1,9 @@
+{
+  "description": "Ölçülü kullanılan İngilizce övgü cümleleri (bkz. src/core/praise.ts, curriculum.md §5). Nehir'in adı her seferinde değil, ara sıra geçer (prompt Bölüm 1).",
+  "lines": [
+    { "id": "great-job-nehir", "en": "Great job, Nehir!", "audioEn": "en/shared/praise-great-job-nehir.mp3" },
+    { "id": "well-done", "en": "Well done!", "audioEn": "en/shared/praise-well-done.mp3" },
+    { "id": "you-did-it", "en": "You did it!", "audioEn": "en/shared/praise-you-did-it.mp3" },
+    { "id": "nice-nehir", "en": "Nice, Nehir!", "audioEn": "en/shared/praise-nice-nehir.mp3" }
+  ]
+}

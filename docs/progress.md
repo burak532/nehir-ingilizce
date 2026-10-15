@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Aşama 4 (MVP) GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Kullanıcı üç tur geri bildirim verdi, üçü de düzeltildi ve push edildi (aşağıda). Kullanıcının 3. tur düzeltmeleri iPad'de yeniden denemesi bekleniyor; Aşama 5'e (Playwright testleri, iyileştirme) henüz geçilmedi.
+**Aşama 4 (MVP) GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Kullanıcı dört tur geri bildirim verdi, dördü de düzeltildi/eklendi ve push edildi (aşağıda). Kullanıcının son düzeltmeleri iPad'de yeniden denemesi bekleniyor; Aşama 5'e (Playwright testleri, iyileştirme) henüz geçilmedi.
 
 **Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
@@ -33,6 +33,13 @@ Kullanıcı: **"Türkçe yönergelerin hepsi gitmiş."** Araştırınca iki ayr�
 2. **İçerik eksikliği:** Hello ünitesindeki 7 kelimeden 5'inin (bye-bye, yes, no, thank-you, good-morning) Türkçe cümlesi doğrudan çeviriyi hiç söylemiyormuş — sadece bağlamı anlatıyordu (örn. "Ayrılırken Rex el sallar ve 'bye-bye' der" — 'güle güle' hiç geçmiyor). Dino Colors ünitesinde sorun yoktu (renk kelimesi zaten Türkçe söyleniyordu). 5 cümle düzeltilip ("...bu 'güle güle' demek" gibi) TR sesleri yeniden üretildi (~$0.01, kullanıcı onayıyla).
 
 Kullanıcı ayrıca pedagojik bir soru sordu: kelime öğretirken önce anlamın (Türkçe) netleşmesi gerekmez mi? Cevap: Evet, bu zaten tasarımdı (curriculum.md'deki Cummins CUP/scaffolding ilkesi) — yukarıdaki iki hata yüzünden düzgün çalışmıyordu, tasarım tercihi değildi.
+
+## 4. tur geri bildirim ve eklenen özellik
+Kullanıcı: **"Doğru ya da yanlış yaptığına dair geri bildirim yok, bilerek mi?"** — Dinle-dokun ve sürükle-bırak oyunlarında doğru cevapta sadece ince bir yeşil çerçeve, yanlışta sessiz soluklaşma vardı; 4 yaşında bir çocuk için yeterince belirgin değildi. Ayrıca orijinal planda istenen "Great job, Nehir!" gibi ölçülü övgü sesleri hiç eklenmemişti (gözden kaçmıştı, tercih değil). Kullanıcı **tekrarlatmayı değil** daha net geri bildirimi tercih etti (haklı olarak — zorla tekrar ettirmek "cezasız, kendi hızında" ilkesini bozar). Eklenenler:
+- `AudioManager`'a ücretsiz, sentezlenmiş (Web Audio `OscillatorNode`, TTS gerektirmez) `playSuccessChime()` (doğru — neşeli yükselen iki ton) ve `playGentleRetryTone()` (yanlış — yumuşak, cezalandırıcı olmayan alçalan ton) eklendi.
+- `content/shared/praise.json` ile 4 ölçülü İngilizce övgü cümlesi ("Great job, Nehir!", "Well done!", "You did it!", "Nice, Nehir!") eklendi, sesleri üretildi (~$0.00, kullanıcı onayıyla, cedar sesi).
+- `listen-touch.ts` ve `drag-drop.ts`: doğru cevapta görsel "pop" animasyonu (scale) + chime + ~%35 ihtimalle (ölçülü, her seferinde değil) bir övgü cümlesi; yanlışta yumuşak ton + doğru cevabın belirgin vurgulanması. Sürükle-bırak'ta yumuşak ton tur başına sadece bir kez çalıyor (tekrar fumble'larda rahatsız etmesin diye).
+- Chrome'da uçtan uca test edildi (doğru ve yanlış cevap akışları, konsol hatasız).
 
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.

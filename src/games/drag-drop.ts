@@ -7,6 +7,7 @@ import { nextAfterGame, shuffle } from "../core/game-flow";
 import { sessionId } from "../core/session";
 import { todayIso } from "../core/date";
 import { recordGamePlayed, renderGameIntroOverlay, shouldShowGameIntro } from "../core/game-intro";
+import { pickRandomPraisePath, PRAISE_AUDIO_PATHS } from "../core/praise";
 
 /**
  * Sürükle-bırak: "Put the {renk} one in the nest!" — çocuk doğru renkteki dinozoru
@@ -33,7 +34,7 @@ export function renderDragDrop(root: HTMLElement, unitId: string): void {
   root.innerHTML = `<p style="color:#fff; text-align:center; margin-top:2rem;">Yükleniyor...</p>`;
 
   void Promise.all([
-    audioManager.preload(words.map((w) => w.audioEn)),
+    audioManager.preload([...words.map((w) => w.audioEn), ...PRAISE_AUDIO_PATHS]),
     shouldShowGameIntro("drag-drop")
   ]).then(([, { show }]) => {
     if (!isStillActive()) return;
@@ -92,6 +93,7 @@ export function renderDragDrop(root: HTMLElement, unitId: string): void {
 
     let answered = false;
     let firstDropRecorded = false;
+    let gentleTonePlayed = false;
 
     draggablesEl.querySelectorAll<HTMLButtonElement>("button[data-word]").forEach((el) => {
       attachDragHandlers(el, nestEl, (droppedOnNest) => {
@@ -117,11 +119,24 @@ export function renderDragDrop(root: HTMLElement, unitId: string): void {
         if (isCorrectDrop) {
           answered = true;
           el.style.outline = "6px solid #90be6d";
-          window.setTimeout(() => {
+          el.style.transition = "transform 0.25s ease";
+          el.style.transform = "scale(1.1)";
+          audioManager.playSuccessChime();
+
+          void (async () => {
+            await new Promise((resolve) => window.setTimeout(resolve, 500));
             if (!isStillActive()) return;
+            if (Math.random() < 0.35) {
+              await audioManager.play(pickRandomPraisePath());
+              if (!isStillActive()) return;
+            }
             wordIndex += 1;
             playRound();
-          }, 700);
+          })();
+        } else if (droppedOnNest && !gentleTonePlayed) {
+          // Yuvaya yanlış dinozor bırakıldı — bir kez yumuşak, cezalandırıcı olmayan ton.
+          gentleTonePlayed = true;
+          audioManager.playGentleRetryTone();
         }
         return isCorrectDrop;
       });

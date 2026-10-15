@@ -93,6 +93,37 @@ class AudioManager {
       this.currentSource = source;
     });
   }
+
+  private playTone(freq: number, startTime: number, duration: number, peakGain: number): void {
+    if (!this.context) return;
+    const osc = this.context.createOscillator();
+    const gain = this.context.createGain();
+    osc.type = "sine";
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0, startTime);
+    gain.gain.linearRampToValueAtTime(peakGain, startTime + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+    osc.connect(gain);
+    gain.connect(this.context.destination);
+    osc.start(startTime);
+    osc.stop(startTime + duration + 0.05);
+  }
+
+  /** Ücretsiz, sentezlenmiş "doğru cevap" zili — kısa, neşeli, yükselen iki ton. */
+  playSuccessChime(): void {
+    if (!this.context) return;
+    const now = this.context.currentTime;
+    this.playTone(523.25, now, 0.18, 0.2); // C5
+    this.playTone(659.25, now + 0.12, 0.22, 0.22); // E5
+  }
+
+  /** Ücretsiz, sentezlenmiş "tekrar bakalım" tonu — yumuşak, cezalandırıcı olmayan, alçalan. */
+  playGentleRetryTone(): void {
+    if (!this.context) return;
+    const now = this.context.currentTime;
+    this.playTone(349.23, now, 0.22, 0.12); // F4
+    this.playTone(293.66, now + 0.16, 0.26, 0.12); // D4
+  }
 }
 
 export const audioManager = new AudioManager();
