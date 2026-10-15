@@ -9,6 +9,11 @@ import type { Cleanup } from "../core/router";
  * Tanıtma adımı (curriculum.md §2): ünite ilk kez açıldığında her kelime için
  * Türkçe çerçeveleme cümlesi + İngilizce kelime gösterilir. Sonraki girişlerde
  * (settings.unitsIntroduced) atlanır, doğrudan oyuna geçilir.
+ *
+ * Türkçe ses bitene kadar İngilizce ses başlamaz (sabit gecikme yerine
+ * audioManager.play()'in bitişini bekleriz) — Türkçe sesler 3-5 saniye
+ * sürebiliyor, sabit bir gecikme Türkçeyi yarıda keserdi (bkz. kullanıcı
+ * geri bildirimi).
  */
 export function renderWordIntro(root: HTMLElement, unitId: string): Cleanup {
   const unit = getUnit(unitId);
@@ -21,7 +26,6 @@ export function renderWordIntro(root: HTMLElement, unitId: string): Cleanup {
 
   let index = 0;
   let cancelled = false;
-  let pendingEnAudioTimeout: number | undefined;
 
   const trAudioPaths = unit.words.map((w) => `tr/${unitId}/${w.id}-intro.mp3`);
   const enAudioPaths = unit.words.map((w) => w.audioEn);
@@ -35,21 +39,17 @@ export function renderWordIntro(root: HTMLElement, unitId: string): Cleanup {
       void finish();
       return;
     }
-    showWord();
+    void showWord();
   });
 
-  function showWord(): void {
-    if (pendingEnAudioTimeout !== undefined) {
-      window.clearTimeout(pendingEnAudioTimeout);
-      pendingEnAudioTimeout = undefined;
-    }
-
+  async function showWord(): Promise<void> {
     if (index >= unit!.words.length) {
       void finish();
       return;
     }
 
-    const word = unit!.words[index];
+    const myIndex = index;
+    const word = unit!.words[myIndex];
     const trAudio = `tr/${unitId}/${word.id}-intro.mp3`;
 
     root.innerHTML = `
@@ -61,16 +61,14 @@ export function renderWordIntro(root: HTMLElement, unitId: string): Cleanup {
       </div>
     `;
 
-    audioManager.play(trAudio);
-    pendingEnAudioTimeout = window.setTimeout(() => {
-      pendingEnAudioTimeout = undefined;
-      if (!cancelled) audioManager.play(word.audioEn);
-    }, 1800);
-
     root.querySelector<HTMLButtonElement>("#next")?.addEventListener("click", () => {
       index += 1;
-      showWord();
+      void showWord();
     });
+
+    await audioManager.play(trAudio);
+    if (cancelled || index !== myIndex) return;
+    await audioManager.play(word.audioEn);
   }
 
   async function finish(): Promise<void> {
@@ -85,8 +83,5 @@ export function renderWordIntro(root: HTMLElement, unitId: string): Cleanup {
 
   return () => {
     cancelled = true;
-    if (pendingEnAudioTimeout !== undefined) {
-      window.clearTimeout(pendingEnAudioTimeout);
-    }
   };
 }

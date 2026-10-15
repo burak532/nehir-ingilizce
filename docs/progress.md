@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Aşama 4 (MVP) GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Kullanıcı iki tur geri bildirim verdi, ikisi de düzeltildi ve push edildi (aşağıda). Kullanıcının 2. tur düzeltmeleri iPad'de yeniden denemesi bekleniyor; Aşama 5'e (Playwright testleri, iyileştirme) henüz geçilmedi.
+**Aşama 4 (MVP) GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Kullanıcı üç tur geri bildirim verdi, üçü de düzeltildi ve push edildi (aşağıda). Kullanıcının 3. tur düzeltmeleri iPad'de yeniden denemesi bekleniyor; Aşama 5'e (Playwright testleri, iyileştirme) henüz geçilmedi.
 
 **Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
@@ -26,6 +26,13 @@ Kullanıcı (tam kapat-aç ile güncellemeyi gördükten sonra) 2 yeni sorun bil
 1. **"İngilizce kelimelerin sesleri üst üste biniyor."** Kök neden: `word-intro.ts`'de Türkçe sesten 1.8sn sonra İngilizce sesi çalan `setTimeout`, kullanıcı "İleri"ye hızlı basınca iptal edilmiyordu — önceki kelimenin gecikmeli İngilizce sesi yeni kelimenin üzerine biniyordu. Düzeltme: (a) `audioManager.play()` artık yeni ses başlarken önceki çalan sesi kesiyor (genel/savunmacı çözüm), (b) `word-intro.ts`'de bekleyen timeout artık kelime değişince `clearTimeout` ile iptal ediliyor (kök neden çözümü).
 2. **"Görseller yine anlaşılmıyor, bazıları çerçeve dışına taşıyor."** Kullanıcı çözüm olarak animasyon önerdi ("hello'daki el sallamak iyi fikir, böyle somut şeyler bul"); ücretsiz yol (kendi SVG'lerimize CSS animasyonu) ile ücretli yol (AI ile video/GIF üretimi) arasında seçim sundum, kullanıcı ücretsiz yolu onayladı. 14 ikon komple yeniden tasarlandı: başparmak zıplaması (yes), sallanan surat (no, artık yüz bazlı — daha evrensel), kenetli ellerin "yalvarma" zıplaması + parmak detayları (please), atan kalp (thank-you), dönen güneş ışınları (good-morning), el sallarken uzaklaşma hareketi (bye-bye). Her SVG'ye gömülü `<style>` + `@keyframes` eklendi, `prefers-reduced-motion` desteklendi. Önceki taşma hatası (bye-bye-alt) da bu yeniden yazımda düzeltildi.
 3. **Test sırasında önemli bir yanlış pozitif bulundu ve düzeltildi:** Chrome'da animasyonu doğrularken iki ekran görüntüsü arasında 1 saniye beklemek "animasyon çalışmıyor" izlenimi verdi — sebep, animasyon periyodunun (1s) tam olarak bekleme süresiyle çakışması (aliasing). 0.35sn ve 2.5sn gibi periyotla örtüşmeyen gecikmelerle tekrar test edilip hem `<img>` hem `<object>` embed'de animasyonun gerçekten çalıştığı doğrulandı — mimari değişiklik gerekmedi.
+
+## 3. tur geri bildirim ve düzeltmeler
+Kullanıcı: **"Türkçe yönergelerin hepsi gitmiş."** Araştırınca iki ayrı, gerçek hata bulundu:
+1. **Kritik regresyon — kendi düzeltmem yeni bir hata yaratmış:** `afinfo` ile ölçtüm, Türkçe tanıtma sesleri aslında 3.5-5.4 saniye sürüyor, ama `word-intro.ts` İngilizce sesi sabit 1800ms'de başlatıyordu. 2. tur'da eklediğim "yeni ses başlarken öncekini kes" güvenlik önlemiyle birleşince, **Türkçe ses her seferinde yarıda kesiliyordu.** Kök çözüm: `audioManager.play()` artık sesin bitişini bekleyen bir `Promise` döndürüyor; `word-intro.ts` artık sabit gecikme yerine `await audioManager.play(trAudio)` ile Türkçenin TAMAMEN bitmesini bekleyip öyle İngilizceyi çalıyor. Chrome'da `AudioContext.currentTime` ölçümüyle doğrulandı: Türkçe tam süresince kesintisiz çalıp bitince (0 gecikmeyle) İngilizce başlıyor.
+2. **İçerik eksikliği:** Hello ünitesindeki 7 kelimeden 5'inin (bye-bye, yes, no, thank-you, good-morning) Türkçe cümlesi doğrudan çeviriyi hiç söylemiyormuş — sadece bağlamı anlatıyordu (örn. "Ayrılırken Rex el sallar ve 'bye-bye' der" — 'güle güle' hiç geçmiyor). Dino Colors ünitesinde sorun yoktu (renk kelimesi zaten Türkçe söyleniyordu). 5 cümle düzeltilip ("...bu 'güle güle' demek" gibi) TR sesleri yeniden üretildi (~$0.01, kullanıcı onayıyla).
+
+Kullanıcı ayrıca pedagojik bir soru sordu: kelime öğretirken önce anlamın (Türkçe) netleşmesi gerekmez mi? Cevap: Evet, bu zaten tasarımdı (curriculum.md'deki Cummins CUP/scaffolding ilkesi) — yukarıdaki iki hata yüzünden düzgün çalışmıyordu, tasarım tercihi değildi.
 
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.

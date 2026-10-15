@@ -58,13 +58,17 @@ class AudioManager {
   /**
    * Buffer yüklenmemişse sessizce hiçbir şey yapmaz. Aynı anda tek ses çalsın diye
    * önceki sesi (varsa) keser — sesler üst üste binmesin (bkz. kullanıcı geri bildirimi).
+   *
+   * Dönen Promise, ses doğal olarak bitince (veya bir sonraki play() tarafından
+   * kesilince) resolve olur — çağıranlar "bu ses bitince diğerini çal" diye
+   * SIRALI oynatma yapabilsin diye (sabit setTimeout gecikmesi tahminiyle değil).
    */
-  play(path: string): void {
-    if (!this.context) return;
+  play(path: string): Promise<void> {
+    if (!this.context) return Promise.resolve();
     const buffer = this.buffers.get(path);
     if (!buffer) {
       console.warn(`[audio] henüz yüklenmemiş, çalınamadı: ${path}`);
-      return;
+      return Promise.resolve();
     }
 
     if (this.currentSource) {
@@ -76,14 +80,18 @@ class AudioManager {
       this.currentSource = null;
     }
 
-    const source = this.context.createBufferSource();
-    source.buffer = buffer;
-    source.connect(this.context.destination);
-    source.onended = () => {
-      if (this.currentSource === source) this.currentSource = null;
-    };
-    source.start(0);
-    this.currentSource = source;
+    const context = this.context;
+    return new Promise((resolve) => {
+      const source = context.createBufferSource();
+      source.buffer = buffer;
+      source.connect(context.destination);
+      source.onended = () => {
+        if (this.currentSource === source) this.currentSource = null;
+        resolve();
+      };
+      source.start(0);
+      this.currentSource = source;
+    });
   }
 }
 

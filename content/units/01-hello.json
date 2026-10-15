@@ -19,7 +19,7 @@
       "image": "units/01-hello/bye-bye.svg",
       "imageVariants": ["units/01-hello/bye-bye.svg", "units/01-hello/bye-bye-alt.svg"],
       "audioEn": "en/01-hello/bye-bye.mp3",
-      "introTr": "Ayrılırken Rex el sallar ve 'bye-bye' der."
+      "introTr": "Ayrılırken Rex el sallar ve 'bye-bye' der — bu 'güle güle' demek."
     },
     {
       "id": "yes",
@@ -28,7 +28,7 @@
       "image": "units/01-hello/yes.svg",
       "imageVariants": ["units/01-hello/yes.svg", "units/01-hello/yes-alt.svg"],
       "audioEn": "en/01-hello/yes.mp3",
-      "introTr": "Başını sallayınca İngilizce'de 'yes' denir."
+      "introTr": "Başını sallayınca İngilizce'de 'yes' deriz — Türkçesi 'evet'."
     },
     {
       "id": "no",
@@ -37,7 +37,7 @@
       "image": "units/01-hello/no.svg",
       "imageVariants": ["units/01-hello/no.svg", "units/01-hello/no-alt.svg"],
       "audioEn": "en/01-hello/no.mp3",
-      "introTr": "Başını sağa sola sallayınca İngilizce'de 'no' denir."
+      "introTr": "Başını sağa sola sallayınca İngilizce'de 'no' deriz — Türkçesi 'hayır'."
     },
     {
       "id": "please",
@@ -55,7 +55,7 @@
       "image": "units/01-hello/thank-you.svg",
       "imageVariants": ["units/01-hello/thank-you.svg", "units/01-hello/thank-you-alt.svg"],
       "audioEn": "en/01-hello/thank-you.mp3",
-      "introTr": "Rex sana bir şey verince 'thank you' dersin."
+      "introTr": "Rex sana bir şey verince 'thank you' dersin — bu 'teşekkür ederim' demek."
     },
     {
       "id": "good-morning",
@@ -64,7 +64,7 @@
       "image": "units/01-hello/good-morning.svg",
       "imageVariants": ["units/01-hello/good-morning.svg", "units/01-hello/good-morning-alt.svg"],
       "audioEn": "en/01-hello/good-morning.mp3",
-      "introTr": "Sabah güneş doğunca Rex 'good morning' der."
+      "introTr": "Sabah güneş doğunca Rex 'good morning' der — bu 'günaydın' demek."
     }
   ],
   "chunks": [
