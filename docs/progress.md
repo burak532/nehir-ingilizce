@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Aşama 4 (MVP) tamamen bitti ve GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Sırada: Aşama 5 (test, iPad'de deneme, iyileştirme) için kullanıcı onayı.
+**Aşama 4 (MVP) tamamen bitti ve GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Kullanıcı şimdi iPad'de Nehir ile kendi deneyip geri bildirim verecek — **bu geri bildirim gelene kadar bekleniyor**, Aşama 5'e (Playwright testleri, iyileştirme) henüz geçilmedi.
 
 Not: Kullanıcı Aşama 2'nin tüm açık sorularını, Aşama 3'teki framework kararını (Vanilla TS+Vite), Aşama 4'teki ses üretim maliyetini/sesini (cedar) ve GitHub yayınlamasını (public, `nehir-ingilizce`, gh CLI ile) onayladı.
 
@@ -50,9 +50,9 @@ Not: Kullanıcı Aşama 2'nin tüm açık sorularını, Aşama 3'teki framework 
 MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. `npm run build`/`npm run test` temiz geçiyor. Henüz yapılmayanlar: Playwright uçtan uca testleri (Aşama 8 kalite kontrolü kapsamında), gerçek iPad'de Nehir ile deneme (Aşama 5).
 
 ## Sıradaki adımlar
-1. Kullanıcıdan Aşama 5'e (test, iPad'de deneme, iyileştirme) geçiş onayı al.
-2. Playwright WebKit/iPad boyutu uçtan uca testlerini yaz.
-3. Gerçek iPad'de Nehir ile deneyip geri bildirim topla (prompt Bölüm 7: "Ben çocukla test edip geri bildirim vermeden yeni ünite ekleme").
+1. **Kullanıcının iPad'de Nehir ile denemesini ve geri bildirimini bekle** — prompt Bölüm 7: "Ben çocukla test edip geri bildirim vermeden yeni ünite ekleme" talimatına uygun, bu arada kapsam genişletilmeyecek.
+2. Geri bildirim gelince: bulunan sorunları değerlendirip düzelt, gerekirse curriculum.md/technical-plan.md kararlarını gözden geçir.
+3. Playwright WebKit/iPad boyutu uçtan uca testlerini yaz (Aşama 8 kalite kontrolü, geri bildirim sonrası ya da paralel yapılabilir).
 4. Bu dosyayı sık güncellemeye devam et.
 
 ## Bekleyen sorular
