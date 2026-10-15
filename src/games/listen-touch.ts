@@ -6,7 +6,7 @@ import { applyTrialResult } from "../data/repository";
 import { nextAfterGame, shuffle } from "../core/game-flow";
 import { sessionId } from "../core/session";
 import { todayIso } from "../core/date";
-import { recordGamePlayed, renderGameIntroOverlay, shouldShowGameIntro } from "../core/game-intro";
+import { renderGameIntroOverlay, shouldShowGameIntro } from "../core/game-intro";
 import { pickRandomPraisePath, PRAISE_AUDIO_PATHS } from "../core/praise";
 
 /**
@@ -36,7 +36,7 @@ export function renderListenTouch(root: HTMLElement, unitId: string): void {
 
   void Promise.all([
     audioManager.preload([...words.map((w) => w.audioEn), ...PRAISE_AUDIO_PATHS]),
-    shouldShowGameIntro("listen-touch")
+    shouldShowGameIntro()
   ]).then(([, { show }]) => {
     if (!isStillActive()) return;
     if (show) {
@@ -48,7 +48,6 @@ export function renderListenTouch(root: HTMLElement, unitId: string): void {
 
   function playRound(): void {
     if (wordIndex >= words.length) {
-      void recordGamePlayed("listen-touch");
       store.navigate(nextAfterGame(unitId, "listen-touch"));
       return;
     }

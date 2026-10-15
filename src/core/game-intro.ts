@@ -1,10 +1,11 @@
 import type { GameType } from "./content";
-import { getSettings, updateSettings } from "../data/repository";
+import { getSettings } from "../data/repository";
 import type { SettingsRecord } from "../data/types";
 
 /**
  * Oyun tipi başına Türkçe "nasıl oynanır" açıklaması (curriculum.md §8):
- * aynı oyun tipi `turkishFadeThresholdPlays` kez tamamlanana kadar gösterilir, sonra kalkar.
+ * Türkçe destek açıkken bu oyun tipine her girişte gösterilir (tek dokunuşla
+ * "Başla" ile geçilir) — ebeveyn panelinden tamamen kapatılabilir.
  */
 const INSTRUCTIONS_TR: Record<GameType, string> = {
   "listen-touch": "Dinle, sonra duyduğun kelimeye uyan resme dokun!",
@@ -13,23 +14,12 @@ const INSTRUCTIONS_TR: Record<GameType, string> = {
   record: "Önce dinle, sonra mikrofona basıp kendi sesini kaydet."
 };
 
-export async function shouldShowGameIntro(
-  gameType: GameType
-): Promise<{ show: boolean; settings: SettingsRecord }> {
+export async function shouldShowGameIntro(): Promise<{
+  show: boolean;
+  settings: SettingsRecord;
+}> {
   const settings = await getSettings();
-  if (settings.turkishSupportLevel === "off") {
-    return { show: false, settings };
-  }
-  const count = settings.gamePlaysCount[gameType] ?? 0;
-  return { show: count < settings.turkishFadeThresholdPlays, settings };
-}
-
-export async function recordGamePlayed(gameType: GameType): Promise<void> {
-  const settings = await getSettings();
-  const current = settings.gamePlaysCount[gameType] ?? 0;
-  await updateSettings({
-    gamePlaysCount: { ...settings.gamePlaysCount, [gameType]: current + 1 }
-  });
+  return { show: settings.turkishSupportLevel !== "off", settings };
 }
 
 export function renderGameIntroOverlay(

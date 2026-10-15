@@ -4,7 +4,7 @@ import { audioManager } from "../audio/audio-manager";
 import { imagePath } from "../core/image-path";
 import { nextAfterGame } from "../core/game-flow";
 import type { Cleanup } from "../core/router";
-import { recordGamePlayed, renderGameIntroOverlay, shouldShowGameIntro } from "../core/game-intro";
+import { renderGameIntroOverlay, shouldShowGameIntro } from "../core/game-intro";
 
 /**
  * Kaydet ve dinle: model ses önce çalar, çocuk mikrofona kaydeder, iki ses arka arkaya çalınır.
@@ -52,7 +52,6 @@ export function renderRecord(root: HTMLElement, unitId: string): Cleanup {
 
   function renderWord(): void {
     if (wordIndex >= words.length) {
-      void recordGamePlayed("record");
       store.navigate(nextAfterGame(unitId, "record"));
       return;
     }
@@ -125,7 +124,7 @@ export function renderRecord(root: HTMLElement, unitId: string): Cleanup {
     });
   }
 
-  void Promise.all([ensureMicPermission(), shouldShowGameIntro("record")]).then(
+  void Promise.all([ensureMicPermission(), shouldShowGameIntro()]).then(
     ([, { show }]) => {
       if (!isStillActive()) return;
       if (show) {

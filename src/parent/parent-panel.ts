@@ -54,14 +54,9 @@ async function renderPanel(root: HTMLElement): Promise<void> {
       <section style="margin-bottom:1.5rem;">
         <h2>Türkçe destek düzeyi</h2>
         <select id="turkish-level">
-          <option value="full" ${settings.turkishSupportLevel === "full" ? "selected" : ""}>Tam (yeni oyunda açıklama göster)</option>
-          <option value="reduced" ${settings.turkishSupportLevel === "reduced" ? "selected" : ""}>Azaltılmış</option>
+          <option value="full" ${settings.turkishSupportLevel !== "off" ? "selected" : ""}>Açık</option>
           <option value="off" ${settings.turkishSupportLevel === "off" ? "selected" : ""}>Kapalı (sadece İngilizce)</option>
         </select>
-        <label style="display:block; margin-top:0.5rem;">
-          Aynı oyun tipi kaç kez başarılı oynandıktan sonra Türkçe açıklama kalksın:
-          <input type="number" id="fade-threshold" min="1" max="10" value="${settings.turkishFadeThresholdPlays}" style="width:4rem;"/>
-        </label>
       </section>
 
       <section style="margin-bottom:1.5rem;">
@@ -131,11 +126,6 @@ function wireEvents(
   root.querySelector<HTMLSelectElement>("#turkish-level")?.addEventListener("change", (e) => {
     const value = (e.target as HTMLSelectElement).value as TurkishSupportLevel;
     void updateSettings({ turkishSupportLevel: value });
-  });
-
-  root.querySelector<HTMLInputElement>("#fade-threshold")?.addEventListener("change", (e) => {
-    const value = Number((e.target as HTMLInputElement).value);
-    void updateSettings({ turkishFadeThresholdPlays: value });
   });
 
   root.querySelector<HTMLInputElement>("#parent-tips")?.addEventListener("change", (e) => {

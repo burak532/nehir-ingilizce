@@ -30,27 +30,22 @@ export interface ParentObservationRecord {
   freeText: string;
 }
 
-export type TurkishSupportLevel = "full" | "reduced" | "off";
+export type TurkishSupportLevel = "full" | "off";
 
 export interface SettingsRecord {
   key: "default";
   dailyDurationMin: number;
   turkishSupportLevel: TurkishSupportLevel;
-  turkishFadeThresholdPlays: number;
   parentTipsEnabled: boolean;
   unitsEnabled: Record<string, boolean>;
   deviceLocalId: string;
-  /** Oyun tipi başına kaç kez tamamlandığı — Türkçe "nasıl oynanır" açıklamasının azalma eşiği için. */
-  gamePlaysCount: Partial<Record<GameType, number>>;
 }
 
 export const DEFAULT_SETTINGS: SettingsRecord = {
   key: "default",
   dailyDurationMin: 20,
   turkishSupportLevel: "full",
-  turkishFadeThresholdPlays: 3,
   parentTipsEnabled: true,
   unitsEnabled: {},
-  deviceLocalId: "",
-  gamePlaysCount: {}
+  deviceLocalId: ""
 };
