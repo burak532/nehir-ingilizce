@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Aşama 4 (MVP) GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Kullanıcı dört tur geri bildirim verdi, dördü de düzeltildi/eklendi ve push edildi (aşağıda). Kullanıcının son düzeltmeleri iPad'de yeniden denemesi bekleniyor; Aşama 5'e (Playwright testleri, iyileştirme) henüz geçilmedi.
+**Aşama 4 (MVP) GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Kullanıcı beş tur geri bildirim verdi, beşi de düzeltildi/eklendi ve push edildi (aşağıda). Kullanıcının son düzeltmeleri iPad'de yeniden denemesi bekleniyor; Aşama 5'e (Playwright testleri, iyileştirme) henüz geçilmedi.
 
 **Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
@@ -40,6 +40,11 @@ Kullanıcı: **"Doğru ya da yanlış yaptığına dair geri bildirim yok, biler
 - `content/shared/praise.json` ile 4 ölçülü İngilizce övgü cümlesi ("Great job, Nehir!", "Well done!", "You did it!", "Nice, Nehir!") eklendi, sesleri üretildi (~$0.00, kullanıcı onayıyla, cedar sesi).
 - `listen-touch.ts` ve `drag-drop.ts`: doğru cevapta görsel "pop" animasyonu (scale) + chime + ~%35 ihtimalle (ölçülü, her seferinde değil) bir övgü cümlesi; yanlışta yumuşak ton + doğru cevabın belirgin vurgulanması. Sürükle-bırak'ta yumuşak ton tur başına sadece bir kez çalıyor (tekrar fumble'larda rahatsız etmesin diye).
 - Chrome'da uçtan uca test edildi (doğru ve yanlış cevap akışları, konsol hatasız).
+
+## 5. tur geri bildirim ve düzeltmeler
+Kullanıcı: **"Hâlâ good morning gibi kelimelerin Türkçesi söylenmiyor, spin around gibi kelimelerin de Türkçesi söylenmiyor — ilk öğretirken Türkçe söylenmesi gerekiyordu, sonraki sesli tekrarlarda gerekmeyebilir."** İki ayrı kök neden bulundu:
+1. **Kalıcı durum sorunu (muhtemelen asıl sebep):** `settings.unitsIntroduced[unitId]` bir kez `true` olunca kalıcı (IndexedDB'de) kalıyor — kullanıcı daha önce Hello ünitesinin tanıtma ekranını bir kez gördüğü için (3. tur düzeltmelerinden ÖNCE), cihazında bu bayrak hâlâ `true` ve uygulama her girişte tanıtma ekranını atlayıp doğrudan oyuna geçiyor; içerik ne kadar düzeltilirse düzeltilsin bir daha hiç gösterilmiyordu. **Kök çözüm:** `unitsIntroduced: boolean` yerine `unitsIntroducedHash: Record<string, string>` — ünitenin kelime+introTr içeriğinden hesaplanan bir hash saklanıyor (`core/content.ts` → `getUnitContentHash`). İçerik her değiştiğinde hash de değişir, tanıtma ekranı otomatik tekrar tetiklenir; elle "ilerlemeyi sıfırla" yapmaya gerek kalmaz. Eski kullanıcılarda da (hash alanı hiç yoktu) otomatik olarak bir kerelik yeniden tetiklenir.
+2. **İçerik eksikliği — TPR komutları:** "Spin around!" gibi TPR hareket komutları ünite kelime dağarcığının parçası değil, bu yüzden tanıtma ekranında hiç geçmiyor ve Türkçeleri hiç yoktu. `content/shared/tpr.json`'a Türkçe metin+ses eklendi (Ellerini salla!/Zıpla!/Dön!); `tpr.ts` artık oyun tipi "nasıl oynanır" açıklamasıyla aynı azalan eşiğe göre (ilk birkaç kez) her komuttan önce Türkçesini söylüyor, `generate_audio` scripti de shared içerikteki `tr`/`audioTr` alanlarını işleyecek şekilde güncellendi.
 
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.

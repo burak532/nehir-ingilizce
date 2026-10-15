@@ -1,5 +1,5 @@
 import { store } from "../core/store";
-import { getUnit } from "../core/content";
+import { getUnit, getUnitContentHash } from "../core/content";
 import { getSettings } from "../data/repository";
 
 export function renderUnitIntro(root: HTMLElement, unitId: string): void {
@@ -21,7 +21,8 @@ export function renderUnitIntro(root: HTMLElement, unitId: string): void {
 
   root.querySelector<HTMLButtonElement>("#continue")?.addEventListener("click", () => {
     void getSettings().then((settings) => {
-      if (settings.unitsIntroduced[unit.id]) {
+      const currentHash = getUnitContentHash(unit);
+      if (settings.unitsIntroducedHash[unit.id] === currentHash) {
         store.navigate({ name: "game", unitId: unit.id, gameType: unit.games[0] });
       } else {
         store.navigate({ name: "word-intro", unitId: unit.id });

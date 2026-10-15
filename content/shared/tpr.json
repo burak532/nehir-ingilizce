@@ -1,8 +1,26 @@
 {
-  "description": "Ünite-bağımsız TPR hareket molası komutları (bkz. src/games/tpr.ts, curriculum.md §6).",
+  "description": "Ünite-bağımsız TPR hareket molası komutları (bkz. src/games/tpr.ts, curriculum.md §6). İlk birkaç kez (oyun tipi Türkçe açıklaması eşiğine kadar) Türkçesi de söylenir.",
   "lines": [
-    { "id": "wave", "en": "Wave your hands!", "audioEn": "en/shared/tpr-wave.mp3" },
-    { "id": "jump", "en": "Jump up!", "audioEn": "en/shared/tpr-jump.mp3" },
-    { "id": "spin", "en": "Spin around!", "audioEn": "en/shared/tpr-spin.mp3" }
+    {
+      "id": "wave",
+      "en": "Wave your hands!",
+      "audioEn": "en/shared/tpr-wave.mp3",
+      "tr": "Ellerini salla!",
+      "audioTr": "tr/shared/tpr-wave-intro.mp3"
+    },
+    {
+      "id": "jump",
+      "en": "Jump up!",
+      "audioEn": "en/shared/tpr-jump.mp3",
+      "tr": "Zıpla!",
+      "audioTr": "tr/shared/tpr-jump-intro.mp3"
+    },
+    {
+      "id": "spin",
+      "en": "Spin around!",
+      "audioEn": "en/shared/tpr-spin.mp3",
+      "tr": "Dön!",
+      "audioTr": "tr/shared/tpr-spin-intro.mp3"
+    }
   ]
 }

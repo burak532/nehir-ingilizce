@@ -43,3 +43,18 @@ export function getUnit(unitId: string): UnitDef | undefined {
 export function getWord(unitId: string, wordId: string): WordDef | undefined {
   return getUnit(unitId)?.words.find((word) => word.id === wordId);
 }
+
+/**
+ * Ünitenin İngilizce+Türkçe tanıtma içeriğinin kısa bir özeti (hash).
+ * `settings.unitsIntroducedHash`'te saklanır: içerik (ör. introTr cümlesi) değişince
+ * hash de değişir, bu da tanıtma ekranının kullanıcının cihazında otomatik tekrar
+ * gösterilmesini sağlar — elle "ilerlemeyi sıfırla" yapmaya gerek kalmaz.
+ */
+export function getUnitContentHash(unit: UnitDef): string {
+  const raw = unit.words.map((w) => `${w.en}|${w.introTr}`).join("::");
+  let hash = 0;
+  for (let i = 0; i < raw.length; i += 1) {
+    hash = (hash * 31 + raw.charCodeAt(i)) | 0;
+  }
+  return hash.toString(36);
+}

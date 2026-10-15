@@ -137,6 +137,9 @@ function collectLines() {
     const shared = JSON.parse(readFileSync(path.join(CONTENT_SHARED_DIR, file), "utf-8"));
     for (const line of shared.lines ?? []) {
       lines.push({ id: `shared:${line.id}:en`, lang: "en", text: line.en, outPath: line.audioEn });
+      if (line.tr && line.audioTr) {
+        lines.push({ id: `shared:${line.id}:tr`, lang: "tr", text: line.tr, outPath: line.audioTr });
+      }
     }
   }
 

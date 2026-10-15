@@ -1,5 +1,5 @@
 import { store } from "../core/store";
-import { getUnit } from "../core/content";
+import { getUnit, getUnitContentHash } from "../core/content";
 import { audioManager } from "../audio/audio-manager";
 import { imagePath } from "../core/image-path";
 import { getSettings, updateSettings } from "../data/repository";
@@ -8,7 +8,8 @@ import type { Cleanup } from "../core/router";
 /**
  * Tanıtma adımı (curriculum.md §2): ünite ilk kez açıldığında her kelime için
  * Türkçe çerçeveleme cümlesi + İngilizce kelime gösterilir. Sonraki girişlerde
- * (settings.unitsIntroduced) atlanır, doğrudan oyuna geçilir.
+ * (settings.unitsIntroducedHash içerikle eşleşiyorsa) atlanır, doğrudan oyuna geçilir —
+ * introTr/en içeriği değişirse hash de değişir, tanıtma otomatik tekrar gösterilir.
  *
  * Türkçe ses bitene kadar İngilizce ses başlamaz (sabit gecikme yerine
  * audioManager.play()'in bitişini bekleriz) — Türkçe sesler 3-5 saniye
@@ -74,7 +75,10 @@ export function renderWordIntro(root: HTMLElement, unitId: string): Cleanup {
   async function finish(): Promise<void> {
     const settings = await getSettings();
     await updateSettings({
-      unitsIntroduced: { ...settings.unitsIntroduced, [unitId]: true }
+      unitsIntroducedHash: {
+        ...settings.unitsIntroducedHash,
+        [unitId]: getUnitContentHash(unit!)
+      }
     });
     if (!cancelled) {
       store.navigate({ name: "game", unitId, gameType: unit!.games[0] });
