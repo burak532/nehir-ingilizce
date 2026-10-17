@@ -100,6 +100,17 @@ Kullanıcı "Ünite 3'ü yap, Nehir'le denensin" dedi. Önce prompt Bölüm 7'ni
 - Canlı tarayıcıda uçtan uca doğrulandı: tanıtma (intro chunk `lets-meet.mp3` çalıyor) → dinle-dokun (8 tur) → sürükle-bırak (8 tur, hepsi ağ isteğinden doğru hedef tespit edilip gerçek sürükleme ile test edildi, "Çiftlik" etiketi doğru görünüyor) → kaydet-dinle → kapanış (`bye-animals.mp3` çalıyor) → haritaya dönüş, ünite kartı otomatik belirdi.
 - `npx playwright test` (Chromium) ile tüm 5 eski test de tekrar çalıştırılıp regresyon olmadığı doğrulandı.
 
+## SW clients.claim() düzeltmesi — "Ünite 3 haritada çıkmıyor" şikayeti
+Kullanıcı Ünite 3'ü haritada göremediğini/açamadığını bildirdi. Canlı sitede doğrudan test edildi: Animal Friends sorunsuz görünüyor ve açılıyor — sunucu tarafı %100 doğru, sorun kullanıcının cihazındaki eski önbellek.
+
+**Bulunan asıl kök neden:** `src/sw.ts`'de `self.clients.claim()` hiç çağrılmıyordu. Bunsuz, bir service worker `skipWaiting()` ile "aktif" hale gelse bile, o anda AÇIK OLAN sayfayı otomatik devralmaz — bu, sadece `clients.claim()` çağrısıyla ya da sayfanın kendi başına yaptığı YENİ bir navigasyonla olur. `sw-register.ts`'nin `reload()`'u ise `controllerchange` olayına bağlıydı, ve bu olay da (clients.claim olmadan) açık bir sayfada kendiliğinden hiç ateşlenmiyordu — klasik bir çıkmaz: reload, controllerchange'i bekliyordu; controllerchange ise (clients.claim olmadan) yalnızca bir reload'un kendisiyle tetiklenebilirdi.
+
+Bu, 6. turdan beri ara ara yaşanan "tam kapat-aç bile bazen yetmiyor" şikayetinin tam açıklaması: İlk kapat-aç → yeni sürüm arka planda kuruluyor ve `skipWaiting` ile aktif oluyor, ama o anki sayfa yüklemesi hâlâ ESKİ worker tarafından kontrol ediliyor (sayfa zaten o worker'la yüklenmeye başlamıştı). Kullanıcı ikinci kez kapatıp açınca, bu kez taze navigasyon zaten aktif olan YENİ worker'a denk geliyor ve güncelleme nihayet görünüyordu.
+
+**Düzeltme:** `sw.ts`'e `activate` olayında `self.clients.claim()` eklendi. Yerel ortamda özenle doğrulandı: eski sürüm (clients.claim'siz) tam aktif edilip bir sayfaya kontrol ettirildi, sunucu yeni sürüme (clients.claim'li) geçirildi, sayfa TEK bir kez yenilendi (gerçek kullanıcının "kapat-aç"ını simüle ediyor) — ağ istek logları aynı oturum içinde KENDİLİĞİNDEN ikinci bir tam sayfa yüklemesi (`/`, JS, CSS, manifest, ikonlar tekrar fetch edildi) olduğunu gösterdi; yani artık tek kapat-aç yeterli, elle ikinci bir yenilemeye gerek yok.
+
+**Kullanıcıya söylenecek:** Bu düzeltmenin kendisi de bir SW güncellemesi olduğu için, kullanıcının cihazındaki MEVCUT (clients.claim'siz) sürüm üzerinden yayılacak — yani bu sefer düzeltmenin devreye girmesi için muhtemelen YİNE iki kapat-aç gerekebilir (bir kerelik geçiş maliyeti), ama bundan sonraki tüm güncellemeler tek kapat-aç ile (hatta bazen hiç kapatmadan, uygulama içindeyken bile) kendiliğinden tamamlanacak.
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
