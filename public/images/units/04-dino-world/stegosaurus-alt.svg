@@ -1,0 +1,16 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="4" width="192" height="192" rx="32" fill="#3a7d78"/>
+  <g transform="scale(-1,1) translate(-200,0)">
+    <path d="M160 156 Q182 148 184 164 Q186 176 168 172 Z" fill="#20504c"/>
+    <ellipse cx="104" cy="146" rx="68" ry="28" fill="#2a6a65"/>
+    <circle cx="40" cy="140" r="24" fill="#2a6a65"/>
+    <g fill="#20504c">
+      <polygon points="56,104 70,78 80,108"/>
+      <polygon points="88,100 100,72 110,104"/>
+      <polygon points="116,104 128,78 136,108"/>
+    </g>
+    <path d="M28 136 Q34 130 40 136" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <rect x="68" y="168" width="16" height="20" rx="7" fill="#2a6a65"/>
+    <rect x="128" y="168" width="16" height="20" rx="7" fill="#2a6a65"/>
+  </g>
+</svg>

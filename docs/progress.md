@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello! + Dino Colors 10 tur kullanıcı geri bildirimiyle olgunlaştı ve onaylandı. Aşama 8 (kalite kontrolü: Playwright test paketi + 2 bağımsız denetim + bulunan 7 sorunun düzeltilmesi) tamamlandı. **Ünite 3 (Animal Friends) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
+**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello!, Dino Colors ve Animal Friends (Ünite 1-3) kullanıcı tarafından Nehir'le denenip onaylandı. Aşama 8 (kalite kontrolü) tamamlandı. **Ünite 4 (Dino World) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
 
 **Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
@@ -113,6 +113,19 @@ Bu, 6. turdan beri ara ara yaşanan "tam kapat-aç bile bazen yetmiyor" şikayet
 
 **Doğrulandı (2026-10-17):** Kullanıcı iki kez kapat-aç yaptıktan sonra Ünite 3'ün göründüğünü ve açıldığını onayladı. Bu konu kapandı.
 
+## Ünite 4 (Dino World) — tamamlandı
+Kullanıcı "tekrar penceresi nedir" diye sordu (açıklandı), ardından "bu ünitede (Animal Friends) bir sorun görünmüyor" diyerek onayladı; "devam et" diyerek Ünite 4'e geçiş onayı verdi.
+
+- `content/units/04-dino-world.json`: 7 kelime (T-Rex, Triceratops, Stegosaurus, long-neck, flying dino, big, small — curriculum.md §1'deki tanım birebir). Özel noktalar: tür isimleri için Türkçe'de de aynı kelime kullanıldığından ("T-Rex'e de 'T-Rex' deriz" kalıbı, normal dative-case kalıbından farklı — gereksiz tekrar yerine doğal okunuyor); "big"/"small" soyut kavramlar olduğundan ikonlarla somutlaştırıldı (aşağı bkz.). `correct-answer` chunk'ı tüm 7 kelimeye uyacak tek bir kalıpla yazıldı: "It's a {word} dinosaur!" (tür isimleri için de, big/small için de doğru okunuyor). `games: ["listen-touch","drag-drop","record"]`, `dropZoneLabel: "Vadi"`.
+- 14 özgün SVG ikon: 5 tür arasında hem renk hem silüet (T-Rex'in çenesi/dişleri, Triceratops'un 3 boynuzu, Stegosaurus'un sırt plakaları, long-neck'in uzun boynu, flying dino'nun kanatları) belirgin ayrıştırıldı. **big/small için özel çözüm:** aynı jenerik dinozor şekli iki farklı ölçekte çizildi — "big" kareyi dolduracak/taşacak kadar büyük, "small" geniş boş alan içinde küçük bir figür (negatif alan kullanımı) — ikisi yan yana net bir boyut karşıtlığı oluşturuyor.
+- 30 satır ses üretildi (~$0.02, kullanıcı onayıyla).
+- Canlı tarayıcıda uçtan uca doğrulandı (tüm 7 kelime için dinle-dokun + gerçek sürükle-bırak + kaydet-dinle + tanıtma/kapanış chunk'ları), hiç konsol hatası yok.
+
+### Bulunan ve düzeltilen kritik regresyon: SW `clients.claim()` ilk ziyarette sahte "güncelleme" tetikliyordu
+Ünite 4 sonrası Playwright e2e paketi (Chromium) çalıştırılınca 5 testin 5'i de, oyunun ortasında aniden başlangıç ekranına dönerek başarısız oldu. Kök neden araştırıldı (`console.time` ile iç zamanlama ölçüldü, Playwright konsol logları yakalandı): bir önceki turda eklenen `self.clients.claim()`, **ilk hiç ziyaret edilmemiş bir sayfada da** (henüz hiçbir worker kontrol etmiyorken) devreye giriyor ve `controllerchange` ateşliyordu — bu GERÇEK bir güncelleme değil, sadece normal ilk kurulum. `sw-register.ts` bunu ayırt etmediği için, içerik büyüdükçe (Ünite 4 ile önbellek 163→207 girdiye çıktı) ilk ziyarette önbellekleme süren uzadıkça, bu "sahte güncelleme" kullanıcı oyunun ortasındayken rastgele bir anda sayfayı sıfırlayabiliyordu.
+
+**Düzeltme:** `sw-register.ts`'e sayfa yüklenirken `navigator.serviceWorker.controller`'ın o an dolu olup olmadığı kaydediliyor (`hadControllerBeforeLoad`). İlk `controllerchange` bu değer `false`'sa (yani bu, önceden hiçbir worker'ın kontrol etmediği bir sayfanın ilk kez ele geçirilmesiyse) sessizce yok sayılıyor, yeniden yükleme tetiklenmiyor — sadece SONRAKİ (gerçekten eski bir worker'ın yerini alan) `controllerchange` olayları güvenli-ekran kontrolüyle yeniden yüklemeyi tetikliyor. Playwright'ta art arda 2 kez 5/5 doğrulandı.
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
@@ -156,9 +169,10 @@ Bu, 6. turdan beri ara ara yaşanan "tam kapat-aç bile bazen yetmiyor" şikayet
 MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors ve **Animal Friends (Ünite 3)** üçünü de Nehir'le deneyip onayladı (2026-10-17: "bu ünitede bir sorun görünmüyor"). `npm run build`/`npm run test` temiz geçiyor.
 
 ## Sıradaki adımlar
-1. Kullanıcıdan **Ünite 4'e (Dino World, `curriculum.md` §1) geçiş onayı** al.
-2. Onay gelirse aynı süreçle (drag-drop/chunk/placement şeması zaten ünite-bağımsız, kod değişikliği gerekmez) içerik+ikon+ses üret, test et, canlıya al.
-3. Bu dosyayı sık güncellemeye devam et.
+1. **Kullanıcının Ünite 4'ü (Dino World) Nehir'le denemesini ve geri bildirimini bekle** — prompt Bölüm 7 kuralı: onay olmadan Ünite 5'e geçilmeyecek.
+2. Geri bildirim gelince: bulunan sorunları değerlendirip düzelt.
+3. Onay gelirse `curriculum.md` §1'deki sıradaki ünite (Ünite 5: Count the Rockets!) ile devam et.
+4. Bu dosyayı sık güncellemeye devam et.
 
 ## Bekleyen sorular
 _(şu an yok — GitHub repo adı/görünürlüğü dahil tüm açık sorular yanıtlandı)_

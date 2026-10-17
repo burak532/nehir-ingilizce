@@ -1,0 +1,100 @@
+{
+  "id": "04-dino-world",
+  "titleEn": "Dino World",
+  "mapRegion": "dino-valley",
+  "words": [
+    {
+      "id": "trex",
+      "en": "T-Rex",
+      "tr": "T-Rex",
+      "image": "units/04-dino-world/trex.svg",
+      "imageVariants": ["units/04-dino-world/trex.svg", "units/04-dino-world/trex-alt.svg"],
+      "audioEn": "en/04-dino-world/trex.mp3",
+      "introTr": "Bu bir T-Rex. İngilizce'de de 'T-Rex' deriz."
+    },
+    {
+      "id": "triceratops",
+      "en": "Triceratops",
+      "tr": "Triceratops",
+      "image": "units/04-dino-world/triceratops.svg",
+      "imageVariants": ["units/04-dino-world/triceratops.svg", "units/04-dino-world/triceratops-alt.svg"],
+      "audioEn": "en/04-dino-world/triceratops.mp3",
+      "introTr": "Bu bir Triceratops. İngilizce'de de 'Triceratops' deriz."
+    },
+    {
+      "id": "stegosaurus",
+      "en": "Stegosaurus",
+      "tr": "Stegosaurus",
+      "image": "units/04-dino-world/stegosaurus.svg",
+      "imageVariants": ["units/04-dino-world/stegosaurus.svg", "units/04-dino-world/stegosaurus-alt.svg"],
+      "audioEn": "en/04-dino-world/stegosaurus.mp3",
+      "introTr": "Bu bir Stegosaurus. İngilizce'de de 'Stegosaurus' deriz."
+    },
+    {
+      "id": "long-neck",
+      "en": "long-neck",
+      "tr": "uzun boyunlu dinozor",
+      "image": "units/04-dino-world/long-neck.svg",
+      "imageVariants": ["units/04-dino-world/long-neck.svg", "units/04-dino-world/long-neck-alt.svg"],
+      "audioEn": "en/04-dino-world/long-neck.mp3",
+      "introTr": "Bu uzun boyunlu bir dinozor. İngilizce'de ona 'long-neck' deriz."
+    },
+    {
+      "id": "flying-dino",
+      "en": "flying dino",
+      "tr": "uçan dinozor",
+      "image": "units/04-dino-world/flying-dino.svg",
+      "imageVariants": ["units/04-dino-world/flying-dino.svg", "units/04-dino-world/flying-dino-alt.svg"],
+      "audioEn": "en/04-dino-world/flying-dino.mp3",
+      "introTr": "Bu uçan bir dinozor. İngilizce'de ona 'flying dino' deriz."
+    },
+    {
+      "id": "big",
+      "en": "big",
+      "tr": "büyük",
+      "image": "units/04-dino-world/big.svg",
+      "imageVariants": ["units/04-dino-world/big.svg", "units/04-dino-world/big-alt.svg"],
+      "audioEn": "en/04-dino-world/big.mp3",
+      "introTr": "Bu dinozor çok büyük. İngilizce'de büyüğe 'big' deriz."
+    },
+    {
+      "id": "small",
+      "en": "small",
+      "tr": "küçük",
+      "image": "units/04-dino-world/small.svg",
+      "imageVariants": ["units/04-dino-world/small.svg", "units/04-dino-world/small-alt.svg"],
+      "audioEn": "en/04-dino-world/small.mp3",
+      "introTr": "Bu dinozor çok küçük. İngilizce'de küçüğe 'small' deriz."
+    }
+  ],
+  "chunks": [
+    {
+      "id": "welcome-dino-world",
+      "en": "Welcome to Dino World!",
+      "audioEn": "en/04-dino-world/welcome-dino-world.mp3",
+      "placement": "intro"
+    },
+    {
+      "id": "bye-dinos",
+      "en": "Bye-bye, dinosaurs!",
+      "audioEn": "en/04-dino-world/bye-dinos.mp3",
+      "placement": "closing"
+    },
+    {
+      "id": "its-a-dino",
+      "en": "It's a {word} dinosaur!",
+      "audioEn": "en/04-dino-world/its-a-{wordId}.mp3",
+      "template": true,
+      "placement": "correct-answer"
+    },
+    {
+      "id": "put-dino",
+      "en": "Put the {word} dinosaur here!",
+      "audioEn": "en/04-dino-world/put-dino-{wordId}.mp3",
+      "template": true,
+      "placement": "drop-target"
+    }
+  ],
+  "games": ["listen-touch", "drag-drop", "record"],
+  "dropZoneLabel": "Vadi"
+}

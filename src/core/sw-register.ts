@@ -21,6 +21,14 @@ export function registerServiceWorker(): void {
     const swUrl = `${import.meta.env.BASE_URL}sw.js`;
     let updateReady = false;
     let refreshing = false;
+    // İlk hiç ziyaret edilmemiş bir sayfada (henüz hiçbir worker kontrol etmiyorken)
+    // clients.claim() ilk kez devreye girdiğinde de controllerchange ateşlenir —
+    // bu GERÇEK bir güncelleme değil, sadece normal ilk kurulumdur. Bunu "zaten
+    // kontrol eden bir worker'ı DEĞİŞTİRME" olaylarından ayırt etmezsek, özellikle
+    // ilk ziyarette önbellekleme (precache) uzun sürdüğünde — ki her yeni ünite
+    // eklendikçe büyüyor — kullanıcı oyun ortasındayken bu "sahte güncelleme"
+    // sayfayı aniden sıfırlayabilir (bkz. kalite denetimi testlerinde bulundu).
+    let hadControllerBeforeLoad = Boolean(navigator.serviceWorker.controller);
 
     const reloadIfSafeScreen = (): void => {
       if (!updateReady || refreshing) return;
@@ -51,6 +59,13 @@ export function registerServiceWorker(): void {
     });
 
     navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (!hadControllerBeforeLoad) {
+        // İlk kez kontrol ele alınıyor (ör. clients.claim ile) — gerçek bir
+        // güncelleme değil, yeniden yüklemeye gerek yok. Bundan sonraki
+        // değişiklikler gerçek güncelleme sayılır.
+        hadControllerBeforeLoad = true;
+        return;
+      }
       updateReady = true;
       reloadIfSafeScreen();
     });

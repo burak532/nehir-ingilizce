@@ -1,0 +1,13 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="4" width="192" height="192" rx="32" fill="#8ecae6"/>
+  <g>
+    <path d="M100 110 Q40 70 14 92 Q50 108 92 122 Z" fill="#e8874a"/>
+    <path d="M100 110 Q160 70 186 92 Q150 108 108 122 Z" fill="#e8874a"/>
+    <ellipse cx="100" cy="122" rx="30" ry="22" fill="#f0975a"/>
+    <circle cx="118" cy="98" r="20" fill="#f0975a"/>
+    <path d="M110 76 Q118 58 128 76 Q122 80 116 80 Z" fill="#e8874a"/>
+    <polygon points="134,94 162,88 136,104" fill="#c95f26"/>
+    <circle cx="124" cy="92" r="5" fill="#1a1a1a"/>
+    <circle cx="126" cy="90" r="1.6" fill="#fff"/>
+  </g>
+</svg>
