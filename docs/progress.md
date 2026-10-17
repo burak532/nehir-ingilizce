@@ -72,6 +72,16 @@ Kullanıcı ebeveyn panelindeki "Türkçe destek düzeyi" ayarının tam olarak 
 ## 10. tur — "bye-bye" sesi "güle güle" demiyordu
 Kullanıcı (8. turdaki "Atla" düğmesi sayesinde artık her girişte tanıtma ekranını tekrar dinleyip tek tek kontrol edebiliyor) "güle güle demiyor, onun dışında sorun yok" diye bildirdi. Metin her zaman doğruydu ("Bu 'güle güle' demek."), ama muhtemel neden: TTS modelinin art arda gelen aynı kelimeyi ("güle güle" ikilemesi) bir tekrar/hata sanıp yutması. Cümle tırnaksız ve farklı bir kalıba çevrildi ("Ayrılırken Rex el sallar ve 'bye-bye' der. Türkçesi güle güle demektir."), ses yeniden üretildi — yeni dosyanın süresi belirgin şekilde uzadı (5.3sn → 6.8sn, benzer karakter sayısına rağmen), bu da iki kelimenin artık tam telaffuz edildiğine işaret ediyor (kesin doğrulama kullanıcının dinlemesiyle olacak).
 
+## Aşama 8 — Kalite kontrolü (başladı)
+Kullanıcı, Hello! ve Dino Colors ünitelerinin 10 turluk geri bildirim döngüsünden sonra "bu haliyle ok" onayını verdi — prompt Bölüm 7'nin "çocukla test edip onay almadan yeni ünite ekleme" şartı karşılandı. Kullanıcı sıradaki adım olarak **önce Aşama 8 kalite kontrolünü** (sonra Ünite 3: Animal Friends) seçti.
+
+- [x] Playwright + `@playwright/test` ile WebKit motoru kuruldu, `playwright.config.ts` iPad Pro 12,9" boyutuna (1366×1024, `hasTouch`) göre yapılandırıldı (prompt Bölüm 8).
+- [x] 4 uçtan uca test dosyası yazıldı (`tests/e2e/`): `hello-unit.spec.ts` (açılış→harita→tanıtma atla→dinle-dokun→TPR→kaydet-dinle→kapanış→haritada ilerleme), `dino-colors-unit.spec.ts` (aynısı + **gerçek dokunmatik sürükle-bırak** — doğru dinozor, `put-in-nest-<renk>.mp3` ağ isteğinden tespit ediliyor), `parent-panel.spec.ts` (3sn kilit, kısa dokunuş açmıyor, Türkçe destek sadece Açık/Kapalı, ayar kalıcı), `offline.spec.ts` (ilk ziyaretten sonra ağ tamamen kapalıyken uygulama + ses dosyası çalışıyor).
+- [x] İlk yazımda zamanlamaya dayalı (sabit `waitForTimeout`) bir round-geçiş varsayımı flaky çıktı (dinle-dokun'da ~%35 ihtimalle ekstra övgü sesi süreyi uzatıyor) — `tests/e2e/helpers.ts`'teki `advanceUntil()` ile "hedef ekran görünene kadar kısa aralıklarla ilk düğmeyi tıkla" desenine geçildi (zaten cevaplanmış bir tura tıklamak sessizce yok sayıldığı için fazladan tıklama zararsız) — Chromium'da art arda 2 kez 5/5 kararlı geçti.
+- [x] **Bulunan engel:** Playwright'ın gömülü WebKit ikili dosyası bu Mac'te (macOS 26.0) anında segfault veriyor — hem kararlı (1.64) hem en güncel "next" alpha derlemesiyle (webkit v2378) denendi, ikisi de çöktü. Aynı 4 test dosyası Chromium motoruyla doğrulandı (iki ayrı çalıştırmada 5/5 geçti) — test mantığının doğru olduğu kanıtlandı, sorun sadece bu host'taki WebKit ikilisinde. Kullanıcı kararı: **config WebKit hedefli bırakılacak** (projenin kendi kuralına uygun, gelecekte Playwright bu macOS sürümünü destekleyince çalışacak), şimdilik yerel WebKit koşumu yapılamıyor — manuel Chrome testleri (zaten her turda yapılıyor) devam ediyor.
+- [ ] Offline test (`offline.spec.ts`) Chromium'da doğrulandı; service worker'ın gerçek iPad Safari'sindeki offline davranışı ayrıca canlı sitede elle doğrulanmalı.
+- [ ] Kodu yazmamış 2 ayrı alt ajana denetim yaptırılacak: (1) `docs/curriculum.md`+`docs/research/evidence.md`'ye göre pedagojik değerlendirme, (2) 4 yaşındaki çocuk + ebeveyn gözünden kullanılabilirlik kontrolü (prompt Bölüm 8).
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
@@ -112,12 +122,12 @@ Kullanıcı (8. turdaki "Atla" düğmesi sayesinde artık her girişte tanıtma 
 - [x] **Aynı Wi-Fi'de Mac'ten dev sürümü deneme çalışmıyor** — kullanıcının iPad'inde (iPadOS 27) Safari `http://` adresleri otomatik `https://`'ye yükseltiyor, yerel Vite dev sunucusu düz HTTP olduğu için bağlantı hiç kurulamıyor (elle yazma, QR kod taratma denendi, hiçbiri çalışmadı — Mac tarafında istek bile görünmüyor). Kullanıcıyla karar: bunun yerine **push → ~1dk bekle → gerçek HTTPS sitesini iPad'de yenile** iş akışı kullanılacak. Yerel dev sunucusu durduruldu.
 
 ## Yarım kalan iş / tam olarak nerede kalındı
-MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. `npm run build`/`npm run test` temiz geçiyor. Henüz yapılmayanlar: Playwright uçtan uca testleri (Aşama 8 kalite kontrolü kapsamında), gerçek iPad'de Nehir ile deneme (Aşama 5).
+MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**, 10 tur kullanıcı geri bildirimiyle iyileştirildi, kullanıcı iki üniteyi onayladı. `npm run build`/`npm run test` temiz geçiyor. Aşama 8 (kalite kontrolü) sürüyor: Playwright uçtan uca testleri yazıldı ve Chromium'da doğrulandı (WebKit bu Mac'te şu an çalışmıyor — yukarıya bkz.), kodu yazmamış 2 alt ajan denetimi henüz yapılmadı.
 
 ## Sıradaki adımlar
-1. **Kullanıcının iPad'de Nehir ile denemesini ve geri bildirimini bekle** — prompt Bölüm 7: "Ben çocukla test edip geri bildirim vermeden yeni ünite ekleme" talimatına uygun, bu arada kapsam genişletilmeyecek.
-2. Geri bildirim gelince: bulunan sorunları değerlendirip düzelt, gerekirse curriculum.md/technical-plan.md kararlarını gözden geçir.
-3. Playwright WebKit/iPad boyutu uçtan uca testlerini yaz (Aşama 8 kalite kontrolü, geri bildirim sonrası ya da paralel yapılabilir).
+1. Kodu yazmamış 2 ayrı alt ajana denetim yaptır: (1) pedagojik değerlendirme (curriculum.md + evidence.md'ye göre), (2) 4 yaşındaki çocuk/ebeveyn gözünden kullanılabilirlik kontrolü.
+2. Bulunan sorunları değerlendirip düzelt, raporu kullanıcıya özetle.
+3. Aşama 8 tamamlanınca kullanıcıdan onay alıp **Ünite 3 (Animal Friends)** içerik üretimine geç — `curriculum.md` §1'de sırada.
 4. Bu dosyayı sık güncellemeye devam et.
 
 ## Bekleyen sorular
