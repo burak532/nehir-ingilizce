@@ -24,6 +24,14 @@ export function renderDragDrop(root: HTMLElement, unitId: string): void {
   const words = unit.words;
   let wordIndex = 0;
 
+  // Doğru bırakış sonrası, varsa ünitenin "correct-answer" kalıp ifadesi çalınır
+  // (ör. "It's red!") — kelimeler sadece izole değil, kalıp cümle içinde de
+  // duyulsun diye (bkz. kalite denetimi, evidence.md §2.4).
+  const correctAnswerChunk = unit.chunks.find((c) => c.placement === "correct-answer" && c.template);
+  const correctAnswerAudioPaths = correctAnswerChunk
+    ? words.map((w) => correctAnswerChunk.audioEn.replace("{wordId}", w.id))
+    : [];
+
   function isStillActive(): boolean {
     const current = store.getState().screen;
     return (
@@ -34,7 +42,7 @@ export function renderDragDrop(root: HTMLElement, unitId: string): void {
   root.innerHTML = `<p style="color:#fff; text-align:center; margin-top:2rem;">Yükleniyor...</p>`;
 
   void Promise.all([
-    audioManager.preload([...words.map((w) => w.audioEn), ...PRAISE_AUDIO_PATHS]),
+    audioManager.preload([...words.map((w) => w.audioEn), ...PRAISE_AUDIO_PATHS, ...correctAnswerAudioPaths]),
     shouldShowGameIntro()
   ]).then(([, { show }]) => {
     if (!isStillActive()) return;
@@ -125,6 +133,10 @@ export function renderDragDrop(root: HTMLElement, unitId: string): void {
           void (async () => {
             await new Promise((resolve) => window.setTimeout(resolve, 500));
             if (!isStillActive()) return;
+            if (correctAnswerChunk) {
+              await audioManager.play(correctAnswerChunk.audioEn.replace("{wordId}", correct.id));
+              if (!isStillActive()) return;
+            }
             if (Math.random() < 0.35) {
               await audioManager.play(pickRandomPraisePath());
               if (!isStillActive()) return;

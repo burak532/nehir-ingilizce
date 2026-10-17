@@ -99,11 +99,11 @@ Her ünite için: (a) ekranın köşesinde açılıp kapanabilen kısa bir Türk
 | How Do You Feel? | "Şu an nasıl hissettiğini İngilizce sorun." | Duygu yüzleri çizme/gösterme |
 | Let's Move! | "Komutları birlikte yapın: Jump! Run!" | Ev içinde basit hareket oyunu |
 
-## 8. Talimat dili: kademeli azalan Türkçe destek (fading)
+## 8. Talimat dili: Türkçe destek (güncel davranış — bkz. not)
 
-- **Kural (prompt'taki örnek benimsendi):** Bir oyun tipi ilk kez geldiğinde kısa Türkçe açıklama gösterilir. **Aynı oyun tipi 3 kez başarıyla oynandıktan sonra** o oyun tipi için Türkçe açıklama kalkar, sadece İngilizce + görsel kalır.
-- Hedef kelimeler ve oyun içi talimatlar her zaman İngilizce'dir; sadece "nasıl oynanır" açıklaması Türkçe'den İngilizce'ye geçer.
-- **Önemli not (bkz. Bölüm 12):** Bu "3 kez" eşiği literatürde doğrulanmış bir sayı değil — `evidence.md` §6'da belirtildiği gibi, kademeli azaltmanın kesin zamanlaması için 4 yaş L2 bağlamında test edilmiş bir çalışma bulunamadı. Bu nedenle bu kural bir **hipotez** olarak uygulanmalı ve ebeveyn panelinden ayarlanabilir olmalı (prompt zaten bunu istiyor).
+- Hedef kelimeler ve oyun içi talimatlar her zaman İngilizce'dir; Türkçe sadece (a) ünite ilk kez/tekrar açıldığında kelime tanıtma ekranında, (b) her oyun tipine girişte kısa bir "nasıl oynanır" açıklamasında kullanılır.
+- **Ebeveyn paneli tek bir anahtar sunar: Açık / Kapalı.** Açıkken hem kelime tanıtma hem oyun-başı Türkçe açıklama **her girişte** (azalmadan) gösterilir; Kapalıyken ikisi de hiç gösterilmez. Her iki ekranda da bir "Atla" düğmesi var, istenirse anında geçilebilir.
+- **Önemli not — tasarım değişti (bkz. `docs/progress.md` 8-9. tur, `CLAUDE.md` karar günlüğü 2026-10-15):** Bu bölümün önceki sürümü "aynı oyun tipi 3 kez oynandıktan sonra Türkçe otomatik kalkar" diye bir kademeli azaltma (fading) kuralı tarif ediyordu. Gerçek kullanıcı testinde bu mekanizma iki soruna yol açtı: (1) sayaç ünite bazlı değil tüm üniteler için ortak ve global olduğu için, bir oyun tipi bir ünitede birkaç kez oynanınca diğer tüm ünitelerde de kalıcı olarak susuyordu; (2) kelime tanıtma ekranı bir kez görüldükten sonra bir daha hiç gösterilmiyordu, kullanıcı bunu tekrar dinlemek istediğinde yöntemi yoktu. Kullanıcı kararıyla otomatik azaltma tamamen kaldırıldı, yerine "her zaman göster + manuel Atla + tek Açık/Kapalı anahtarı" modeline geçildi. Zaten bu "3 kez" eşiği hiçbir zaman literatürle doğrulanmış bir sayı değildi (`evidence.md` §6) — bu değişiklik o açık hipotezi kapatıp daha basit, kullanıcı kontrollü bir modelle değiştiriyor.
 
 ## 9. Ses kaydı mekaniği
 

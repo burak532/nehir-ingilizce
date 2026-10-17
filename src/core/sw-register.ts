@@ -1,17 +1,33 @@
+import { store } from "./store";
+
 /**
- * Güncelleme akışı (bkz. docs/technical-plan.md §5). Geliştirme/iyileştirme süreci
- * boyunca güncellemenin güvenilir şekilde ulaşması, "oyun ortasında araya girmeme"
- * inceliğinden daha kritik çıktı (kullanıcı birden fazla kez eski sürümde takılı kaldı,
- * standart "tamamen kapat-aç" bile yetmedi) — bu yüzden yeni bir service worker
- * bulunduğunda HER ZAMAN hemen uygulanır (ekran ne olursa olsun), sayfa otomatik
- * yenilenir. İleride gerçek kullanım (Nehir oynarken) başladığında bu yaklaşım
- * gözden geçirilmeli.
+ * Güncelleme akışı (bkz. docs/technical-plan.md §5). Yeni bir service worker
+ * bulunduğunda hemen `SKIP_WAITING` ile aktif edilir (bu kısım sayfayı etkilemez,
+ * sadece arka planda yeni sürümü hazırlar) — önceki turlarda güncellemenin hiç
+ * ulaşmaması bununla çözüldü. Ama asıl sayfa yenilemesi (`location.reload()`)
+ * artık HER ekranda değil, yalnızca "güvenli" bir ekrandayken (başlangıç, harita,
+ * ebeveyn paneli, kapanış) uygulanıyor — kalite denetiminde hem oyun ortasında
+ * (tanıtma ekranında) hem de ekranın en başa (haritaya bile değil) dönmesi ciddi
+ * bir kesinti olarak işaretlendi. Güncelleme hazır olduğunda kullanıcı zaten sık
+ * sık bu güvenli ekranlara uğrar (her ünite dönüşü, her haritaya dönüş), bu yüzden
+ * teslimat güvenilirliği kaybolmadan kesinti önlenmiş olur.
  */
+const SAFE_SCREENS: ReadonlyArray<string> = ["start", "map", "parent", "closing"];
+
 export function registerServiceWorker(): void {
   if (!("serviceWorker" in navigator)) return;
 
   window.addEventListener("load", () => {
     const swUrl = `${import.meta.env.BASE_URL}sw.js`;
+    let updateReady = false;
+    let refreshing = false;
+
+    const reloadIfSafeScreen = (): void => {
+      if (!updateReady || refreshing) return;
+      if (!SAFE_SCREENS.includes(store.getState().screen.name)) return;
+      refreshing = true;
+      window.location.reload();
+    };
 
     navigator.serviceWorker.register(swUrl).then((registration) => {
       // Zaten bekleyen bir sürüm varsa (önceki ziyarette hiç uygulanmamışsa) hemen uygula.
@@ -34,11 +50,13 @@ export function registerServiceWorker(): void {
       void registration.update();
     });
 
-    let refreshing = false;
     navigator.serviceWorker.addEventListener("controllerchange", () => {
-      if (refreshing) return;
-      refreshing = true;
-      window.location.reload();
+      updateReady = true;
+      reloadIfSafeScreen();
     });
+
+    // Güncelleme hazır ama kullanıcı o an bir oyun/tanıtma ekranındaysa, bir
+    // sonraki güvenli ekrana geçişte (ör. ünite biter, haritaya döner) uygula.
+    store.subscribe(reloadIfSafeScreen);
   });
 }

@@ -30,9 +30,10 @@ export function renderWordIntro(root: HTMLElement, unitId: string): Cleanup {
 
   const trAudioPaths = unit.words.map((w) => `tr/${unitId}/${w.id}-intro.mp3`);
   const enAudioPaths = unit.words.map((w) => w.audioEn);
+  const introChunk = unit.chunks.find((c) => c.placement === "intro");
 
   void Promise.all([
-    audioManager.preload([...enAudioPaths, ...trAudioPaths]),
+    audioManager.preload([...enAudioPaths, ...trAudioPaths, ...(introChunk ? [introChunk.audioEn] : [])]),
     getSettings()
   ]).then(([, settings]) => {
     if (cancelled) return;
@@ -63,7 +64,12 @@ export function renderWordIntro(root: HTMLElement, unitId: string): Cleanup {
       </div>
     `;
 
+    let advanced = false;
     root.querySelector<HTMLButtonElement>("#next")?.addEventListener("click", () => {
+      // Çift dokunma koruması (bkz. kullanılabilirlik denetimi) — hızlı art arda
+      // tıklama bir kelimenin Türkçe/İngilizce sesini hiç duyurmadan atlamasın.
+      if (advanced) return;
+      advanced = true;
       index += 1;
       void showWord();
     });
@@ -71,6 +77,11 @@ export function renderWordIntro(root: HTMLElement, unitId: string): Cleanup {
     root.querySelector<HTMLButtonElement>("#skip")?.addEventListener("click", () => {
       void finish();
     });
+
+    if (myIndex === 0 && introChunk) {
+      await audioManager.play(introChunk.audioEn);
+      if (cancelled || index !== myIndex) return;
+    }
 
     await audioManager.play(trAudio);
     if (cancelled || index !== myIndex) return;

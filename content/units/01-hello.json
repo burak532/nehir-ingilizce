@@ -68,8 +68,8 @@
     }
   ],
   "chunks": [
-    { "id": "im-rex", "en": "Hello! I'm Rex!", "audioEn": "en/01-hello/im-rex.mp3" },
-    { "id": "see-you", "en": "Bye-bye! See you!", "audioEn": "en/01-hello/see-you.mp3" },
+    { "id": "im-rex", "en": "Hello! I'm Rex!", "audioEn": "en/01-hello/im-rex.mp3", "placement": "intro" },
+    { "id": "see-you", "en": "Bye-bye! See you!", "audioEn": "en/01-hello/see-you.mp3", "placement": "closing" },
     { "id": "thank-you-chunk", "en": "Thank you!", "audioEn": "en/01-hello/thank-you-chunk.mp3" }
   ],
   "games": ["listen-touch", "tpr", "record"]

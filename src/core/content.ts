@@ -10,11 +10,15 @@ export interface WordDef {
   introTr: string;
 }
 
+export type ChunkPlacement = "intro" | "closing" | "correct-answer";
+
 export interface ChunkDef {
   id: string;
   en: string;
   audioEn: string;
   template?: boolean;
+  /** Bu kalıp ifadenin otomatik çalınacağı yer (bkz. CLAUDE.md İçerik/veri yapısı). */
+  placement?: ChunkPlacement;
 }
 
 export interface UnitDef {

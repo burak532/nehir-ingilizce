@@ -11,7 +11,7 @@ export function nextAfterGame(unitId: string, currentGameType: GameType): Screen
   if (next) {
     return { name: "game", unitId, gameType: next };
   }
-  return { name: "closing" };
+  return { name: "closing", unitId };
 }
 
 export function shuffle<T>(items: T[]): T[] {

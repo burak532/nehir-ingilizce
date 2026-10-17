@@ -6,6 +6,10 @@ import { nextAfterGame } from "../core/game-flow";
 import type { Cleanup } from "../core/router";
 import { renderGameIntroOverlay, shouldShowGameIntro } from "../core/game-intro";
 
+/** İzin isteminin yanıtsız kaldığı (ne kabul ne red) durumda ekranda sonsuza
+ *  kadar takılı kalmamak için üst sınır (bkz. kullanılabilirlik denetimi). */
+const MIC_PERMISSION_TIMEOUT_MS = 7000;
+
 /**
  * Kaydet ve dinle: model ses önce çalar, çocuk mikrofona kaydeder, iki ses arka arkaya çalınır.
  * Puanlama/konuşma tanıma YOK (bkz. curriculum.md §9). İzin reddedilirse bu adım sessizce
@@ -26,7 +30,15 @@ export function renderRecord(root: HTMLElement, unitId: string): Cleanup {
   let recordedUrl: string | null = null;
 
   void audioManager.preload(words.map((w) => w.audioEn));
-  root.innerHTML = `<p style="color:#fff; text-align:center; margin-top:2rem;">Yükleniyor...</p>`;
+  root.innerHTML = `
+    <div style="position:relative; display:flex; align-items:center; justify-content:center; height:100%;">
+      <p style="color:#fff; text-align:center;">Yükleniyor...</p>
+      <button id="loading-skip" style="position:absolute; top:calc(env(safe-area-inset-top, 0px) + 12px); right:calc(env(safe-area-inset-right, 0px) + 12px); font-size:0.95rem; padding:0.6rem 1rem; border-radius:9999px; background:rgba(255,255,255,0.2); color:#fff; border:1px solid rgba(255,255,255,0.5);">Haritaya dön</button>
+    </div>
+  `;
+  root.querySelector<HTMLButtonElement>("#loading-skip")?.addEventListener("click", () => {
+    store.navigate({ name: "map" });
+  });
 
   function isStillActive(): boolean {
     const current = store.getState().screen;
@@ -41,8 +53,25 @@ export function renderRecord(root: HTMLElement, unitId: string): Cleanup {
   }
 
   async function ensureMicPermission(): Promise<void> {
+    // İzin istemi hiç yanıtlanmazsa (ebeveynin dikkati dağılırsa vb.) ekran
+    // süresiz donmasın diye zaman aşımı ile yarıştırılıyor — süre dolarsa
+    // izin reddedilmiş gibi davranılıp adım sessizce atlanır.
+    const permission = navigator.mediaDevices.getUserMedia({ audio: true });
+    const timeout = new Promise<"timeout">((resolve) => {
+      window.setTimeout(() => resolve("timeout"), MIC_PERMISSION_TIMEOUT_MS);
+    });
+
     try {
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const result = await Promise.race([permission, timeout]);
+      if (result === "timeout") {
+        micAvailable = false;
+        stream = null;
+        // Zaman aşımından SONRA izin verilirse (ebeveyn geç yanıtlarsa), akışı
+        // sessizce kapat — kullanılmayan bir mikrofon kaydı açık kalmasın.
+        void permission.then((lateStream) => lateStream.getTracks().forEach((t) => t.stop())).catch(() => undefined);
+        return;
+      }
+      stream = result;
     } catch {
       // İzin reddedildi/mikrofon yok — kaydet-dinle adımını sessizce atla.
       micAvailable = false;
@@ -118,7 +147,10 @@ export function renderRecord(root: HTMLElement, unitId: string): Cleanup {
       });
     }
 
+    let advanced = false;
     root.querySelector<HTMLButtonElement>("#next")?.addEventListener("click", () => {
+      if (advanced) return;
+      advanced = true;
       wordIndex += 1;
       renderWord();
     });

@@ -1,6 +1,15 @@
 import { store } from "./store";
+import { getUnit } from "./content";
+import { audioManager } from "../audio/audio-manager";
 
-export function renderClosingScreen(root: HTMLElement): void {
+export function renderClosingScreen(root: HTMLElement, unitId: string): void {
+  const closingChunk = getUnit(unitId)?.chunks.find((c) => c.placement === "closing");
+  if (closingChunk) {
+    void audioManager.preload([closingChunk.audioEn]).then(() => {
+      void audioManager.play(closingChunk.audioEn);
+    });
+  }
+
   root.innerHTML = `
     <div style="
       display:flex; flex-direction:column; align-items:center; justify-content:center;

@@ -6,9 +6,14 @@
     @keyframes wave { 0%,100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
     @media (prefers-reduced-motion: reduce) { .leave, .hand { animation: none; } }
   </style>
-  <rect x="4" y="4" width="192" height="192" rx="32" fill="#219ebc"/>
-  <path d="M20 150 Q100 170 180 150" stroke="#126782" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <rect x="4" y="4" width="192" height="192" rx="32" fill="#e07a3f"/>
+  <path d="M20 150 Q100 170 180 150" stroke="#a85426" stroke-width="10" fill="none" stroke-linecap="round"/>
   <circle cx="150" cy="56" r="13" fill="#ffd166" opacity="0.8"/>
+  <g stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.75">
+    <path d="M58 100 Q44 96 34 104"/>
+    <path d="M52 124 Q36 122 24 128"/>
+    <path d="M58 148 Q44 150 34 158"/>
+  </g>
   <g class="leave">
     <g class="hand" fill="#ffffff">
       <rect x="86" y="118" width="40" height="54" rx="16"/>

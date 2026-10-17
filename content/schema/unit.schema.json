@@ -43,6 +43,11 @@
           "template": {
             "type": "boolean",
             "description": "true ise 'en' ve 'audioEn' içindeki {word} yer tutucusu, her kelime için ayrı bir ses dosyasıyla üretim scriptinde doldurulur (bkz. CLAUDE.md İçerik/veri yapısı)."
+          },
+          "placement": {
+            "type": "string",
+            "enum": ["intro", "closing", "correct-answer"],
+            "description": "Bu kalıp ifadenin nerede otomatik çalınacağı: intro = tanıtma ekranı başında bir kez, closing = kapanış ekranında, correct-answer = dinle-dokun/sürükle-bırak'ta doğru cevap sonrası (template olmalı)."
           }
         }
       }

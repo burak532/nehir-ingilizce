@@ -81,7 +81,8 @@
       "id": "its-color",
       "en": "It's {word}!",
       "audioEn": "en/02-dino-colors/its-color-{wordId}.mp3",
-      "template": true
+      "template": true,
+      "placement": "correct-answer"
     },
     {
       "id": "i-like-color",
@@ -89,7 +90,12 @@
       "audioEn": "en/02-dino-colors/i-like-color-{wordId}.mp3",
       "template": true
     },
-    { "id": "what-color", "en": "What color is it?", "audioEn": "en/02-dino-colors/what-color.mp3" },
+    {
+      "id": "what-color",
+      "en": "What color is it?",
+      "audioEn": "en/02-dino-colors/what-color.mp3",
+      "placement": "intro"
+    },
     {
       "id": "put-in-nest",
       "en": "Put the {word} one in the nest!",

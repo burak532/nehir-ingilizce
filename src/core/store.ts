@@ -6,7 +6,8 @@ export type Screen =
   | { name: "unit-intro"; unitId: string }
   | { name: "word-intro"; unitId: string }
   | { name: "game"; unitId: string; gameType: GameType }
-  | { name: "closing" }
+  | { name: "review" }
+  | { name: "closing"; unitId: string }
   | { name: "parent" };
 
 interface AppState {

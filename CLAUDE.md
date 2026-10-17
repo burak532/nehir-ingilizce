@@ -47,10 +47,12 @@ Tam gereksinimler için `ingilizce-uygulama-prompt.md`'ye bakılmalı — bu dos
 
 | 2026-10-15 | **10. tur — "bye-bye" sesi "güle güle" demiyordu:** Muhtemel neden TTS'in ikileme kelimeyi ("güle güle") yutması. Cümle tırnaksız farklı kalıba çevrildi, ses yeniden üretildi — yeni süre belirgin uzadı (5.3→6.8sn) | `content/units/01-hello.json` |
 | 2026-10-17 | Kullanıcı Hello!+Dino Colors'ı onayladı, **Aşama 8 (kalite kontrolü)** başladı (Ünite 3'ten önce). Playwright+WebKit kuruldu, `tests/e2e/`'ye 4 uçtan uca test yazıldı (ana akış, gerçek sürükle-bırak, ebeveyn paneli, offline), Chromium'da 2× 5/5 doğrulandı. **Engel:** Playwright'ın WebKit ikilisi bu Mac'te (macOS 26.0) segfault veriyor (kararlı+en güncel alpha'da da); kullanıcı kararıyla config WebKit hedefli bırakıldı, testler bu ortamda henüz çalıştırılamıyor | `docs/progress.md` → "Aşama 8 — Kalite kontrolü" |
+| 2026-10-17 | **Aşama 8 — 2 bağımsız alt ajan denetimi (pedagojik + kullanılabilirlik) tamamlandı, kullanıcı "her şeyi şimdi yap" dedi, 7 madde uygulandı:** (1) word-intro "İleri" çift-dokunma kilidi, (2) record.ts mikrofon izni zaman aşımı+Atla düğmesi, (3) sw-register.ts reload'u artık sadece güvenli ekranda (start/map/parent/closing), (4) curriculum.md §8 gerçek Türkçe-destek davranışıyla güncellendi, (5) **aralıklı tekrar motoru aktif edildi** — yeni `src/games/review.ts` + harita "Tekrar" kartı, `isDue()` artık gerçekten kullanılıyor, (6) 6 kullanılmayan kalıp ifade (chunk) sesi yeni `placement` alanıyla (intro/closing/correct-answer) oyunlara bağlandı (yeni TTS gerekmedi), (7) red-dino rengi doygunlaştırıldı + bye-bye ikonu hello'dan belirgin ayrıştırıldı. `Screen` tipine `review` ve `closing.unitId` eklendi | `docs/progress.md` → "Aşama 8"; `docs/qa/pedagogical-audit.md`, `docs/qa/usability-audit.md` |
 
 ## Bilinen açık konular (bkz. `docs/progress.md` → "Bekleyen sorular")
 - Playwright testleri yazıldı ama bu Mac'te (macOS 26.0) WebKit segfault verdiği için henüz çalıştırılamıyor — Playwright güncellemesi bekleniyor, bkz. "Aşama 8" bölümü.
-- Kodu yazmamış 2 alt ajan denetimi (pedagojik + kullanılabilirlik, prompt Bölüm 8) henüz yapılmadı.
+- `thank-you-chunk` ve `i-like-color` kalıp ifadeleri hâlâ hiçbir ekranda çalınmıyor — doğal bir yerleşim bulunamadı, ileride değerlendirilebilir.
+- Aralıklı tekrar "Tekrar" ekranı sahte (manipüle edilmiş) tarihli kayıtlarla doğrulandı; gerçek çok-günlük kullanımla henüz doğrulanmadı.
 - **Ders 1:** Ses/zamanlama içeren bir düzeltme yaparken, varsayılan gecikme süreleri yerine gerçek ses dosyası sürelerini (`afinfo dosya.mp3`) ölçüp ona göre kodla — tahmini sabit gecikmeler (1800ms gibi) gerçek içerik süresiyle uyuşmayabiliyor.
 - **Ders 2:** "Kullanıcı bunu zaten gördü/yaptı" türü kalıcı (IndexedDB) bayraklar, ilgili İÇERİK sonradan düzeltildiğinde eski kullanıcıları sonsuza dek eski haliyle kilitleyebilir. Böyle bayrakları boolean değil, içerik hash'i/versiyonu ile karşılaştır (bkz. `unitsIntroducedHash`) — içerik her değiştiğinde otomatik geçersiz olsun, elle sıfırlamaya güvenilmesin.
 
@@ -69,7 +71,9 @@ Chrome'da doğrulandı: hem `<img>` hem `<object>` ile embed edilen SVG'lerde CS
 - Üniteler `content/units/NN-slug.json` dosyalarında tutulur, kod değişmeden yeni ünite eklenir. Şema ve örnek: `docs/technical-plan.md` §3.
 - Ses dosyaları: `public/audio/en/<unitId>/<wordId>.mp3`, `public/audio/tr/<lineId>.mp3`; üretim/önbellekleme kontratı `docs/technical-plan.md` §4.
 - İlerleme/ölçüm verisi IndexedDB object store'ları (`trials`, `wordProgress`, `sessions`, `parentObservations`, `settings`) — şema: `docs/technical-plan.md` §6.
-- **Türkçe destek akışı (`src/map/word-intro.ts`, `src/core/game-intro.ts`):** Ünite ilk kez açıldığında "tanıtma" ekranı her kelimenin `introTr` metnini/sesini gösterir (`settings.unitsIntroduced` ile bir kez). Her oyun tipi `settings.gamePlaysCount[gameType] < turkishFadeThresholdPlays` olduğu sürece başlamadan önce Türkçe "nasıl oynanır" açıklaması gösterir (`game-intro.ts` içindeki `INSTRUCTIONS_TR`). Yeni bir oyun tipi eklenirse bu map'e satır eklemeyi unutma.
+- **Türkçe destek akışı (`src/map/word-intro.ts`, `src/core/game-intro.ts`):** Tek ayar — `settings.turkishSupportLevel: "full" | "off"` (ebeveyn panelinde "Açık"/"Kapalı"). Açıkken "tanıtma" ekranı (her kelimenin `introTr` metni/sesi) ve her oyun tipinin "nasıl oynanır" açıklaması **her girişte** gösterilir (otomatik azalma YOK — bu kasıtlı bir tasarım kararı, bkz. `docs/curriculum.md` §8), her ikisinde de "Atla" düğmesiyle anında geçilebilir. Yeni bir oyun tipi eklenirse `game-intro.ts`'teki `INSTRUCTIONS_TR` map'ine satır eklemeyi unutma.
+- **Kalıp ifade (chunk) yerleşimi:** `ChunkDef.placement` alanı (`"intro" | "closing" | "correct-answer"`) bir chunk'ın otomatik nerede çalınacağını belirtir — `intro` tanıtma ekranı başında bir kez, `closing` kapanış ekranında, `correct-answer` (template olmalı) dinle-dokun/sürükle-bırak'ta doğru cevap sonrası `{wordId}` yerine geçerli kelime konularak çalınır. Yerleştirilmemiş chunk'lar sessizce kullanılmaz — yeni chunk eklerken bir `placement` vermeyi unutma, yoksa üretilen ses boşa gider.
+- **Aralıklı tekrar (`src/games/review.ts`):** Haritadaki "🔁 Tekrar" kartı `spaced-repetition.ts`'deki `isDue()` ile vadesi gelen kelimeleri ünitelerarası karıştırıp sorar; `applyTrialResult` çağrısı `gameType: "listen-touch"` ile loglanır (ayrı bir GameType eklenmedi). Düzenli (per-unit) oyunlar hâlâ ünitenin tüm kelimelerini her zaman gösterir — "due" filtrelemesi sadece bu ekranda uygulanıyor.
 - **Yeni ünite eklemenin adımları:** (1) `content/units/` altına yeni JSON dosyası ekle, şemaya uy; (2) görselleri/ses referanslarını JSON'da tanımla; (3) `tools/generate_audio` ile sesleri üret; (4) haritada bölge/sıra ata; kod dosyalarına dokunulmaz.
 - **Ses üretim hattı (`tools/generate_audio/generate.mjs`):**
   - `npm run audio:cost` — API çağrısı yapmadan toplam satır/karakter/tahmini maliyeti gösterir.
@@ -84,13 +88,13 @@ nehir/
 ├── CLAUDE.md                     # bu dosya
 ├── ingilizce-uygulama-prompt.md  # orijinal süreç talimatı
 ├── .env                          # OPENAI_API_KEY (gitignore'da, commit edilmez)
-├── package.json / vite.config.ts / vitest.config.ts / tsconfig.json
+├── package.json / vite.config.ts / vitest.config.ts / tsconfig.json / playwright.config.ts
 ├── index.html
 ├── src/
 │   ├── main.ts, style.css
 │   ├── core/                     # store, router, content loader, aralıklı tekrar, ses kaydı/tarih, sw-register
 │   ├── audio/                    # AudioContext unlock + preload
-│   ├── games/                    # listen-touch, tpr, drag-drop, record
+│   ├── games/                    # listen-touch, tpr, drag-drop, record, review (aralıklı tekrar)
 │   ├── map/                      # harita + ünite giriş ekranı
 │   ├── parent/                   # ebeveyn paneli + kilit
 │   ├── data/                     # IndexedDB katmanı, CSV export
@@ -98,14 +102,16 @@ nehir/
 ├── content/
 │   ├── schema/unit.schema.json
 │   ├── units/01-hello.json, 02-dino-colors.json
-│   └── shared/tpr.json
+│   └── shared/tpr.json, praise.json
 ├── public/
 │   ├── images/units/...           # özgün SVG illüstrasyonlar
 │   ├── icons/                     # PWA app ikonları
-│   └── audio/                     # TTS çıktısı (henüz üretilmedi)
+│   └── audio/                     # TTS çıktısı
 ├── tools/generate_audio/generate.mjs
 ├── tests/unit/                    # Vitest
+├── tests/e2e/                     # Playwright (WebKit + iPad boyutu — bkz. "Bilinen açık konular")
 └── docs/
     ├── progress.md, curriculum.md, technical-plan.md
-    └── research/evidence.md, prior-art.md, technical.md
+    ├── research/evidence.md, prior-art.md, technical.md
+    └── qa/pedagogical-audit.md, usability-audit.md    # Aşama 8 bağımsız denetim raporları
 ```

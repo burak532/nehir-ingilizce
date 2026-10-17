@@ -7,6 +7,7 @@ import { renderListenTouch } from "../games/listen-touch";
 import { renderTpr } from "../games/tpr";
 import { renderDragDrop } from "../games/drag-drop";
 import { renderRecord } from "../games/record";
+import { renderReview } from "../games/review";
 import { renderClosingScreen } from "./closing-screen";
 import { renderParentPanel } from "../parent/parent-panel";
 
@@ -54,8 +55,11 @@ export function startRouter(root: HTMLElement): void {
             break;
         }
         break;
+      case "review":
+        result = renderReview(root);
+        break;
       case "closing":
-        result = renderClosingScreen(root);
+        result = renderClosingScreen(root, screen.unitId);
         break;
       case "parent":
         result = renderParentPanel(root);
