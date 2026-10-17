@@ -46,8 +46,8 @@
           },
           "placement": {
             "type": "string",
-            "enum": ["intro", "closing", "correct-answer"],
-            "description": "Bu kalıp ifadenin nerede otomatik çalınacağı: intro = tanıtma ekranı başında bir kez, closing = kapanış ekranında, correct-answer = dinle-dokun/sürükle-bırak'ta doğru cevap sonrası (template olmalı)."
+            "enum": ["intro", "closing", "correct-answer", "drop-target"],
+            "description": "Bu kalıp ifadenin nerede otomatik çalınacağı: intro = tanıtma ekranı başında bir kez, closing = kapanış ekranında, correct-answer = dinle-dokun/sürükle-bırak'ta doğru cevap sonrası, drop-target = sürükle-bırak turu başında yönerge olarak (ikisi de template olmalı)."
           }
         }
       }
@@ -58,6 +58,10 @@
         "type": "string",
         "enum": ["listen-touch", "tpr", "drag-drop", "record"]
       }
+    },
+    "dropZoneLabel": {
+      "type": "string",
+      "description": "Sürükle-bırak oyunundaki bırakma hedefinin Türkçe etiketi (ör. 'Yuva', 'Çiftlik') — unutulursa 'Hedef' kullanılır."
     }
   }
 }

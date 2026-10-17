@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Aşama 4 (MVP) GitHub Pages'te canlı: https://burak532.github.io/nehir-ingilizce/** Kullanıcı beş tur geri bildirim verdi, beşi de düzeltildi/eklendi ve push edildi (aşağıda). Kullanıcının son düzeltmeleri iPad'de yeniden denemesi bekleniyor; Aşama 5'e (Playwright testleri, iyileştirme) henüz geçilmedi.
+**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello! + Dino Colors 10 tur kullanıcı geri bildirimiyle olgunlaştı ve onaylandı. Aşama 8 (kalite kontrolü: Playwright test paketi + 2 bağımsız denetim + bulunan 7 sorunun düzeltilmesi) tamamlandı. **Ünite 3 (Animal Friends) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
 
 **Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
@@ -90,6 +90,16 @@ Kullanıcı, Hello! ve Dino Colors ünitelerinin 10 turluk geri bildirim döngü
   7. **Kozmetik:** `red-dino.svg`/`red-dino-alt.svg` daha doygun bir kırmızıya (`#e76f51`→`#e63946`) çevrildi (orange ile karışıyordu). `bye-bye.svg`/`bye-bye-alt.svg` arka planı sıcak turuncuya çevrildi + hareket çizgileri eklendi (hello ile neredeyse aynı görünüyordu).
 - Store'un `Screen` tipine `{name:"review"}` ve `{name:"closing", unitId}` eklendi (kapanış ekranı artık hangi ünitenin bittiğini biliyor, closing-chunk'ı bulabiliyor için gerekliydi).
 
+## Ünite 3 (Animal Friends) — tamamlandı
+Kullanıcı "Ünite 3'ü yap, Nehir'le denensin" dedi. Önce prompt Bölüm 7'nin "çocukla test edip onay almadan yeni ünite ekleme" şartına uygun olarak Aşama 8 bitirildi, sonra:
+
+- **Önce bir mimari borç ödendi:** `src/games/drag-drop.ts` Dino Colors'a sabitlenmişti (yuva görseli/etiketi, ses yolu `en/02-dino-colors/...` literal olarak kod içine gömülüydü — yeni bir ünite bu oyunu kullanmak isteseydi kod değişikliği gerekirdi, bu da "yeni ünite kod değişikliği gerektirmez" ilkesini bozuyordu). `ChunkDef.placement`'a `"drop-target"` eklendi, `UnitDef.dropZoneLabel?` eklendi; drag-drop.ts artık tamamen içerikten besleniyor. `02-dino-colors.json`'a `dropZoneLabel: "Yuva"` ve `put-in-nest` chunk'ına `placement: "drop-target"` eklenerek geriye dönük uyumluluk korundu (regresyon olmadığı Playwright e2e testiyle doğrulandı). Oyun-başı Türkçe yönerge metni de ünite-bağımsız hale getirildi ("...yuvaya bırak!" → "...hedefe bırak!").
+- `content/units/03-animal-friends.json`: 8 kelime (dog/cat/bird/fish/cow/duck/pig/frog), 7-10. tur netlik kalıbıyla (`"Bu bir X. İngilizce'de X'e 'en' deriz."`) introTr, `intro`/`closing`/`correct-answer`/`drop-target` placement'lı 4 chunk, `games: ["listen-touch","drag-drop","record"]`, `dropZoneLabel: "Çiftlik"`.
+- 16 özgün SVG ikon (8 kelime × 2 varyant) — hello/bye-bye dersine uygun olarak her hayvan hem renk hem siluet olarak birbirinden belirgin ayrıştırıldı (kulak şekli, gaga, leke deseni vb.).
+- 34 satır ses üretildi (~$0.01, kullanıcı onayıyla).
+- Canlı tarayıcıda uçtan uca doğrulandı: tanıtma (intro chunk `lets-meet.mp3` çalıyor) → dinle-dokun (8 tur) → sürükle-bırak (8 tur, hepsi ağ isteğinden doğru hedef tespit edilip gerçek sürükleme ile test edildi, "Çiftlik" etiketi doğru görünüyor) → kaydet-dinle → kapanış (`bye-animals.mp3` çalıyor) → haritaya dönüş, ünite kartı otomatik belirdi.
+- `npx playwright test` (Chromium) ile tüm 5 eski test de tekrar çalıştırılıp regresyon olmadığı doğrulandı.
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
@@ -133,9 +143,9 @@ Kullanıcı, Hello! ve Dino Colors ünitelerinin 10 turluk geri bildirim döngü
 MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**, 10 tur kullanıcı geri bildirimiyle iyileştirildi, kullanıcı iki üniteyi onayladı. `npm run build`/`npm run test` temiz geçiyor. Aşama 8 (kalite kontrolü) sürüyor: Playwright uçtan uca testleri yazıldı ve Chromium'da doğrulandı (WebKit bu Mac'te şu an çalışmıyor — yukarıya bkz.), kodu yazmamış 2 alt ajan denetimi henüz yapılmadı.
 
 ## Sıradaki adımlar
-1. Kodu yazmamış 2 ayrı alt ajana denetim yaptır: (1) pedagojik değerlendirme (curriculum.md + evidence.md'ye göre), (2) 4 yaşındaki çocuk/ebeveyn gözünden kullanılabilirlik kontrolü.
-2. Bulunan sorunları değerlendirip düzelt, raporu kullanıcıya özetle.
-3. Aşama 8 tamamlanınca kullanıcıdan onay alıp **Ünite 3 (Animal Friends)** içerik üretimine geç — `curriculum.md` §1'de sırada.
+1. **Kullanıcının Ünite 3'ü (Animal Friends) Nehir'le denemesini ve geri bildirimini bekle** — prompt Bölüm 7 kuralı: onay olmadan Ünite 4'e geçilmeyecek.
+2. Geri bildirim gelince: bulunan sorunları değerlendirip düzelt.
+3. Onay gelirse `curriculum.md` §1'deki sıradaki ünite (Ünite 4: Dino World) ile devam et.
 4. Bu dosyayı sık güncellemeye devam et.
 
 ## Bekleyen sorular

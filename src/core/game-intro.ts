@@ -10,7 +10,7 @@ import type { SettingsRecord } from "../data/types";
 const INSTRUCTIONS_TR: Record<GameType, string> = {
   "listen-touch": "Dinle, sonra duyduğun kelimeye uyan resme dokun!",
   tpr: "Komutu dinle, hareketi yap, sonra 'Yaptım!' butonuna bas.",
-  "drag-drop": "Doğru olanı parmağınla sürükleyip yuvaya bırak!",
+  "drag-drop": "Doğru olanı parmağınla sürükle, hedefe bırak!",
   record: "Önce dinle, sonra mikrofona basıp kendi sesini kaydet."
 };
 

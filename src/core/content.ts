@@ -10,7 +10,7 @@ export interface WordDef {
   introTr: string;
 }
 
-export type ChunkPlacement = "intro" | "closing" | "correct-answer";
+export type ChunkPlacement = "intro" | "closing" | "correct-answer" | "drop-target";
 
 export interface ChunkDef {
   id: string;
@@ -28,6 +28,8 @@ export interface UnitDef {
   words: WordDef[];
   chunks: ChunkDef[];
   games: GameType[];
+  /** Sürükle-bırak oyunundaki bırakma hedefinin Türkçe etiketi (ör. "Yuva", "Çiftlik"). */
+  dropZoneLabel?: string;
 }
 
 // Yeni ünite eklemek için content/units/ altına JSON dosyası eklemek yeterlidir

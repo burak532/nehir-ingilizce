@@ -100,8 +100,10 @@
       "id": "put-in-nest",
       "en": "Put the {word} one in the nest!",
       "audioEn": "en/02-dino-colors/put-in-nest-{wordId}.mp3",
-      "template": true
+      "template": true,
+      "placement": "drop-target"
     }
   ],
-  "games": ["listen-touch", "drag-drop", "record"]
+  "games": ["listen-touch", "drag-drop", "record"],
+  "dropZoneLabel": "Yuva"
 }

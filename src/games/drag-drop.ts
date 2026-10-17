@@ -10,9 +10,12 @@ import { renderGameIntroOverlay, shouldShowGameIntro } from "../core/game-intro"
 import { pickRandomPraisePath, PRAISE_AUDIO_PATHS } from "../core/praise";
 
 /**
- * Sürükle-bırak: "Put the {renk} one in the nest!" — çocuk doğru renkteki dinozoru
- * yuvaya sürükler (bkz. curriculum.md Bölüm 11, Pointer Events deseni — technical-plan.md §2).
- * Cezasız hata: yanlış dinozor bırakılırsa yerine geri döner, ceza yok.
+ * Sürükle-bırak: çocuk doğru kelimeyi temsil eden parçayı bırakma hedefine sürükler
+ * (bkz. curriculum.md Bölüm 11, Pointer Events deseni — technical-plan.md §2).
+ * Ünite-bağımsız: yönerge sesi ünitenin "drop-target" kalıp ifadesinden, hedef etiketi
+ * `unit.dropZoneLabel`'den gelir — yeni bir ünite bu oyunu kullanmak isterse kod
+ * değişikliği gerekmez, sadece içerikte bu ikisini tanımlaması yeterli.
+ * Cezasız hata: yanlış parça bırakılırsa yerine geri döner, ceza yok.
  */
 export function renderDragDrop(root: HTMLElement, unitId: string): void {
   const unit = getUnit(unitId);
@@ -23,6 +26,7 @@ export function renderDragDrop(root: HTMLElement, unitId: string): void {
 
   const words = unit.words;
   let wordIndex = 0;
+  const dropZoneLabel = unit.dropZoneLabel ?? "Hedef";
 
   // Doğru bırakış sonrası, varsa ünitenin "correct-answer" kalıp ifadesi çalınır
   // (ör. "It's red!") — kelimeler sadece izole değil, kalıp cümle içinde de
@@ -31,6 +35,8 @@ export function renderDragDrop(root: HTMLElement, unitId: string): void {
   const correctAnswerAudioPaths = correctAnswerChunk
     ? words.map((w) => correctAnswerChunk.audioEn.replace("{wordId}", w.id))
     : [];
+
+  const dropTargetChunk = unit.chunks.find((c) => c.placement === "drop-target" && c.template);
 
   function isStillActive(): boolean {
     const current = store.getState().screen;
@@ -71,9 +77,9 @@ export function renderDragDrop(root: HTMLElement, unitId: string): void {
       <div style="position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2.5rem; padding:1.5rem 1rem; background:#3a6b35; overflow:hidden; box-sizing:border-box;">
         <div id="draggables" style="display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;"></div>
         <div id="nest" style="
-          width:180px; height:140px; border-radius:50% 50% 20% 20%; background:#8a5a2b;
+          width:180px; height:140px; border-radius:1.5rem; background:#8a5a2b;
           display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.1rem; text-align:center;
-        ">Yuva</div>
+        ">${dropZoneLabel}</div>
         <button id="replay" style="font-size:1.25rem; padding:0.75rem 1.5rem; border-radius:9999px; background:#ffb703; min-height:70px;">🔊 Tekrar dinle</button>
       </div>
     `;
@@ -89,13 +95,15 @@ export function renderDragDrop(root: HTMLElement, unitId: string): void {
       )
       .join("");
 
-    const instructionAudioPath = `en/02-dino-colors/put-in-nest-${correct.id}.mp3`;
-    void audioManager.preload([instructionAudioPath]).then(() => {
-      if (isStillActive()) audioManager.play(instructionAudioPath);
-    });
+    const instructionAudioPath = dropTargetChunk?.audioEn.replace("{wordId}", correct.id);
+    if (instructionAudioPath) {
+      void audioManager.preload([instructionAudioPath]).then(() => {
+        if (isStillActive()) audioManager.play(instructionAudioPath);
+      });
+    }
 
     root.querySelector<HTMLButtonElement>("#replay")?.addEventListener("click", () => {
-      audioManager.play(instructionAudioPath);
+      if (instructionAudioPath) audioManager.play(instructionAudioPath);
     });
 
     let answered = false;

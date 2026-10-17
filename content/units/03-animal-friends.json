@@ -1,0 +1,109 @@
+{
+  "id": "03-animal-friends",
+  "titleEn": "Animal Friends",
+  "mapRegion": "animal-forest",
+  "words": [
+    {
+      "id": "dog",
+      "en": "dog",
+      "tr": "köpek",
+      "image": "units/03-animal-friends/dog.svg",
+      "imageVariants": ["units/03-animal-friends/dog.svg", "units/03-animal-friends/dog-alt.svg"],
+      "audioEn": "en/03-animal-friends/dog.mp3",
+      "introTr": "Bu bir köpek. İngilizce'de köpeğe 'dog' deriz."
+    },
+    {
+      "id": "cat",
+      "en": "cat",
+      "tr": "kedi",
+      "image": "units/03-animal-friends/cat.svg",
+      "imageVariants": ["units/03-animal-friends/cat.svg", "units/03-animal-friends/cat-alt.svg"],
+      "audioEn": "en/03-animal-friends/cat.mp3",
+      "introTr": "Bu bir kedi. İngilizce'de kediye 'cat' deriz."
+    },
+    {
+      "id": "bird",
+      "en": "bird",
+      "tr": "kuş",
+      "image": "units/03-animal-friends/bird.svg",
+      "imageVariants": ["units/03-animal-friends/bird.svg", "units/03-animal-friends/bird-alt.svg"],
+      "audioEn": "en/03-animal-friends/bird.mp3",
+      "introTr": "Bu bir kuş. İngilizce'de kuşa 'bird' deriz."
+    },
+    {
+      "id": "fish",
+      "en": "fish",
+      "tr": "balık",
+      "image": "units/03-animal-friends/fish.svg",
+      "imageVariants": ["units/03-animal-friends/fish.svg", "units/03-animal-friends/fish-alt.svg"],
+      "audioEn": "en/03-animal-friends/fish.mp3",
+      "introTr": "Bu bir balık. İngilizce'de balığa 'fish' deriz."
+    },
+    {
+      "id": "cow",
+      "en": "cow",
+      "tr": "inek",
+      "image": "units/03-animal-friends/cow.svg",
+      "imageVariants": ["units/03-animal-friends/cow.svg", "units/03-animal-friends/cow-alt.svg"],
+      "audioEn": "en/03-animal-friends/cow.mp3",
+      "introTr": "Bu bir inek. İngilizce'de ineğe 'cow' deriz."
+    },
+    {
+      "id": "duck",
+      "en": "duck",
+      "tr": "ördek",
+      "image": "units/03-animal-friends/duck.svg",
+      "imageVariants": ["units/03-animal-friends/duck.svg", "units/03-animal-friends/duck-alt.svg"],
+      "audioEn": "en/03-animal-friends/duck.mp3",
+      "introTr": "Bu bir ördek. İngilizce'de ördeğe 'duck' deriz."
+    },
+    {
+      "id": "pig",
+      "en": "pig",
+      "tr": "domuz",
+      "image": "units/03-animal-friends/pig.svg",
+      "imageVariants": ["units/03-animal-friends/pig.svg", "units/03-animal-friends/pig-alt.svg"],
+      "audioEn": "en/03-animal-friends/pig.mp3",
+      "introTr": "Bu bir domuz. İngilizce'de domuza 'pig' deriz."
+    },
+    {
+      "id": "frog",
+      "en": "frog",
+      "tr": "kurbağa",
+      "image": "units/03-animal-friends/frog.svg",
+      "imageVariants": ["units/03-animal-friends/frog.svg", "units/03-animal-friends/frog-alt.svg"],
+      "audioEn": "en/03-animal-friends/frog.mp3",
+      "introTr": "Bu bir kurbağa. İngilizce'de kurbağaya 'frog' deriz."
+    }
+  ],
+  "chunks": [
+    {
+      "id": "lets-meet",
+      "en": "Let's meet the animals!",
+      "audioEn": "en/03-animal-friends/lets-meet.mp3",
+      "placement": "intro"
+    },
+    {
+      "id": "bye-animals",
+      "en": "Goodbye, animal friends!",
+      "audioEn": "en/03-animal-friends/bye-animals.mp3",
+      "placement": "closing"
+    },
+    {
+      "id": "i-see-a",
+      "en": "I see a {word}!",
+      "audioEn": "en/03-animal-friends/i-see-a-{wordId}.mp3",
+      "template": true,
+      "placement": "correct-answer"
+    },
+    {
+      "id": "put-in-farm",
+      "en": "Put the {word} in the farm!",
+      "audioEn": "en/03-animal-friends/put-in-farm-{wordId}.mp3",
+      "template": true,
+      "placement": "drop-target"
+    }
+  ],
+  "games": ["listen-touch", "drag-drop", "record"],
+  "dropZoneLabel": "Çiftlik"
+}
