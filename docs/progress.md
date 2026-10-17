@@ -111,6 +111,8 @@ Bu, 6. turdan beri ara ara yaşanan "tam kapat-aç bile bazen yetmiyor" şikayet
 
 **Kullanıcıya söylenecek:** Bu düzeltmenin kendisi de bir SW güncellemesi olduğu için, kullanıcının cihazındaki MEVCUT (clients.claim'siz) sürüm üzerinden yayılacak — yani bu sefer düzeltmenin devreye girmesi için muhtemelen YİNE iki kapat-aç gerekebilir (bir kerelik geçiş maliyeti), ama bundan sonraki tüm güncellemeler tek kapat-aç ile (hatta bazen hiç kapatmadan, uygulama içindeyken bile) kendiliğinden tamamlanacak.
 
+**Doğrulandı (2026-10-17):** Kullanıcı iki kez kapat-aç yaptıktan sonra Ünite 3'ün göründüğünü ve açıldığını onayladı. Bu konu kapandı.
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
