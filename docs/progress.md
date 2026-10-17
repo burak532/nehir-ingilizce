@@ -153,13 +153,12 @@ Bu, 6. turdan beri ara ara yaşanan "tam kapat-aç bile bazen yetmiyor" şikayet
 - [x] **Aynı Wi-Fi'de Mac'ten dev sürümü deneme çalışmıyor** — kullanıcının iPad'inde (iPadOS 27) Safari `http://` adresleri otomatik `https://`'ye yükseltiyor, yerel Vite dev sunucusu düz HTTP olduğu için bağlantı hiç kurulamıyor (elle yazma, QR kod taratma denendi, hiçbiri çalışmadı — Mac tarafında istek bile görünmüyor). Kullanıcıyla karar: bunun yerine **push → ~1dk bekle → gerçek HTTPS sitesini iPad'de yenile** iş akışı kullanılacak. Yerel dev sunucusu durduruldu.
 
 ## Yarım kalan iş / tam olarak nerede kalındı
-MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**, 10 tur kullanıcı geri bildirimiyle iyileştirildi, kullanıcı iki üniteyi onayladı. `npm run build`/`npm run test` temiz geçiyor. Aşama 8 (kalite kontrolü) sürüyor: Playwright uçtan uca testleri yazıldı ve Chromium'da doğrulandı (WebKit bu Mac'te şu an çalışmıyor — yukarıya bkz.), kodu yazmamış 2 alt ajan denetimi henüz yapılmadı.
+MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors ve **Animal Friends (Ünite 3)** üçünü de Nehir'le deneyip onayladı (2026-10-17: "bu ünitede bir sorun görünmüyor"). `npm run build`/`npm run test` temiz geçiyor.
 
 ## Sıradaki adımlar
-1. **Kullanıcının Ünite 3'ü (Animal Friends) Nehir'le denemesini ve geri bildirimini bekle** — prompt Bölüm 7 kuralı: onay olmadan Ünite 4'e geçilmeyecek.
-2. Geri bildirim gelince: bulunan sorunları değerlendirip düzelt.
-3. Onay gelirse `curriculum.md` §1'deki sıradaki ünite (Ünite 4: Dino World) ile devam et.
-4. Bu dosyayı sık güncellemeye devam et.
+1. Kullanıcıdan **Ünite 4'e (Dino World, `curriculum.md` §1) geçiş onayı** al.
+2. Onay gelirse aynı süreçle (drag-drop/chunk/placement şeması zaten ünite-bağımsız, kod değişikliği gerekmez) içerik+ikon+ses üret, test et, canlıya al.
+3. Bu dosyayı sık güncellemeye devam et.
 
 ## Bekleyen sorular
 _(şu an yok — GitHub repo adı/görünürlüğü dahil tüm açık sorular yanıtlandı)_
