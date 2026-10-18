@@ -1,0 +1,100 @@
+{
+  "id": "05-count-rockets",
+  "titleEn": "Count the Rockets!",
+  "mapRegion": "rocket-sky",
+  "words": [
+    {
+      "id": "one",
+      "en": "one",
+      "tr": "bir",
+      "image": "units/05-count-rockets/one.svg",
+      "imageVariants": ["units/05-count-rockets/one.svg", "units/05-count-rockets/one-alt.svg"],
+      "audioEn": "en/05-count-rockets/one.mp3",
+      "introTr": "Burada bir yıldız var. İngilizce'de 'one' deriz."
+    },
+    {
+      "id": "two",
+      "en": "two",
+      "tr": "iki",
+      "image": "units/05-count-rockets/two.svg",
+      "imageVariants": ["units/05-count-rockets/two.svg", "units/05-count-rockets/two-alt.svg"],
+      "audioEn": "en/05-count-rockets/two.mp3",
+      "introTr": "Burada iki yıldız var. İngilizce'de 'two' deriz."
+    },
+    {
+      "id": "three",
+      "en": "three",
+      "tr": "üç",
+      "image": "units/05-count-rockets/three.svg",
+      "imageVariants": ["units/05-count-rockets/three.svg", "units/05-count-rockets/three-alt.svg"],
+      "audioEn": "en/05-count-rockets/three.mp3",
+      "introTr": "Burada üç yıldız var. İngilizce'de 'three' deriz."
+    },
+    {
+      "id": "four",
+      "en": "four",
+      "tr": "dört",
+      "image": "units/05-count-rockets/four.svg",
+      "imageVariants": ["units/05-count-rockets/four.svg", "units/05-count-rockets/four-alt.svg"],
+      "audioEn": "en/05-count-rockets/four.mp3",
+      "introTr": "Burada dört yıldız var. İngilizce'de 'four' deriz."
+    },
+    {
+      "id": "five",
+      "en": "five",
+      "tr": "beş",
+      "image": "units/05-count-rockets/five.svg",
+      "imageVariants": ["units/05-count-rockets/five.svg", "units/05-count-rockets/five-alt.svg"],
+      "audioEn": "en/05-count-rockets/five.mp3",
+      "introTr": "Burada beş yıldız var. İngilizce'de 'five' deriz."
+    },
+    {
+      "id": "rocket",
+      "en": "rocket",
+      "tr": "roket",
+      "image": "units/05-count-rockets/rocket.svg",
+      "imageVariants": ["units/05-count-rockets/rocket.svg", "units/05-count-rockets/rocket-alt.svg"],
+      "audioEn": "en/05-count-rockets/rocket.mp3",
+      "introTr": "Bu bir roket. İngilizce'de rokete 'rocket' deriz."
+    },
+    {
+      "id": "star",
+      "en": "star",
+      "tr": "yıldız",
+      "image": "units/05-count-rockets/star.svg",
+      "imageVariants": ["units/05-count-rockets/star.svg", "units/05-count-rockets/star-alt.svg"],
+      "audioEn": "en/05-count-rockets/star.mp3",
+      "introTr": "Bu bir yıldız. İngilizce'de yıldıza 'star' deriz."
+    }
+  ],
+  "chunks": [
+    {
+      "id": "lets-count",
+      "en": "Let's count in English!",
+      "audioEn": "en/05-count-rockets/lets-count.mp3",
+      "placement": "intro"
+    },
+    {
+      "id": "great-counting",
+      "en": "Great counting! Bye-bye!",
+      "audioEn": "en/05-count-rockets/great-counting.mp3",
+      "placement": "closing"
+    },
+    {
+      "id": "yay-word",
+      "en": "Yay, {word}!",
+      "audioEn": "en/05-count-rockets/yay-{wordId}.mp3",
+      "template": true,
+      "placement": "correct-answer"
+    },
+    {
+      "id": "put-in-sky",
+      "en": "Put {word} in the sky!",
+      "audioEn": "en/05-count-rockets/put-sky-{wordId}.mp3",
+      "template": true,
+      "placement": "drop-target"
+    }
+  ],
+  "games": ["listen-touch", "drag-drop", "record"],
+  "dropZoneLabel": "Gökyüzü"
+}

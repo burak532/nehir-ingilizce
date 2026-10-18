@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello!, Dino Colors ve Animal Friends (Ünite 1-3) kullanıcı tarafından Nehir'le denenip onaylandı. Aşama 8 (kalite kontrolü) tamamlandı. **Ünite 4 (Dino World) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
+**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello!, Dino Colors, Animal Friends ve Dino World (Ünite 1-4) kullanıcı tarafından Nehir'le denenip onaylandı. Aşama 8 (kalite kontrolü) tamamlandı. **Ünite 5 (Count the Rockets!) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
 
 **Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
@@ -126,6 +126,15 @@ Kullanıcı "tekrar penceresi nedir" diye sordu (açıklandı), ardından "bu ü
 
 **Düzeltme:** `sw-register.ts`'e sayfa yüklenirken `navigator.serviceWorker.controller`'ın o an dolu olup olmadığı kaydediliyor (`hadControllerBeforeLoad`). İlk `controllerchange` bu değer `false`'sa (yani bu, önceden hiçbir worker'ın kontrol etmediği bir sayfanın ilk kez ele geçirilmesiyse) sessizce yok sayılıyor, yeniden yükleme tetiklenmiyor — sadece SONRAKİ (gerçekten eski bir worker'ın yerini alan) `controllerchange` olayları güvenli-ekran kontrolüyle yeniden yüklemeyi tetikliyor. Playwright'ta art arda 2 kez 5/5 doğrulandı.
 
+## Ünite 5 (Count the Rockets!) — tamamlandı
+Kullanıcı "devam et" diyerek Ünite 5'e geçiş onayı verdi (Ünite 4'ü Nehir'le deneyip "denedim, sorun yok" demesinin ardından).
+
+- `content/units/05-count-rockets.json`: 7 kelime (one, two, three, four, five, rocket, star — curriculum.md §1'deki tanım birebir). **İlk kez SAYI öğretilen ünite** — önceki ünitelerdeki somut nesne/sıfat kelimelerinden farklı bir soyutlama türü. Çözüm: sayı kelimelerinin ikonu, o sayı kadar yıldız/gezegen SAYMA görseli (ör. "three" ikonunda 3 küçük yıldız) — çocuk kelimeyi duyup doğru SAYIDAKİ resme dokunuyor, bu listen-touch mekaniğiyle doğal örtüşüyor. `introTr` kalıbı sayılar için "Burada {sayı} yıldız var. İngilizce'de '{word}' deriz." (dative-case kalıbı sayılara uygulanmadı — "ikiye" gibi doğal olmayan bir çekim olurdu), rocket/star için ise normal nesne-kelime dative kalıbı ("...rokete 'rocket' deriz."). `correct-answer` chunk'ı hem sayılara hem nesnelere uyan tek bir kalıpla yazıldı: "Yay, {word}!" (makale/çekim gerektirmiyor, "Yay, one!" / "Yay, rocket!" ikisi de doğal). `games: ["listen-touch","drag-drop","record"]`, `dropZoneLabel: "Gökyüzü"`.
+- 14 özgün SVG ikon. **Karışıklık riski bilinçli önlendi:** sayma ikonlarında (1-5) token olarak YILDIZ (ana varyant) / NOKTA-GEZEGEN (alt varyant, genelleme testi) kullanıldı — rocket/star kelimelerinin KENDİ ikonlarıyla (somut, tek, detaylı roket/yıldız illüstrasyonu) çakışmasın diye sayma yıldızları küçük/sade, "star" kelimesinin ikonu büyük/tek/parıltı detaylı tutuldu; ayrıca sayma tokenı olarak "roket" DEĞİL "gezegen/nokta" seçildi (aksi halde "one" alt-varyantı "rocket" ikonuyla aynı görünürdü). Chrome'da yan yana ekran görüntüsüyle doğrulandı — tüm 14 ikon birbirinden net ayrışıyor.
+- 30 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi).
+- Canlı tarayıcıda (vite preview) uçtan uca doğrulandı: tanıtma ekranı (1-5 arası yıldız sayımı + "one"/"two"/"three" Türkçe cümleleri doğru), dinle-dokun'da sayı+nesne kelimeleri karışık soruluyor, yanlış cevapta doğru seçenek yeşil çerçeveyle, yanlış seçilen soluklaşarak işaretleniyor, doğru cevapta pop+sparkle animasyonu çalışıyor. Harita kartı "Count the Rockets!" 0/7 kelime ile doğru görünüyor.
+- Playwright e2e paketi (geçici Chromium config, `playwright.chromium-debug.config.ts` — test sonrası silindi) 5/5 testle geçti; Ünite 5 eklenmesi mevcut ünitelerde/service worker'da regresyon yaratmadı.
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
@@ -166,14 +175,12 @@ Kullanıcı "tekrar penceresi nedir" diye sordu (açıklandı), ardından "bu ü
 - [x] **Aynı Wi-Fi'de Mac'ten dev sürümü deneme çalışmıyor** — kullanıcının iPad'inde (iPadOS 27) Safari `http://` adresleri otomatik `https://`'ye yükseltiyor, yerel Vite dev sunucusu düz HTTP olduğu için bağlantı hiç kurulamıyor (elle yazma, QR kod taratma denendi, hiçbiri çalışmadı — Mac tarafında istek bile görünmüyor). Kullanıcıyla karar: bunun yerine **push → ~1dk bekle → gerçek HTTPS sitesini iPad'de yenile** iş akışı kullanılacak. Yerel dev sunucusu durduruldu.
 
 ## Yarım kalan iş / tam olarak nerede kalındı
-MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors ve **Animal Friends (Ünite 3)** üçünü de Nehir'le deneyip onayladı (2026-10-17: "bu ünitede bir sorun görünmüyor"). `npm run build`/`npm run test` temiz geçiyor.
+MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors, Animal Friends ve **Dino World (Ünite 4)** dördünü de Nehir'le deneyip onayladı (2026-10-18: "denedim, sorun yok"). Ünite 5 (Count the Rockets!) az önce içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le denenmedi. `npm run build`/`npm run test` temiz geçiyor.
 
 ## Sıradaki adımlar
-1. Kullanıcıdan **Ünite 5'e (Count the Rockets!, `curriculum.md` §1) geçiş onayı** al.
-2. Onay gelirse aynı süreçle (içerik+ikon+ses üret, test et, canlıya al) devam et.
+1. Kullanıcıdan **Ünite 5'i (Count the Rockets!) Nehir'le deneyip onayını** al.
+2. Onay gelirse `curriculum.md` §1'deki Ünite 6'ya (Space Explorer, sayılar 6-10 + gezegen/ay/güneş) geçiş öner.
 3. Bu dosyayı sık güncellemeye devam et.
-
-**Not (2026-10-18):** Kullanıcı Ünite 4'ü (Dino World) Nehir'le deneyip onayladı ("denedim, sorun yok").
 
 ## Bekleyen sorular
 _(şu an yok — GitHub repo adı/görünürlüğü dahil tüm açık sorular yanıtlandı)_
