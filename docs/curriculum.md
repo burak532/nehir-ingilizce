@@ -39,6 +39,8 @@ Hedef kullanıcı: Nehir, 4 yaş, Türkçe ana dili ileri düzey, İngilizce bil
 | 12 | **Let's Move!** | Basit eylemler + büyük/küçük + yukarı/aşağı | TPR-yoğun hareket ünitesi | jump, run, walk, fly, roar, sleep, up, down | "Jump like a dino!", "Fly like a bird!" |
 | 13 | **Mix & Match** | — (tekrar ünitesi) | Önceki tüm temalardan kelimeler karışık | *(sabit kelime yok — önceki ünitelerden karışık çekilir)* | — |
 
+**Not (2026-10-18):** Ünite 13 (Mix & Match) ayrı bir içerik ünitesi olarak eklenMEDİ — Aşama 8'de geliştirilen "🔁 Tekrar" ekranı (`src/games/review.ts`) bu ünitenin tarif ettiği şeyi zaten birebir karşılıyor: sabit kelime listesi yok, önceki tüm ünitelerden kelimeler karışık çekiliyor, dinle-dokun mekaniğiyle soruluyor. Tekrar hatta daha iyisini yapıyor — `isDue()` ile sadece vadesi gelen kelimeleri gösteriyor (sabit "tüm kelimeler her zaman karışık" yerine), bu da aralıklı tekrar pedagojisine daha uygun. Haritada ayrı, her zaman erişilebilir bir kart olarak zaten duruyor. Kullanıcı kararı: "sen karar ver... tekrar daha iyi geldi" — bkz. `docs/progress.md` → "Ünite 13 kararı".
+
 **MVP için önerilen ilk 2 ünite: Ünite 1 (Hello!) + Ünite 2 (Dino Colors)** — prompt'taki Bölüm 7 örneğiyle ("Selamlaşma + Dinozor renkleri") tam örtüşüyor; bu, Bölüm 9'da teyit istenen açık sorulardan birini doğal olarak çözüyor. Onaylarsan `docs/progress.md`'deki o açık soruyu kapatırım.
 
 **Not (2026-10-17):** MVP + Aşama 8 kalite kontrolü tamamlanıp kullanıcı onayı alındıktan sonra **Ünite 3 (Animal Friends)** de eklendi — prompt Bölüm 7'nin "çocukla test edip onay almadan yeni ünite ekleme" kuralına uygun olarak her yeni ünite kullanıcı onayı bekleyerek tek tek ekleniyor, bkz. `docs/progress.md` → "Ünite 3 (Animal Friends)".

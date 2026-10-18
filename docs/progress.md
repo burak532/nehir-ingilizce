@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello! — Get Dressed! (Ünite 1-10) kullanıcı tarafından Nehir'le denenip onaylandı (2026-10-18: "5-10 arasını onaylıyorum"). Aşama 8 (kalite kontrolü) tamamlandı. Ünite 11 (How Do You Feel?) içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le onaylanmadı. **Ünite 12 (Let's Move!) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
+**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello! — Get Dressed! (Ünite 1-10) kullanıcı tarafından Nehir'le denenip onaylandı (2026-10-18: "5-10 arasını onaylıyorum"). Aşama 8 (kalite kontrolü) tamamlandı. Ünite 11 (How Do You Feel?) ve Ünite 12 (Let's Move!) içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le onaylanmadı. **Curriculum.md'deki 13 ünitenin tamamı artık karşılanmış durumda** (bkz. "Ünite 13 kararı" — Mix & Match ayrı eklenmedi, var olan Tekrar ekranı bu rolü zaten dolduruyor).
 
 **Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
@@ -206,6 +206,11 @@ Kullanıcı "12'ye geç" dedi.
 - 26 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi). "walk.mp3" ilk üretimde (1.97sn) benzer tek heceli "run" (1.46sn) kelimesine göre belirgin uzundu — proaktif olarak yeniden üretildi, yeni süre (1.32sn) diğerleriyle tutarlı.
 - Canlı tarayıcıda uçtan uca doğrulandı: tanıtma ekranı ve dinle-dokun'da "up/jump/run/sleep" gibi karışık bir turda seçenekler net ayrışıyor. TPR ünite-bağımsız olduğundan ayrıca manuel doğrulanmadı (Playwright'ın Hello! testi zaten kapsıyor). Playwright paketi (Chromium) 5/5 geçti.
 
+## Ünite 13 kararı: Mix & Match ayrı eklenmedi
+Kullanıcı: **"sen karar ver, uygun olanı yap. sanki tekrar daha iyi geldi bana emin değilim."** Karar verme sürecim: `src/games/review.ts`'yi (Aşama 8'de eklenen "🔁 Tekrar" ekranı) tekrar okudum — curriculum.md'nin Ünite 13 tanımıyla ("Mix & Match", kavram alanı "— (tekrar ünitesi)", "sabit kelime yok, önceki ünitelerden karışık çekilir", kalıp ifade yok) karşılaştırdığımda bunların aynı özelliği tarif ettiğini gördüm: Tekrar zaten tüm ünitelerden kelimeleri karıştırıp (`units.flatMap`) dinle-dokun mekaniğiyle soruyor, hiçbir sabit kelime listesi yok. Tek fark, Tekrar'ın `isDue()` ile sadece VADESİ GELEN kelimeleri göstermesi — bu, "her zaman tüm kelimeler karışık" yerine aralıklı tekrar pedagojisine daha uygun bir YUKARI yönlü iyileştirme, aşağı değil. Haritada zaten ayrı, her zaman erişilebilir bir kart olarak duruyor.
+
+**Sonuç:** Yeni bir "13-mix-match" içerik ünitesi (JSON+ikon+ses) EKLENMEDİ — bu, var olan özelliğin gereksiz bir kopyası olurdu ve kullanıcı arayüzünde iki ayrı "karışık tekrar" girişi gibi kafa karıştırıcı olabilirdi. `docs/curriculum.md`'nin Ünite 13 satırına bu kararı açıklayan bir not eklendi. Bu kararla orijinal 13 ünitelik curriculum planı artık tamamlanmış sayılıyor (9'u Nehir'le test edilip onaylandı, 3'ü — Ünite 11/12 ve zaten var olan Tekrar — henüz test aşamasında).
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
@@ -253,8 +258,8 @@ Kullanıcı Ünite 5-10'un hepsini onayladı ("5-10 arasını onaylıyorum") ve 
 
 ## Sıradaki adımlar
 1. Kullanıcıdan **Ünite 11 VE 12'yi Nehir'le deneyip onayını** al; özellikle Ünite 11'deki "scared" ve Ünite 12'deki eylem pozlarının (jump/run/walk gibi birbirine görece yakın pozların) anlaşılır olup olmadığını sor.
-2. **Ünite 13 (Mix & Match) özel bir durum** — curriculum.md'ye göre sabit kelime listesi yok, önceki tüm ünitelerden karışık çekiliyor; bu muhtemelen var olan "Tekrar" (aralıklı tekrar) ekranıyla kavramsal olarak örtüşüyor. Standart "yeni ünite ekle" akışıyla (içerik JSON+ikon+ses) ilerlemeden ÖNCE kullanıcıyla bunun tam olarak ne anlama geldiğini (yeni bir oyun mu, var olan Tekrar'ın bir varyasyonu mu) netleştir.
-3. Kullanıcının sorduğu "ezberleme riski" konusunu (üretim-ağırlıklı oyunların payını artırma) birkaç ünite sonra tekrar gündeme getir — kullanıcı "sonra değerlendirebiliriz" dedi, kapatılmadı.
+2. Orijinal 13 ünitelik curriculum planı artık tamamlanmış durumda (bkz. "Ünite 13 kararı") — kullanıcıya bunu bildirip şunu sor: curriculum'un ötesine yeni ünitelerle devam mı edilsin, yoksa mevcut 12 içerik ünitesini iyileştirme/test etmeye mi odaklanılsın?
+3. Kullanıcının sorduğu "ezberleme riski" konusunu (üretim-ağırlıklı oyunların payını artırma) bu doğal durma noktasında gündeme getirmeyi değerlendir — kullanıcı "sonra değerlendirebiliriz" dedi, kapatılmadı.
 4. Bu dosyayı sık güncellemeye devam et.
 
 ## Bekleyen sorular
