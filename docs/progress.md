@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello!, Dino Colors, Animal Friends ve Dino World (Ünite 1-4) kullanıcı tarafından Nehir'le denenip onaylandı. Aşama 8 (kalite kontrolü) tamamlandı. **Ünite 5 (Count the Rockets!) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
+**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello!, Dino Colors, Animal Friends ve Dino World (Ünite 1-4) kullanıcı tarafından Nehir'le denenip onaylandı. Aşama 8 (kalite kontrolü) tamamlandı. Ünite 5 (Count the Rockets!) içerik olarak tamamlanıp 2 düzeltme turundan geçti, kullanıcı henüz Nehir'le onaylamadı. **Ünite 6 (Space Explorer) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
 
 **Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
@@ -144,6 +144,14 @@ Kullanıcı Nehir'le denedikten hemen sonra 2 ayrı sorun bildirdi:
 ## Ünite 5 — 2. tur düzeltme: alt varyantta nokta sırası eksikti
 Kullanıcı: **"İlk oyunda iki kere doğru cevaptaki rakam pembe ve altında yuvarlakları yok, diğerlerinden farklı olmuş."** Kök neden: rakam ikonlarının `-alt` varyantı (genelleme testi için — bkz. CLAUDE.md "İçerik/veri yapısı") kasıtlı olarak farklı renk (pembe) kullanıyordu ama nokta sırasını (sayma pekiştirmesi) hiç içermiyordu — sadece büyük rakamdı. Oyun sırasında ana/alt varyant rastgele seçildiğinden, aynı sayı bazen nokta sırasıyla bazen sırasız görünüyor, bu tutarsızlık hata gibi algılanıyordu. 5 `-alt` SVG'sine ana varyantla birebir aynı nokta sırası (konum+sayı+renk) eklendi — artık yalnızca rakamın rengi (sarı/pembe) ve arka plan tonu farklı, geri kalan düzen (rakam boyutu/konumu, nokta sayısı) ana varyantla birebir aynı.
 
+## Ünite 6 (Space Explorer) — tamamlandı
+Kullanıcı sayı ünitelerinde ezberleme riskini sordu (çoğu önlemin — rastgele seçenek/sıra, görsel varyant, uyarlanır aralıklı tekrar — zaten var olduğu, kalan en büyük açığın tanıma-ağırlıklı oyunlar olduğu açıklandı); kullanıcı bu konuyu sonraya bırakıp "6ya geç" dedi.
+
+- `content/units/06-space-explorer.json`: 8 kelime (six, seven, eight, nine, ten, planet, moon, sun — curriculum.md §1'deki tanım birebir). Sayı ikonları Ünite 5'teki düzeltilmiş kalıbı (rakam + nokta sırası, nesne ikonlarıyla çakışmasın diye) aynen takip ediyor; 6-10 için nokta sayısı artık **iki satıra** bölündü (üstte 5, altta kalan — ör. "eight" = üst 5 + alt 3) hem köşe-kırpılma riskini önlemek hem de onluk-çerçeve (ten-frame) tarzı daha okunur bir sayma gösterimi için. "ten" iki haneli olduğu için font boyutu küçültüldü (köşeye taşmayı önlemek için ölçülüp test edildi). `introTr` kalıbı Ünite 5 ile tutarlı: sayılar için "Bu rakam {sayı}. İngilizce'de '{word}' deriz.", nesneler için dative-case kalıbı ("...gezegene 'planet' deriz."). `games: ["listen-touch","drag-drop","record"]`, `dropZoneLabel: "Uzay"`.
+- 16 özgün SVG ikon. **Yapım sırasında bulunup düzeltilen kendi hatam:** `sun-alt.svg`'nin ilk taslağı güneş ışınlarını küçük DAİRELERLE çiziyordu — tam da Ünite 5'te "sayma noktası" için ayrılmış token'ın aynısı, aynı ünitede (6-10 rakamlarıyla) yan yana çıkınca yeniden karışma riski yaratacaktı. Fark edilip yayına çıkmadan yuvarlak köşeli dikdörtgen ışınlara çevrildi. Diğer nesne ikonları da (planet/moon) sayma noktalarıyla karışmasın diye küçük daire kullanmaktan kaçınıldı — moon'un parıltı süslemeleri daire değil yıldız/sparkle şekli.
+- 34 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi). Ünite 5'teki "sessiz dosya" hatasından ders alınarak tüm sayı kelimelerinin süresi `afinfo` ile tek tek doğrulandı (0.86-1.75sn arası, hepsi makul) — anormal kısa/sessiz dosya çıkmadı.
+- Canlı tarayıcıda uçtan uca doğrulandı: tüm 8 kelimenin tanıtma ekranı (6-10 rakam+nokta, planet/moon/sun görsel+Türkçe cümle), dinle-dokun'da "6", "7", "10", "8" gibi karışık bir turda seçenekler net ayrışıyor. Playwright paketi (Chromium) 5/5 geçti.
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
@@ -184,12 +192,13 @@ Kullanıcı: **"İlk oyunda iki kere doğru cevaptaki rakam pembe ve altında yu
 - [x] **Aynı Wi-Fi'de Mac'ten dev sürümü deneme çalışmıyor** — kullanıcının iPad'inde (iPadOS 27) Safari `http://` adresleri otomatik `https://`'ye yükseltiyor, yerel Vite dev sunucusu düz HTTP olduğu için bağlantı hiç kurulamıyor (elle yazma, QR kod taratma denendi, hiçbiri çalışmadı — Mac tarafında istek bile görünmüyor). Kullanıcıyla karar: bunun yerine **push → ~1dk bekle → gerçek HTTPS sitesini iPad'de yenile** iş akışı kullanılacak. Yerel dev sunucusu durduruldu.
 
 ## Yarım kalan iş / tam olarak nerede kalındı
-MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors, Animal Friends ve **Dino World (Ünite 4)** dördünü de Nehir'le deneyip onayladı (2026-10-18: "denedim, sorun yok"). Ünite 5 (Count the Rockets!) az önce içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le denenmedi. `npm run build`/`npm run test` temiz geçiyor.
+MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors, Animal Friends ve **Dino World (Ünite 4)** dördünü de Nehir'le deneyip onayladı (2026-10-18: "denedim, sorun yok"). Ünite 5 (Count the Rockets!) içerik olarak tamamlanıp 2 düzeltme turundan geçti (bozuk ses + sayı ikonu karışıklığı + alt-varyant nokta eksikliği), henüz Nehir'le onaylanmadı. Ünite 6 (Space Explorer) az önce içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le denenmedi. `npm run build`/`npm run test` temiz geçiyor.
 
 ## Sıradaki adımlar
-1. Kullanıcıdan **Ünite 5'i (Count the Rockets!) Nehir'le deneyip onayını** al.
-2. Onay gelirse `curriculum.md` §1'deki Ünite 6'ya (Space Explorer, sayılar 6-10 + gezegen/ay/güneş) geçiş öner.
-3. Bu dosyayı sık güncellemeye devam et.
+1. Kullanıcıdan **Ünite 5 VE Ünite 6'yı Nehir'le deneyip onayını** al (ikisi de henüz onaylanmadı).
+2. Onay gelirse `curriculum.md` §1'deki Ünite 7'ye (Animal Bodies — vücut parçaları) geçiş öner.
+3. Kullanıcının sorduğu "ezberleme riski" konusunu (üretim-ağırlıklı oyunların payını artırma) birkaç ünite sonra tekrar gündeme getir — kullanıcı "sonra değerlendirebiliriz" dedi, kapatılmadı.
+4. Bu dosyayı sık güncellemeye devam et.
 
 ## Bekleyen sorular
 _(şu an yok — GitHub repo adı/görünürlüğü dahil tüm açık sorular yanıtlandı)_

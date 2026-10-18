@@ -1,0 +1,109 @@
+{
+  "id": "06-space-explorer",
+  "titleEn": "Space Explorer",
+  "mapRegion": "deep-space",
+  "words": [
+    {
+      "id": "six",
+      "en": "six",
+      "tr": "altı",
+      "image": "units/06-space-explorer/six.svg",
+      "imageVariants": ["units/06-space-explorer/six.svg", "units/06-space-explorer/six-alt.svg"],
+      "audioEn": "en/06-space-explorer/six.mp3",
+      "introTr": "Bu rakam altı. İngilizce'de 'six' deriz."
+    },
+    {
+      "id": "seven",
+      "en": "seven",
+      "tr": "yedi",
+      "image": "units/06-space-explorer/seven.svg",
+      "imageVariants": ["units/06-space-explorer/seven.svg", "units/06-space-explorer/seven-alt.svg"],
+      "audioEn": "en/06-space-explorer/seven.mp3",
+      "introTr": "Bu rakam yedi. İngilizce'de 'seven' deriz."
+    },
+    {
+      "id": "eight",
+      "en": "eight",
+      "tr": "sekiz",
+      "image": "units/06-space-explorer/eight.svg",
+      "imageVariants": ["units/06-space-explorer/eight.svg", "units/06-space-explorer/eight-alt.svg"],
+      "audioEn": "en/06-space-explorer/eight.mp3",
+      "introTr": "Bu rakam sekiz. İngilizce'de 'eight' deriz."
+    },
+    {
+      "id": "nine",
+      "en": "nine",
+      "tr": "dokuz",
+      "image": "units/06-space-explorer/nine.svg",
+      "imageVariants": ["units/06-space-explorer/nine.svg", "units/06-space-explorer/nine-alt.svg"],
+      "audioEn": "en/06-space-explorer/nine.mp3",
+      "introTr": "Bu rakam dokuz. İngilizce'de 'nine' deriz."
+    },
+    {
+      "id": "ten",
+      "en": "ten",
+      "tr": "on",
+      "image": "units/06-space-explorer/ten.svg",
+      "imageVariants": ["units/06-space-explorer/ten.svg", "units/06-space-explorer/ten-alt.svg"],
+      "audioEn": "en/06-space-explorer/ten.mp3",
+      "introTr": "Bu rakam on. İngilizce'de 'ten' deriz."
+    },
+    {
+      "id": "planet",
+      "en": "planet",
+      "tr": "gezegen",
+      "image": "units/06-space-explorer/planet.svg",
+      "imageVariants": ["units/06-space-explorer/planet.svg", "units/06-space-explorer/planet-alt.svg"],
+      "audioEn": "en/06-space-explorer/planet.mp3",
+      "introTr": "Bu bir gezegen. İngilizce'de gezegene 'planet' deriz."
+    },
+    {
+      "id": "moon",
+      "en": "moon",
+      "tr": "ay",
+      "image": "units/06-space-explorer/moon.svg",
+      "imageVariants": ["units/06-space-explorer/moon.svg", "units/06-space-explorer/moon-alt.svg"],
+      "audioEn": "en/06-space-explorer/moon.mp3",
+      "introTr": "Bu bir ay. İngilizce'de aya 'moon' deriz."
+    },
+    {
+      "id": "sun",
+      "en": "sun",
+      "tr": "güneş",
+      "image": "units/06-space-explorer/sun.svg",
+      "imageVariants": ["units/06-space-explorer/sun.svg", "units/06-space-explorer/sun-alt.svg"],
+      "audioEn": "en/06-space-explorer/sun.mp3",
+      "introTr": "Bu bir güneş. İngilizce'de güneşe 'sun' deriz."
+    }
+  ],
+  "chunks": [
+    {
+      "id": "lets-explore",
+      "en": "Let's explore space!",
+      "audioEn": "en/06-space-explorer/lets-explore.mp3",
+      "placement": "intro"
+    },
+    {
+      "id": "great-exploring",
+      "en": "Great exploring! Bye-bye!",
+      "audioEn": "en/06-space-explorer/great-exploring.mp3",
+      "placement": "closing"
+    },
+    {
+      "id": "yay-word",
+      "en": "Yay, {word}!",
+      "audioEn": "en/06-space-explorer/yay-{wordId}.mp3",
+      "template": true,
+      "placement": "correct-answer"
+    },
+    {
+      "id": "put-in-space",
+      "en": "Put {word} in space!",
+      "audioEn": "en/06-space-explorer/put-space-{wordId}.mp3",
+      "template": true,
+      "placement": "drop-target"
+    }
+  ],
+  "games": ["listen-touch", "drag-drop", "record"],
+  "dropZoneLabel": "Uzay"
+}
