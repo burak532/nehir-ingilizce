@@ -10,7 +10,7 @@
       "image": "units/05-count-rockets/one.svg",
       "imageVariants": ["units/05-count-rockets/one.svg", "units/05-count-rockets/one-alt.svg"],
       "audioEn": "en/05-count-rockets/one.mp3",
-      "introTr": "Burada bir yıldız var. İngilizce'de 'one' deriz."
+      "introTr": "Bu rakam bir. İngilizce'de 'one' deriz."
     },
     {
       "id": "two",
@@ -19,7 +19,7 @@
       "image": "units/05-count-rockets/two.svg",
       "imageVariants": ["units/05-count-rockets/two.svg", "units/05-count-rockets/two-alt.svg"],
       "audioEn": "en/05-count-rockets/two.mp3",
-      "introTr": "Burada iki yıldız var. İngilizce'de 'two' deriz."
+      "introTr": "Bu rakam iki. İngilizce'de 'two' deriz."
     },
     {
       "id": "three",
@@ -28,7 +28,7 @@
       "image": "units/05-count-rockets/three.svg",
       "imageVariants": ["units/05-count-rockets/three.svg", "units/05-count-rockets/three-alt.svg"],
       "audioEn": "en/05-count-rockets/three.mp3",
-      "introTr": "Burada üç yıldız var. İngilizce'de 'three' deriz."
+      "introTr": "Bu rakam üç. İngilizce'de 'three' deriz."
     },
     {
       "id": "four",
@@ -37,7 +37,7 @@
       "image": "units/05-count-rockets/four.svg",
       "imageVariants": ["units/05-count-rockets/four.svg", "units/05-count-rockets/four-alt.svg"],
       "audioEn": "en/05-count-rockets/four.mp3",
-      "introTr": "Burada dört yıldız var. İngilizce'de 'four' deriz."
+      "introTr": "Bu rakam dört. İngilizce'de 'four' deriz."
     },
     {
       "id": "five",
@@ -46,7 +46,7 @@
       "image": "units/05-count-rockets/five.svg",
       "imageVariants": ["units/05-count-rockets/five.svg", "units/05-count-rockets/five-alt.svg"],
       "audioEn": "en/05-count-rockets/five.mp3",
-      "introTr": "Burada beş yıldız var. İngilizce'de 'five' deriz."
+      "introTr": "Bu rakam beş. İngilizce'de 'five' deriz."
     },
     {
       "id": "rocket",

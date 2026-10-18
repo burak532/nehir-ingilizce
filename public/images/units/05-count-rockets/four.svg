@@ -1,17 +1,10 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#1b2a4a"/>
-  <g fill="#ffd60a">
-    <g transform="translate(46,100) scale(1.6)">
-      <polygon points="0,-10 2.35,-3.24 9.51,-3.09 3.80,1.24 5.88,8.09 0,4 -5.88,8.09 -3.80,1.24 -9.51,-3.09 -2.35,-3.24"/>
-    </g>
-    <g transform="translate(82,100) scale(1.6)">
-      <polygon points="0,-10 2.35,-3.24 9.51,-3.09 3.80,1.24 5.88,8.09 0,4 -5.88,8.09 -3.80,1.24 -9.51,-3.09 -2.35,-3.24"/>
-    </g>
-    <g transform="translate(118,100) scale(1.6)">
-      <polygon points="0,-10 2.35,-3.24 9.51,-3.09 3.80,1.24 5.88,8.09 0,4 -5.88,8.09 -3.80,1.24 -9.51,-3.09 -2.35,-3.24"/>
-    </g>
-    <g transform="translate(154,100) scale(1.6)">
-      <polygon points="0,-10 2.35,-3.24 9.51,-3.09 3.80,1.24 5.88,8.09 0,4 -5.88,8.09 -3.80,1.24 -9.51,-3.09 -2.35,-3.24"/>
-    </g>
+  <text x="100" y="118" font-family="Arial, Helvetica, sans-serif" font-size="130" font-weight="700" fill="#ffd60a" text-anchor="middle">4</text>
+  <g fill="#90e0c0">
+    <circle cx="70" cy="168" r="7"/>
+    <circle cx="90" cy="168" r="7"/>
+    <circle cx="110" cy="168" r="7"/>
+    <circle cx="130" cy="168" r="7"/>
   </g>
 </svg>

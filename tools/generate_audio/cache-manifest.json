@@ -132,15 +132,14 @@
   "04-dino-world:put-dino:big:en": "5913e3f0287083b3",
   "04-dino-world:put-dino:small:en": "1a2a36c3f9444cfc",
   "05-count-rockets:one:en": "54e10c01c651e288",
-  "05-count-rockets:one:tr-intro": "97f5debff0748dc5",
+  "05-count-rockets:one:tr-intro": "69cc4124e425375a",
   "05-count-rockets:two:en": "c3e0ab3a808f96db",
-  "05-count-rockets:two:tr-intro": "9eb9d0e3cd52a42a",
-  "05-count-rockets:three:en": "bed0e6d214e43a4b",
-  "05-count-rockets:three:tr-intro": "0f93c1672ebf0d24",
+  "05-count-rockets:two:tr-intro": "673a30ea60b4cc7e",
+  "05-count-rockets:three:tr-intro": "96fbc89fb58c1dbb",
   "05-count-rockets:four:en": "da0060279868d413",
-  "05-count-rockets:four:tr-intro": "527bc7e1ceba5163",
+  "05-count-rockets:four:tr-intro": "8f75049736aab2b6",
   "05-count-rockets:five:en": "f46c86247bf4c7f2",
-  "05-count-rockets:five:tr-intro": "cd1eea85717e34cc",
+  "05-count-rockets:five:tr-intro": "5ba217fc63d6729a",
   "05-count-rockets:rocket:en": "23dc5ad8a5ccc377",
   "05-count-rockets:rocket:tr-intro": "9014f75b4ff22ea5",
   "05-count-rockets:star:en": "f2c2e6df8ad23400",
@@ -160,5 +159,6 @@
   "05-count-rockets:put-in-sky:four:en": "2618581d4fe0b7f5",
   "05-count-rockets:put-in-sky:five:en": "f818c7bcf9904563",
   "05-count-rockets:put-in-sky:rocket:en": "874a39ca108dc43a",
-  "05-count-rockets:put-in-sky:star:en": "0bd08c2590eebe44"
+  "05-count-rockets:put-in-sky:star:en": "0bd08c2590eebe44",
+  "05-count-rockets:three:en": "bed0e6d214e43a4b"
 }
