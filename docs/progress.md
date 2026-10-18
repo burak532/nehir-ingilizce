@@ -206,6 +206,21 @@ Kullanıcı "12'ye geç" dedi.
 - 26 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi). "walk.mp3" ilk üretimde (1.97sn) benzer tek heceli "run" (1.46sn) kelimesine göre belirgin uzundu — proaktif olarak yeniden üretildi, yeni süre (1.32sn) diğerleriyle tutarlı.
 - Canlı tarayıcıda uçtan uca doğrulandı: tanıtma ekranı ve dinle-dokun'da "up/jump/run/sleep" gibi karışık bir turda seçenekler net ayrışıyor. TPR ünite-bağımsız olduğundan ayrıca manuel doğrulanmadı (Playwright'ın Hello! testi zaten kapsıyor). Playwright paketi (Chromium) 5/5 geçti.
 
+## TPR mimarisi düzeltmesi
+Kullanıcı: "TPR'ı ünite-bağımsız olmaktan çıkarıp önce onu düzelt." Önceki turda kendi önerdiğim mimari borç kapatıldı.
+
+**Yaklaşım — opsiyonel, geriye dönük uyumlu:** Varsayılan TPR davranışı (jenerik wave/jump/spin, `content/shared/tpr.json`) korundu; bir ünite kendi kelimelerini komut olarak kullanmak isterse `chunks` içine `placement:"tpr"` + `template:true` + `tr`/`audioTr` tanımlı bir chunk eklemesi yeterli. Bu şekilde Hello! ve How Do You Feel? (kelimeleri — please/happy gibi — fiziksel bir eyleme doğal karşılık gelmediğinden) kod/içerik değişikliği olmadan eskisi gibi çalışmaya devam ediyor; sadece Ünite 12 (Let's Move!) opt-in yapıldı.
+
+**Teknik değişiklikler:**
+- `content/schema/unit.schema.json`: chunk şemasına opsiyonel `tr`/`audioTr` alanları, placement enum'una `"tpr"` eklendi.
+- `src/core/content.ts`: `ChunkPlacement`'a `"tpr"`, `ChunkDef`'e opsiyonel `tr?`/`audioTr?` eklendi.
+- `tools/generate_audio/generate.mjs`: template chunk döngüsü artık `chunk.tr`/`chunk.audioTr` varsa (kelimenin `tr` alanıyla `{word}` doldurularak) Türkçe satır da üretiyor.
+- `content/units/12-lets-move.json`: `{ id: "tpr-command", en: "{word}!", tr: "{word}!", template: true, placement: "tpr" }` eklendi — 8 kelimenin hepsi için otomatik "Jump!"/"Zıpla!" tarzı komut üretiyor (basit "{word}!" kalıbı hem fiillere hem up/down'a doğal uyuyor, curriculum'un "Jump like a dino!" önerisinden daha sade ama aynı amaca hizmet ediyor).
+- `src/games/tpr.ts`: tamamen yeniden yazıldı. `buildCommands(unitId)` önce ünitenin `tpr` placement'lı şablon chunk'ını arıyor; varsa `unit.words`'ten komut listesi türetiyor (emoji yerine `word.image` ikonu gösteriliyor), yoksa `GENERIC_COMMANDS`'e (eski sabit liste, aynen korundu) düşüyor.
+- 16 yeni ses satırı üretildi (8 İngilizce + 8 Türkçe, ~$0.00, kullanıcı onayıyla); tüm süreler tutarlı çıktı, anomali yok.
+
+**Doğrulama:** Canlı tarayıcıda hem Ünite 12'nin TPR ekranı (jump/run/walk ikonlarıyla "Jump!"/"Zıpla!" vb. doğru gösterildi) hem de Hello!'nin TPR ekranı (eski jenerik "👋 Wave your hands!" aynen çalışıyor) tek tek doğrulandı. Playwright paketi (Chromium) 5/5 geçti — Hello! testi zaten TPR akışının tamamından geçtiği için jenerik yol regresyonsuz doğrulanmış oldu.
+
 ## Ünite 13 kararı: Mix & Match ayrı eklenmedi
 Kullanıcı: **"sen karar ver, uygun olanı yap. sanki tekrar daha iyi geldi bana emin değilim."** Karar verme sürecim: `src/games/review.ts`'yi (Aşama 8'de eklenen "🔁 Tekrar" ekranı) tekrar okudum — curriculum.md'nin Ünite 13 tanımıyla ("Mix & Match", kavram alanı "— (tekrar ünitesi)", "sabit kelime yok, önceki ünitelerden karışık çekilir", kalıp ifade yok) karşılaştırdığımda bunların aynı özelliği tarif ettiğini gördüm: Tekrar zaten tüm ünitelerden kelimeleri karıştırıp (`units.flatMap`) dinle-dokun mekaniğiyle soruyor, hiçbir sabit kelime listesi yok. Tek fark, Tekrar'ın `isDue()` ile sadece VADESİ GELEN kelimeleri göstermesi — bu, "her zaman tüm kelimeler karışık" yerine aralıklı tekrar pedagojisine daha uygun bir YUKARI yönlü iyileştirme, aşağı değil. Haritada zaten ayrı, her zaman erişilebilir bir kart olarak duruyor.
 

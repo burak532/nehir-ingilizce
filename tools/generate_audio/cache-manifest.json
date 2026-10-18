@@ -341,5 +341,21 @@
   "12-lets-move:yay-word:sleep:en": "940c7f6b8b1cacee",
   "12-lets-move:yay-word:up:en": "76d3e5ed15a68938",
   "12-lets-move:yay-word:down:en": "19f59b1f7e0e63d8",
-  "12-lets-move:walk:en": "920c54143ac8b318"
+  "12-lets-move:walk:en": "920c54143ac8b318",
+  "12-lets-move:tpr-command:jump:en": "acec52f96114a526",
+  "12-lets-move:tpr-command:jump:tr": "63840f3f580d8c7d",
+  "12-lets-move:tpr-command:run:en": "9cb155c1ce5faf69",
+  "12-lets-move:tpr-command:run:tr": "9a55524d7fc586ec",
+  "12-lets-move:tpr-command:walk:en": "a31965ca87aaefa0",
+  "12-lets-move:tpr-command:walk:tr": "a94b6cc9e989a48e",
+  "12-lets-move:tpr-command:fly:en": "29ed59137c989912",
+  "12-lets-move:tpr-command:fly:tr": "e57706d1965d62e8",
+  "12-lets-move:tpr-command:roar:en": "e98bdb9e1c991860",
+  "12-lets-move:tpr-command:roar:tr": "31ef6c092156035b",
+  "12-lets-move:tpr-command:sleep:en": "951f9e56cf4c9dcd",
+  "12-lets-move:tpr-command:sleep:tr": "10db308c8b3aa372",
+  "12-lets-move:tpr-command:up:en": "000a2bc159b6284e",
+  "12-lets-move:tpr-command:up:tr": "da5dc8c2efed527e",
+  "12-lets-move:tpr-command:down:en": "045a2a3588844acf",
+  "12-lets-move:tpr-command:down:tr": "2de39d3e09e7bae6"
 }

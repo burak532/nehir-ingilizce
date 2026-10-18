@@ -40,14 +40,22 @@
           "id": { "type": "string" },
           "en": { "type": "string" },
           "audioEn": { "type": "string" },
+          "tr": {
+            "type": "string",
+            "description": "Yalnızca 'tpr' yerleşimli şablon chunk'larda kullanılır — her kelime için Türkçe TPR komutu metni ({word} yer tutucusu kelimenin 'tr' alanıyla doldurulur)."
+          },
+          "audioTr": {
+            "type": "string",
+            "description": "tr alanının sesi — yalnızca 'tpr' yerleşimli şablon chunk'larda kullanılır."
+          },
           "template": {
             "type": "boolean",
-            "description": "true ise 'en' ve 'audioEn' içindeki {word} yer tutucusu, her kelime için ayrı bir ses dosyasıyla üretim scriptinde doldurulur (bkz. CLAUDE.md İçerik/veri yapısı)."
+            "description": "true ise 'en'/'audioEn' (ve varsa 'tr'/'audioTr') içindeki {word} yer tutucusu, her kelime için ayrı bir ses dosyasıyla üretim scriptinde doldurulur (bkz. CLAUDE.md İçerik/veri yapısı)."
           },
           "placement": {
             "type": "string",
-            "enum": ["intro", "closing", "correct-answer", "drop-target"],
-            "description": "Bu kalıp ifadenin nerede otomatik çalınacağı: intro = tanıtma ekranı başında bir kez, closing = kapanış ekranında, correct-answer = dinle-dokun/sürükle-bırak'ta doğru cevap sonrası, drop-target = sürükle-bırak turu başında yönerge olarak (ikisi de template olmalı)."
+            "enum": ["intro", "closing", "correct-answer", "drop-target", "tpr"],
+            "description": "Bu kalıp ifadenin nerede otomatik çalınacağı: intro = tanıtma ekranı başında bir kez, closing = kapanış ekranında, correct-answer = dinle-dokun/sürükle-bırak'ta doğru cevap sonrası, drop-target = sürükle-bırak turu başında yönerge olarak, tpr = TPR oyununun ünitenin kendi kelimelerini komut olarak kullanması için (hepsi template olmalı, tpr ayrıca tr/audioTr de tanımlamalı)."
           }
         }
       }

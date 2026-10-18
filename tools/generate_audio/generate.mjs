@@ -122,6 +122,14 @@ function collectLines() {
             text: chunk.en.replace("{word}", word.en),
             outPath: chunk.audioEn.replace("{wordId}", word.id)
           });
+          if (chunk.tr && chunk.audioTr) {
+            lines.push({
+              id: `${unit.id}:${chunk.id}:${word.id}:tr`,
+              lang: "tr",
+              text: chunk.tr.replace("{word}", word.tr),
+              outPath: chunk.audioTr.replace("{wordId}", word.id)
+            });
+          }
         }
       } else {
         lines.push({ id: `${unit.id}:${chunk.id}:en`, lang: "en", text: chunk.en, outPath: chunk.audioEn });

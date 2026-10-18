@@ -95,6 +95,15 @@
       "audioEn": "en/12-lets-move/yay-{wordId}.mp3",
       "template": true,
       "placement": "correct-answer"
+    },
+    {
+      "id": "tpr-command",
+      "en": "{word}!",
+      "audioEn": "en/12-lets-move/tpr-{wordId}.mp3",
+      "tr": "{word}!",
+      "audioTr": "tr/12-lets-move/tpr-{wordId}.mp3",
+      "template": true,
+      "placement": "tpr"
     }
   ],
   "games": ["listen-touch", "tpr", "record"]

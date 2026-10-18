@@ -10,12 +10,15 @@ export interface WordDef {
   introTr: string;
 }
 
-export type ChunkPlacement = "intro" | "closing" | "correct-answer" | "drop-target";
+export type ChunkPlacement = "intro" | "closing" | "correct-answer" | "drop-target" | "tpr";
 
 export interface ChunkDef {
   id: string;
   en: string;
   audioEn: string;
+  /** Yalnızca "tpr" yerleşiminde kullanılır — kelime başına Türkçe komut metni/sesi. */
+  tr?: string;
+  audioTr?: string;
   template?: boolean;
   /** Bu kalıp ifadenin otomatik çalınacağı yer (bkz. CLAUDE.md İçerik/veri yapısı). */
   placement?: ChunkPlacement;
