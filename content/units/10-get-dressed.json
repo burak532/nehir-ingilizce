@@ -1,0 +1,82 @@
+{
+  "id": "10-get-dressed",
+  "titleEn": "Get Dressed!",
+  "mapRegion": "dino-closet",
+  "words": [
+    {
+      "id": "shirt",
+      "en": "shirt",
+      "tr": "tişört",
+      "image": "units/10-get-dressed/shirt.svg",
+      "imageVariants": ["units/10-get-dressed/shirt.svg", "units/10-get-dressed/shirt-alt.svg"],
+      "audioEn": "en/10-get-dressed/shirt.mp3",
+      "introTr": "Bu bir tişört. İngilizce'de tişörte 'shirt' deriz."
+    },
+    {
+      "id": "hat",
+      "en": "hat",
+      "tr": "şapka",
+      "image": "units/10-get-dressed/hat.svg",
+      "imageVariants": ["units/10-get-dressed/hat.svg", "units/10-get-dressed/hat-alt.svg"],
+      "audioEn": "en/10-get-dressed/hat.mp3",
+      "introTr": "Bu bir şapka. İngilizce'de şapkaya 'hat' deriz."
+    },
+    {
+      "id": "shoes",
+      "en": "shoes",
+      "tr": "ayakkabılar",
+      "image": "units/10-get-dressed/shoes.svg",
+      "imageVariants": ["units/10-get-dressed/shoes.svg", "units/10-get-dressed/shoes-alt.svg"],
+      "audioEn": "en/10-get-dressed/shoes.mp3",
+      "introTr": "Bunlar ayakkabılar. İngilizce'de ayakkabılara 'shoes' deriz."
+    },
+    {
+      "id": "socks",
+      "en": "socks",
+      "tr": "çoraplar",
+      "image": "units/10-get-dressed/socks.svg",
+      "imageVariants": ["units/10-get-dressed/socks.svg", "units/10-get-dressed/socks-alt.svg"],
+      "audioEn": "en/10-get-dressed/socks.mp3",
+      "introTr": "Bunlar çoraplar. İngilizce'de çoraplara 'socks' deriz."
+    },
+    {
+      "id": "jacket",
+      "en": "jacket",
+      "tr": "ceket",
+      "image": "units/10-get-dressed/jacket.svg",
+      "imageVariants": ["units/10-get-dressed/jacket.svg", "units/10-get-dressed/jacket-alt.svg"],
+      "audioEn": "en/10-get-dressed/jacket.mp3",
+      "introTr": "Bu bir ceket. İngilizce'de cekete 'jacket' deriz."
+    }
+  ],
+  "chunks": [
+    {
+      "id": "lets-get-dressed",
+      "en": "Let's get dressed!",
+      "audioEn": "en/10-get-dressed/lets-get-dressed.mp3",
+      "placement": "intro"
+    },
+    {
+      "id": "all-dressed-bye",
+      "en": "All dressed! Bye-bye!",
+      "audioEn": "en/10-get-dressed/all-dressed-bye.mp3",
+      "placement": "closing"
+    },
+    {
+      "id": "yay-word",
+      "en": "Yay, {word}!",
+      "audioEn": "en/10-get-dressed/yay-{wordId}.mp3",
+      "template": true,
+      "placement": "correct-answer"
+    },
+    {
+      "id": "put-on-word",
+      "en": "Put on {word}!",
+      "audioEn": "en/10-get-dressed/put-on-{wordId}.mp3",
+      "template": true,
+      "placement": "drop-target"
+    }
+  ],
+  "games": ["listen-touch", "drag-drop", "record"],
+  "dropZoneLabel": "Dinozor"
+}

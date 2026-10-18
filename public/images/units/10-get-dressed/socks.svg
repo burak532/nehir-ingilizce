@@ -1,0 +1,21 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="4" width="192" height="192" rx="32" fill="#fff3c4"/>
+  <g fill="#e8c23c">
+    <path d="M40 40 L74 40 L74 112 Q74 120 82 124 L98 132 Q104 136 104 144 L104 150 L40 150 Z"/>
+    <rect x="40" y="40" width="34" height="16" fill="#c99a1e"/>
+    <rect x="40" y="62" width="34" height="10" fill="#fff3c4"/>
+    <rect x="40" y="80" width="34" height="10" fill="#fff3c4"/>
+  </g>
+  <g fill="#e8c23c">
+    <path d="M126 40 L160 40 L160 112 Q160 120 152 124 L136 132 Q130 136 130 144 L130 150 L160 150 L160 150 L160 150 Z" transform="translate(0,0)"/>
+  </g>
+  <g fill="#e8c23c">
+    <path d="M160 40 L126 40 L126 112 Q126 120 134 124 L118 132 L104 150 L160 150 Z" opacity="0"/>
+  </g>
+  <g fill="#e8c23c" transform="translate(126,0)">
+    <path d="M0 40 L34 40 L34 112 Q34 120 26 124 L10 132 Q4 136 4 144 L4 150 L34 150 L34 150 Z"/>
+    <rect x="0" y="40" width="34" height="16" fill="#c99a1e"/>
+    <rect x="0" y="62" width="34" height="10" fill="#fff3c4"/>
+    <rect x="0" y="80" width="34" height="10" fill="#fff3c4"/>
+  </g>
+</svg>

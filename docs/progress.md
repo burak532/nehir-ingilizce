@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello!, Dino Colors, Animal Friends ve Dino World (Ünite 1-4) kullanıcı tarafından Nehir'le denenip onaylandı. Aşama 8 (kalite kontrolü) tamamlandı. Ünite 5 (Count the Rockets!), 6 (Space Explorer), 7 (Animal Bodies) ve 8 (Dino Snack Time) içerik olarak tamamlanıp canlıya alındı, kullanıcı henüz Nehir'le onaylamadı. **Ünite 9 (My Family) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
+**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello!, Dino Colors, Animal Friends ve Dino World (Ünite 1-4) kullanıcı tarafından Nehir'le denenip onaylandı. Aşama 8 (kalite kontrolü) tamamlandı. Ünite 5 (Count the Rockets!), 6 (Space Explorer), 7 (Animal Bodies), 8 (Dino Snack Time) ve 9 (My Family) içerik olarak tamamlanıp canlıya alındı, kullanıcı henüz Nehir'le onaylamadı. **Ünite 10 (Get Dressed!) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
 
 **Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
@@ -182,6 +182,14 @@ Kullanıcı "bir sonraki üniteye geçebilirsin" dedi.
 - 26 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi). **Proaktif düzeltme:** "mommy.mp3" ilk üretimde 2.4sn çıktı — "daddy" (1.25sn) gibi benzer uzunluktaki bir kelimeye göre neredeyse iki kat uzun, tam da `banana.mp3`'teki abartılı-telaffuz deseniyle örtüşüyordu. Kullanıcı geri bildirimini beklemeden yeniden üretildi (1.97sn, daha makul), kullanıcı onayıyla teyit edilecek.
 - Canlı tarayıcıda uçtan uca doğrulandı: tanıtma ekranı (fiyonk net görünüyor) ve dinle-dokun'da "baby/daddy/family/mommy" gibi karışık bir turda seçenekler net ayrışıyor. Playwright paketi (Chromium) 5/5 geçti.
 
+## Ünite 10 (Get Dressed!) — tamamlandı
+Kullanıcı "10'a geç" dedi.
+
+- `content/units/10-get-dressed.json`: 5 kelime (shirt, hat, shoes, socks, jacket — curriculum.md §1'deki tanım birebir). Curriculum'un kendi önerdiği "Oyuncak dinozor/hayvana kıyafet giydirme" çerçevesi, var olan sürükle-bırak mekaniğiyle doğal örtüştüğü için ek kod gerekmedi (`dropZoneLabel: "Dinozor"`, şablon "Put on {word}!" — curriculum'un "Put on your hat!" örneğiyle uyumlu).
+- 10 özgün SVG ikon (her giysi için 2 varyant — ör. kep/bere, spor ayakkabı/bot, fermuarlı mont/kapüşonlu). Şekil+doku kombinasyonuyla net ayrıştırıldı (ayakkabı: tabanlı+bağcıklı; çorap: yumuşak çizgili L-formu — ikisi aynı ünitede karışmasın diye kasıtlı farklı doku dili kullanıldı).
+- 22 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi); süreler birbirine yakın çıktı (0.86-1.51sn), Ünite 8/9'daki gibi bir aykırı değer yoktu — ek düzeltme gerekmedi.
+- Canlı tarayıcıda uçtan uca doğrulandı: tanıtma ekranı ve dinle-dokun'da "hat/shoes/shirt/socks" gibi karışık bir turda seçenekler net ayrışıyor. Playwright paketi (Chromium) 5/5 geçti.
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
@@ -222,12 +230,12 @@ Kullanıcı "bir sonraki üniteye geçebilirsin" dedi.
 - [x] **Aynı Wi-Fi'de Mac'ten dev sürümü deneme çalışmıyor** — kullanıcının iPad'inde (iPadOS 27) Safari `http://` adresleri otomatik `https://`'ye yükseltiyor, yerel Vite dev sunucusu düz HTTP olduğu için bağlantı hiç kurulamıyor (elle yazma, QR kod taratma denendi, hiçbiri çalışmadı — Mac tarafında istek bile görünmüyor). Kullanıcıyla karar: bunun yerine **push → ~1dk bekle → gerçek HTTPS sitesini iPad'de yenile** iş akışı kullanılacak. Yerel dev sunucusu durduruldu.
 
 ## Yarım kalan iş / tam olarak nerede kalındı
-MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors, Animal Friends ve **Dino World (Ünite 4)** dördünü de Nehir'le deneyip onayladı (2026-10-18: "denedim, sorun yok"). Ünite 5, 6, 7 ve 8 içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le onaylanmadı. Ünite 9 (My Family) az önce içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le denenmedi. `npm run build`/`npm run test` temiz geçiyor.
+MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors, Animal Friends ve **Dino World (Ünite 4)** dördünü de Nehir'le deneyip onayladı (2026-10-18: "denedim, sorun yok"). Ünite 5-9 içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le onaylanmadı. Ünite 10 (Get Dressed!) az önce içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le denenmedi. `npm run build`/`npm run test` temiz geçiyor.
 
 ## Sıradaki adımlar
-1. Kullanıcıdan **Ünite 5, 6, 7, 8 VE 9'u Nehir'le deneyip onayını** al (beşi de henüz onaylanmadı).
-2. Özellikle Ünite 9'daki "mommy" sesinin proaktif düzeltmesinin (bkz. yukarı) işe yarayıp yaramadığını sor.
-3. Onay gelirse `curriculum.md` §1'deki Ünite 10'a (Get Dressed! — shirt, hat, shoes, socks, jacket) geçiş öner.
+1. Kullanıcıdan **Ünite 5-10'un hepsini Nehir'le deneyip onayını** al (altısı da henüz onaylanmadı).
+2. Özellikle Ünite 9'daki "mommy" sesinin proaktif düzeltmesinin işe yarayıp yaramadığını sor.
+3. Onay gelirse `curriculum.md` §1'deki Ünite 11'e (How Do You Feel? — happy, sad, scared, excited, tired) geçiş öner.
 4. Kullanıcının sorduğu "ezberleme riski" konusunu (üretim-ağırlıklı oyunların payını artırma) birkaç ünite sonra tekrar gündeme getir — kullanıcı "sonra değerlendirebiliriz" dedi, kapatılmadı.
 5. Bu dosyayı sık güncellemeye devam et.
 
