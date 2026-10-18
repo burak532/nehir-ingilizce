@@ -169,10 +169,11 @@ Kullanıcı "tekrar penceresi nedir" diye sordu (açıklandı), ardından "bu ü
 MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors ve **Animal Friends (Ünite 3)** üçünü de Nehir'le deneyip onayladı (2026-10-17: "bu ünitede bir sorun görünmüyor"). `npm run build`/`npm run test` temiz geçiyor.
 
 ## Sıradaki adımlar
-1. **Kullanıcının Ünite 4'ü (Dino World) Nehir'le denemesini ve geri bildirimini bekle** — prompt Bölüm 7 kuralı: onay olmadan Ünite 5'e geçilmeyecek.
-2. Geri bildirim gelince: bulunan sorunları değerlendirip düzelt.
-3. Onay gelirse `curriculum.md` §1'deki sıradaki ünite (Ünite 5: Count the Rockets!) ile devam et.
-4. Bu dosyayı sık güncellemeye devam et.
+1. Kullanıcıdan **Ünite 5'e (Count the Rockets!, `curriculum.md` §1) geçiş onayı** al.
+2. Onay gelirse aynı süreçle (içerik+ikon+ses üret, test et, canlıya al) devam et.
+3. Bu dosyayı sık güncellemeye devam et.
+
+**Not (2026-10-18):** Kullanıcı Ünite 4'ü (Dino World) Nehir'le deneyip onayladı ("denedim, sorun yok").
 
 ## Bekleyen sorular
 _(şu an yok — GitHub repo adı/görünürlüğü dahil tüm açık sorular yanıtlandı)_
