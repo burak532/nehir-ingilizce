@@ -1,0 +1,9 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="4" width="192" height="192" rx="32" fill="#fde8ea"/>
+  <g>
+    <path d="M70 160 Q10 120 40 50 Q90 70 90 140 Z" fill="#d9718a"/>
+    <path d="M70 148 Q34 118 52 68 Q80 84 80 134 Z" fill="#f3c1cc"/>
+    <path d="M130 160 Q190 120 160 50 Q110 70 110 140 Z" fill="#d9718a"/>
+    <path d="M130 148 Q166 118 148 68 Q120 84 120 134 Z" fill="#f3c1cc"/>
+  </g>
+</svg>

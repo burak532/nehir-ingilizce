@@ -1,0 +1,100 @@
+{
+  "id": "07-animal-bodies",
+  "titleEn": "Animal Bodies",
+  "mapRegion": "animal-bodies",
+  "words": [
+    {
+      "id": "head",
+      "en": "head",
+      "tr": "baş",
+      "image": "units/07-animal-bodies/head.svg",
+      "imageVariants": ["units/07-animal-bodies/head.svg", "units/07-animal-bodies/head-alt.svg"],
+      "audioEn": "en/07-animal-bodies/head.mp3",
+      "introTr": "Bu dinozorun başı. İngilizce'de başa 'head' deriz."
+    },
+    {
+      "id": "nose",
+      "en": "nose",
+      "tr": "burun",
+      "image": "units/07-animal-bodies/nose.svg",
+      "imageVariants": ["units/07-animal-bodies/nose.svg", "units/07-animal-bodies/nose-alt.svg"],
+      "audioEn": "en/07-animal-bodies/nose.mp3",
+      "introTr": "Bu dinozorun burnu. İngilizce'de buruna 'nose' deriz."
+    },
+    {
+      "id": "ears",
+      "en": "ears",
+      "tr": "kulaklar",
+      "image": "units/07-animal-bodies/ears.svg",
+      "imageVariants": ["units/07-animal-bodies/ears.svg", "units/07-animal-bodies/ears-alt.svg"],
+      "audioEn": "en/07-animal-bodies/ears.mp3",
+      "introTr": "Bunlar dinozorun kulakları. İngilizce'de kulaklara 'ears' deriz."
+    },
+    {
+      "id": "hands",
+      "en": "hands",
+      "tr": "eller",
+      "image": "units/07-animal-bodies/hands.svg",
+      "imageVariants": ["units/07-animal-bodies/hands.svg", "units/07-animal-bodies/hands-alt.svg"],
+      "audioEn": "en/07-animal-bodies/hands.mp3",
+      "introTr": "Bunlar dinozorun elleri. İngilizce'de ellere 'hands' deriz."
+    },
+    {
+      "id": "feet",
+      "en": "feet",
+      "tr": "ayaklar",
+      "image": "units/07-animal-bodies/feet.svg",
+      "imageVariants": ["units/07-animal-bodies/feet.svg", "units/07-animal-bodies/feet-alt.svg"],
+      "audioEn": "en/07-animal-bodies/feet.mp3",
+      "introTr": "Bunlar dinozorun ayakları. İngilizce'de ayaklara 'feet' deriz."
+    },
+    {
+      "id": "tail",
+      "en": "tail",
+      "tr": "kuyruk",
+      "image": "units/07-animal-bodies/tail.svg",
+      "imageVariants": ["units/07-animal-bodies/tail.svg", "units/07-animal-bodies/tail-alt.svg"],
+      "audioEn": "en/07-animal-bodies/tail.mp3",
+      "introTr": "Bu dinozorun kuyruğu. İngilizce'de kuyruğa 'tail' deriz."
+    },
+    {
+      "id": "wings",
+      "en": "wings",
+      "tr": "kanatlar",
+      "image": "units/07-animal-bodies/wings.svg",
+      "imageVariants": ["units/07-animal-bodies/wings.svg", "units/07-animal-bodies/wings-alt.svg"],
+      "audioEn": "en/07-animal-bodies/wings.mp3",
+      "introTr": "Bunlar dinozorun kanatları. İngilizce'de kanatlara 'wings' deriz."
+    }
+  ],
+  "chunks": [
+    {
+      "id": "lets-learn-bodies",
+      "en": "Let's learn animal bodies!",
+      "audioEn": "en/07-animal-bodies/lets-learn-bodies.mp3",
+      "placement": "intro"
+    },
+    {
+      "id": "great-job-bodies",
+      "en": "Great job! Bye-bye!",
+      "audioEn": "en/07-animal-bodies/great-job-bodies.mp3",
+      "placement": "closing"
+    },
+    {
+      "id": "yay-word",
+      "en": "Yay, {word}!",
+      "audioEn": "en/07-animal-bodies/yay-{wordId}.mp3",
+      "template": true,
+      "placement": "correct-answer"
+    },
+    {
+      "id": "put-on-animal",
+      "en": "Put {word} on the animal!",
+      "audioEn": "en/07-animal-bodies/put-animal-{wordId}.mp3",
+      "template": true,
+      "placement": "drop-target"
+    }
+  ],
+  "games": ["listen-touch", "drag-drop", "record"],
+  "dropZoneLabel": "Hayvan"
+}

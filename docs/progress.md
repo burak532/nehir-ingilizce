@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello!, Dino Colors, Animal Friends ve Dino World (Ünite 1-4) kullanıcı tarafından Nehir'le denenip onaylandı. Aşama 8 (kalite kontrolü) tamamlandı. Ünite 5 (Count the Rockets!) içerik olarak tamamlanıp 2 düzeltme turundan geçti, kullanıcı henüz Nehir'le onaylamadı. **Ünite 6 (Space Explorer) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
+**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello!, Dino Colors, Animal Friends ve Dino World (Ünite 1-4) kullanıcı tarafından Nehir'le denenip onaylandı. Aşama 8 (kalite kontrolü) tamamlandı. Ünite 5 (Count the Rockets!) ve Ünite 6 (Space Explorer) içerik olarak tamamlanıp düzeltme turlarından geçti, kullanıcı henüz Nehir'le onaylamadı. **Ünite 7 (Animal Bodies) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
 
 **Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
@@ -155,6 +155,14 @@ Kullanıcı sayı ünitelerinde ezberleme riskini sordu (çoğu önlemin — ras
 ## Ünite 5/6 — 3. tur düzeltme: rakam ikonlarının alt varyantı pembeydi
 Kullanıcı: **"7 ve 9 sorularında doğru cevaplar pembe yazıyor, diğerleri ile aynı renkte yap."** Aynı kök sorunun devamı: `-alt` varyantların rengi (pembe) ana varyanttan (sarı) kasıtlı farklı tasarlanmıştı (genelleme için), ama rastgele ana/alt seçimiyle birleşince kullanıcıya "bazı doğru cevaplar farklı renk" olarak göründü — 2. tur'da nokta sırası eksikliği için uygulanan "yapısal farkı minimal tut" dersinin renk için de geçerli olduğu anlaşıldı. Sayı ikonlarının (Ünite 5: one-five, Ünite 6: six-ten — 10 dosya) `-alt` varyantlarındaki rakam rengi sarıya (`#ffd60a`, ana varyantla birebir aynı) çevrildi; artık yalnızca arka plan tonu (lacivert tonları arası) farklı, bu çok daha az göze batan bir fark. `star-alt.svg` (bir SAYI değil, nesne kelimesi) kasıtlı olarak dokunulmadan bırakıldı — oradaki pembe/farklı renk genelleme amaçlı ve sorun yaratmıyordu. **Ders:** sayı ikonlarında `-alt` varyantının TEK kabul edilebilir farkı arka plan tonu; renk dahil her görünür öğe ana varyantla birebir aynı olmalı — sayılar saf sembol olduğu için (bir hayvan/dino gibi "farklı bir örnek" kavramı yok) görsel genelleme testi burada değer katmıyor, sadece tutarsızlık gibi algılanıyor.
 
+## Ünite 7 (Animal Bodies) — tamamlandı
+Kullanıcı "şimdi bir sonraki üniteye geçebilirsin" dedi.
+
+- `content/units/07-animal-bodies.json`: 7 kelime (head, nose, ears, hands, feet, tail, wings — curriculum.md §1'deki tanım birebir). İlk VÜCUT PARÇASI ünitesi; kavram alanı "hayvan vücutları → kendi vücuduna transfer" olsa da `tpr.ts`'nin tamamen jenerik/paylaşılan (wave/jump/spin, ünite kelime dağarcığından bağımsız) olduğu teyit edildi — bu yüzden "Touch your nose!" tarzı vücut-parçası-özel TPR komutları için kod değişikliği gerekmedi, standart dinle-dokun+sürükle-bırak+kaydet-dinle üçlüsü kullanıldı. Sürükle-bırak "Hayvanı tamamla" çerçevesiyle bağlandı (`dropZoneLabel: "Hayvan"`, şablon "Put {word} on the animal!"). `introTr` kalıbı tekil/çoğul ayrımı gözetilerek yazıldı (ears/hands/feet/wings çoğul → "Bunlar...", head/nose/tail tekil → "Bu...").
+- 14 özgün SVG ikon — 7 vücut parçasının silüetleri kasıtlı olarak ÇOK FARKLI tutuldu (tek yuvarlak yüz / tek küçük burun-snutu / iki yuvarlak kulak / iki el-eldiveni-parmaklı / iki ayak izi / tek kavisli kuyruk / iki geniş kanat). **İlk taslakta bulunup düzeltilen hata:** "hands" ve "feet" ilk çizimde ikisi de küçük yuvarlak "pati izi" kümeleri gibi görünüyordu — birbirinden ve genel olarak "el"den yeterince ayrışmıyordu; "hands" parmaklı el/eldiven şekline, "feet" klasik ayak izi (topuk+5 parmak ucu) şekline yeniden çizildi. Ayrıca "nose-alt" ilk halinde yaprağa benziyordu, burun ucu+bıyık çizgileriyle netleştirildi. Hepsi Chrome'da yan yana karşılaştırılıp doğrulandı.
+- 30 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi); 7 kelimenin tamamının süresi `afinfo` ile doğrulandı (0.96-2.35sn, anormallik yok).
+- Canlı tarayıcıda uçtan uca doğrulandı: tanıtma ekranları ve dinle-dokun'da "nose/head/tail/ears" gibi karışık bir turda seçenekler net ayrışıyor. Playwright paketi (Chromium) 5/5 geçti.
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
@@ -195,11 +203,11 @@ Kullanıcı: **"7 ve 9 sorularında doğru cevaplar pembe yazıyor, diğerleri i
 - [x] **Aynı Wi-Fi'de Mac'ten dev sürümü deneme çalışmıyor** — kullanıcının iPad'inde (iPadOS 27) Safari `http://` adresleri otomatik `https://`'ye yükseltiyor, yerel Vite dev sunucusu düz HTTP olduğu için bağlantı hiç kurulamıyor (elle yazma, QR kod taratma denendi, hiçbiri çalışmadı — Mac tarafında istek bile görünmüyor). Kullanıcıyla karar: bunun yerine **push → ~1dk bekle → gerçek HTTPS sitesini iPad'de yenile** iş akışı kullanılacak. Yerel dev sunucusu durduruldu.
 
 ## Yarım kalan iş / tam olarak nerede kalındı
-MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors, Animal Friends ve **Dino World (Ünite 4)** dördünü de Nehir'le deneyip onayladı (2026-10-18: "denedim, sorun yok"). Ünite 5 (Count the Rockets!) içerik olarak tamamlanıp 2 düzeltme turundan geçti (bozuk ses + sayı ikonu karışıklığı + alt-varyant nokta eksikliği), henüz Nehir'le onaylanmadı. Ünite 6 (Space Explorer) az önce içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le denenmedi. `npm run build`/`npm run test` temiz geçiyor.
+MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors, Animal Friends ve **Dino World (Ünite 4)** dördünü de Nehir'le deneyip onayladı (2026-10-18: "denedim, sorun yok"). Ünite 5 (Count the Rockets!) ve Ünite 6 (Space Explorer) içerik olarak tamamlanıp düzeltme turlarından geçti (bozuk ses, sayı ikonu karışıklığı, alt-varyant nokta/renk tutarsızlığı), henüz Nehir'le onaylanmadı. Ünite 7 (Animal Bodies) az önce içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le denenmedi. `npm run build`/`npm run test` temiz geçiyor.
 
 ## Sıradaki adımlar
-1. Kullanıcıdan **Ünite 5 VE Ünite 6'yı Nehir'le deneyip onayını** al (ikisi de henüz onaylanmadı).
-2. Onay gelirse `curriculum.md` §1'deki Ünite 7'ye (Animal Bodies — vücut parçaları) geçiş öner.
+1. Kullanıcıdan **Ünite 5, 6 VE 7'yi Nehir'le deneyip onayını** al (üçü de henüz onaylanmadı).
+2. Onay gelirse `curriculum.md` §1'deki Ünite 8'e (Dino Snack Time — yiyecekler: apple, banana, egg, leaf, water, meat) geçiş öner.
 3. Kullanıcının sorduğu "ezberleme riski" konusunu (üretim-ağırlıklı oyunların payını artırma) birkaç ünite sonra tekrar gündeme getir — kullanıcı "sonra değerlendirebiliriz" dedi, kapatılmadı.
 4. Bu dosyayı sık güncellemeye devam et.
 
