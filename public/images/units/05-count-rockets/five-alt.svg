@@ -1,6 +1,6 @@
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <rect x="4" y="4" width="192" height="192" rx="32" fill="#142032"/>
-  <text x="100" y="118" font-family="Arial, Helvetica, sans-serif" font-size="130" font-weight="700" fill="#ff8fa3" text-anchor="middle">5</text>
+  <text x="100" y="118" font-family="Arial, Helvetica, sans-serif" font-size="130" font-weight="700" fill="#ffd60a" text-anchor="middle">5</text>
   <g fill="#90e0c0">
     <circle cx="60" cy="168" r="7"/>
     <circle cx="80" cy="168" r="7"/>

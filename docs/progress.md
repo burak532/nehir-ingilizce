@@ -152,6 +152,9 @@ Kullanıcı sayı ünitelerinde ezberleme riskini sordu (çoğu önlemin — ras
 - 34 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi). Ünite 5'teki "sessiz dosya" hatasından ders alınarak tüm sayı kelimelerinin süresi `afinfo` ile tek tek doğrulandı (0.86-1.75sn arası, hepsi makul) — anormal kısa/sessiz dosya çıkmadı.
 - Canlı tarayıcıda uçtan uca doğrulandı: tüm 8 kelimenin tanıtma ekranı (6-10 rakam+nokta, planet/moon/sun görsel+Türkçe cümle), dinle-dokun'da "6", "7", "10", "8" gibi karışık bir turda seçenekler net ayrışıyor. Playwright paketi (Chromium) 5/5 geçti.
 
+## Ünite 5/6 — 3. tur düzeltme: rakam ikonlarının alt varyantı pembeydi
+Kullanıcı: **"7 ve 9 sorularında doğru cevaplar pembe yazıyor, diğerleri ile aynı renkte yap."** Aynı kök sorunun devamı: `-alt` varyantların rengi (pembe) ana varyanttan (sarı) kasıtlı farklı tasarlanmıştı (genelleme için), ama rastgele ana/alt seçimiyle birleşince kullanıcıya "bazı doğru cevaplar farklı renk" olarak göründü — 2. tur'da nokta sırası eksikliği için uygulanan "yapısal farkı minimal tut" dersinin renk için de geçerli olduğu anlaşıldı. Sayı ikonlarının (Ünite 5: one-five, Ünite 6: six-ten — 10 dosya) `-alt` varyantlarındaki rakam rengi sarıya (`#ffd60a`, ana varyantla birebir aynı) çevrildi; artık yalnızca arka plan tonu (lacivert tonları arası) farklı, bu çok daha az göze batan bir fark. `star-alt.svg` (bir SAYI değil, nesne kelimesi) kasıtlı olarak dokunulmadan bırakıldı — oradaki pembe/farklı renk genelleme amaçlı ve sorun yaratmıyordu. **Ders:** sayı ikonlarında `-alt` varyantının TEK kabul edilebilir farkı arka plan tonu; renk dahil her görünür öğe ana varyantla birebir aynı olmalı — sayılar saf sembol olduğu için (bir hayvan/dino gibi "farklı bir örnek" kavramı yok) görsel genelleme testi burada değer katmıyor, sadece tutarsızlık gibi algılanıyor.
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
