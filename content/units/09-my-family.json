@@ -1,0 +1,91 @@
+{
+  "id": "09-my-family",
+  "titleEn": "My Family",
+  "mapRegion": "dino-family-home",
+  "words": [
+    {
+      "id": "mommy",
+      "en": "mommy",
+      "tr": "anne",
+      "image": "units/09-my-family/mommy.svg",
+      "imageVariants": ["units/09-my-family/mommy.svg", "units/09-my-family/mommy-alt.svg"],
+      "audioEn": "en/09-my-family/mommy.mp3",
+      "introTr": "Bu anne dinozor. İngilizce'de anneye 'mommy' deriz."
+    },
+    {
+      "id": "daddy",
+      "en": "daddy",
+      "tr": "baba",
+      "image": "units/09-my-family/daddy.svg",
+      "imageVariants": ["units/09-my-family/daddy.svg", "units/09-my-family/daddy-alt.svg"],
+      "audioEn": "en/09-my-family/daddy.mp3",
+      "introTr": "Bu baba dinozor. İngilizce'de babaya 'daddy' deriz."
+    },
+    {
+      "id": "baby",
+      "en": "baby",
+      "tr": "bebek",
+      "image": "units/09-my-family/baby.svg",
+      "imageVariants": ["units/09-my-family/baby.svg", "units/09-my-family/baby-alt.svg"],
+      "audioEn": "en/09-my-family/baby.mp3",
+      "introTr": "Bu bebek dinozor. İngilizce'de bebeğe 'baby' deriz."
+    },
+    {
+      "id": "grandma",
+      "en": "grandma",
+      "tr": "büyükanne",
+      "image": "units/09-my-family/grandma.svg",
+      "imageVariants": ["units/09-my-family/grandma.svg", "units/09-my-family/grandma-alt.svg"],
+      "audioEn": "en/09-my-family/grandma.mp3",
+      "introTr": "Bu büyükanne dinozor. İngilizce'de büyükanneye 'grandma' deriz."
+    },
+    {
+      "id": "grandpa",
+      "en": "grandpa",
+      "tr": "büyükbaba",
+      "image": "units/09-my-family/grandpa.svg",
+      "imageVariants": ["units/09-my-family/grandpa.svg", "units/09-my-family/grandpa-alt.svg"],
+      "audioEn": "en/09-my-family/grandpa.mp3",
+      "introTr": "Bu büyükbaba dinozor. İngilizce'de büyükbabaya 'grandpa' deriz."
+    },
+    {
+      "id": "family",
+      "en": "family",
+      "tr": "aile",
+      "image": "units/09-my-family/family.svg",
+      "imageVariants": ["units/09-my-family/family.svg", "units/09-my-family/family-alt.svg"],
+      "audioEn": "en/09-my-family/family.mp3",
+      "introTr": "Bu dinozor ailesi. İngilizce'de aileye 'family' deriz."
+    }
+  ],
+  "chunks": [
+    {
+      "id": "lets-meet-family",
+      "en": "Let's meet the dino family!",
+      "audioEn": "en/09-my-family/lets-meet-family.mp3",
+      "placement": "intro"
+    },
+    {
+      "id": "love-family-bye",
+      "en": "I love my family! Bye-bye!",
+      "audioEn": "en/09-my-family/love-family-bye.mp3",
+      "placement": "closing"
+    },
+    {
+      "id": "yay-word",
+      "en": "Yay, {word}!",
+      "audioEn": "en/09-my-family/yay-{wordId}.mp3",
+      "template": true,
+      "placement": "correct-answer"
+    },
+    {
+      "id": "put-in-family",
+      "en": "Put {word} in the family!",
+      "audioEn": "en/09-my-family/put-family-{wordId}.mp3",
+      "template": true,
+      "placement": "drop-target"
+    }
+  ],
+  "games": ["listen-touch", "drag-drop", "record"],
+  "dropZoneLabel": "Aile"
+}

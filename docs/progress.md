@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello!, Dino Colors, Animal Friends ve Dino World (Ünite 1-4) kullanıcı tarafından Nehir'le denenip onaylandı. Aşama 8 (kalite kontrolü) tamamlandı. Ünite 5 (Count the Rockets!), 6 (Space Explorer) ve 7 (Animal Bodies) içerik olarak tamamlanıp canlıya alındı, kullanıcı henüz Nehir'le onaylamadı. **Ünite 8 (Dino Snack Time) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
+**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello!, Dino Colors, Animal Friends ve Dino World (Ünite 1-4) kullanıcı tarafından Nehir'le denenip onaylandı. Aşama 8 (kalite kontrolü) tamamlandı. Ünite 5 (Count the Rockets!), 6 (Space Explorer), 7 (Animal Bodies) ve 8 (Dino Snack Time) içerik olarak tamamlanıp canlıya alındı, kullanıcı henüz Nehir'le onaylamadı. **Ünite 9 (My Family) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
 
 **Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
@@ -174,6 +174,14 @@ Kullanıcı "8'e geç" dedi.
 ## Ünite 8 — düzeltme: "banana" sesinde abartılı aksan
 Kullanıcı: **"banana deriz dedikten sonra 'baaaaaanana' diye aşırı bir aksan kullanımı var, oyunda da geliyor."** Aynı `banana.mp3` dosyası tanıtma ekranı, dinle-dokun'daki "Dinle" düğmesi ve kaydet-dinle'deki model sesi için tek kaynak olduğundan, dosyayı bir kez düzeltmek tüm ekranları düzeltiyor. Kök neden muhtemelen `three.mp3`'teki gibi TTS'in tek seferlik bir tuhaflığı (bu kez sessizlik değil, abartılı/gerilmiş telaffuz) — `EN_INSTRUCTIONS` zaten "Not exaggerated or cartoonish" talimatını içeriyor, talimat metninde değişiklik gerekmedi. Cache kaydı silinip dosya yeniden üretildi (~$0.00); yeni süre (1.06sn) öncekinden (1.61sn) belirgin kısa, abartılı uzatmanın gittiğine işaret ediyor.
 
+## Ünite 9 (My Family) — tamamlandı
+Kullanıcı "bir sonraki üniteye geçebilirsin" dedi.
+
+- `content/units/09-my-family.json`: 6 kelime (mommy, daddy, baby, grandma, grandpa, family — curriculum.md §1'deki tanım birebir). Tüm karakterler DİNOZOR (insan değil) — "aile" konusu hassas olabileceğinden, tema baştan beri dinozor ailesi kullanılarak gerçek-dünya aile yapısı temsili sorunlarından kaçınılmış oluyor (prompt/curriculum'un orijinal tasarımı). "family" KOLEKTİF/SOYUT kavram olduğundan (tek bir figür değil), "big/small" ikonlarındaki ölçek tekniğine benzer şekilde üç küçük dino yüzü bir arada gösterilerek somutlaştırıldı — tek-figür ikonlardan (mommy/daddy/vb.) görsel olarak kesin ayrışıyor. Sürükle-bırak "aile portresi" çerçevesiyle bağlandı (`dropZoneLabel: "Aile"`, şablon "Put {word} in the family!").
+- 12 özgün SVG ikon — her aile üyesi renk + aksesuarla ayrıştırıldı (mommy: fiyonk, daddy: bıyık, baby: küçük ölçek+sade, grandma: yuvarlak gözlük+topuz, grandpa: yuvarlak gözlük+favori, family: 3 küçük yüz grubu). **İlk taslakta bulunup düzeltilen hata:** mommy'nin fiyonku ilk halinde kulaklara gizlenmiş belirsiz bir zikzak gibi görünüyordu; kulakların üstüne, net bir fiyonk silüetiyle (iki üçgen+düğüm) yeniden konumlandırıldı, mommy-alt'a da aynı netlikte bir çiçek aksesuarı eklendi.
+- 26 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi). **Proaktif düzeltme:** "mommy.mp3" ilk üretimde 2.4sn çıktı — "daddy" (1.25sn) gibi benzer uzunluktaki bir kelimeye göre neredeyse iki kat uzun, tam da `banana.mp3`'teki abartılı-telaffuz deseniyle örtüşüyordu. Kullanıcı geri bildirimini beklemeden yeniden üretildi (1.97sn, daha makul), kullanıcı onayıyla teyit edilecek.
+- Canlı tarayıcıda uçtan uca doğrulandı: tanıtma ekranı (fiyonk net görünüyor) ve dinle-dokun'da "baby/daddy/family/mommy" gibi karışık bir turda seçenekler net ayrışıyor. Playwright paketi (Chromium) 5/5 geçti.
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
@@ -214,13 +222,14 @@ Kullanıcı: **"banana deriz dedikten sonra 'baaaaaanana' diye aşırı bir aksa
 - [x] **Aynı Wi-Fi'de Mac'ten dev sürümü deneme çalışmıyor** — kullanıcının iPad'inde (iPadOS 27) Safari `http://` adresleri otomatik `https://`'ye yükseltiyor, yerel Vite dev sunucusu düz HTTP olduğu için bağlantı hiç kurulamıyor (elle yazma, QR kod taratma denendi, hiçbiri çalışmadı — Mac tarafında istek bile görünmüyor). Kullanıcıyla karar: bunun yerine **push → ~1dk bekle → gerçek HTTPS sitesini iPad'de yenile** iş akışı kullanılacak. Yerel dev sunucusu durduruldu.
 
 ## Yarım kalan iş / tam olarak nerede kalındı
-MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors, Animal Friends ve **Dino World (Ünite 4)** dördünü de Nehir'le deneyip onayladı (2026-10-18: "denedim, sorun yok"). Ünite 5, 6 ve 7 içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le onaylanmadı. Ünite 8 (Dino Snack Time) az önce içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le denenmedi. `npm run build`/`npm run test` temiz geçiyor.
+MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors, Animal Friends ve **Dino World (Ünite 4)** dördünü de Nehir'le deneyip onayladı (2026-10-18: "denedim, sorun yok"). Ünite 5, 6, 7 ve 8 içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le onaylanmadı. Ünite 9 (My Family) az önce içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le denenmedi. `npm run build`/`npm run test` temiz geçiyor.
 
 ## Sıradaki adımlar
-1. Kullanıcıdan **Ünite 5, 6, 7 VE 8'i Nehir'le deneyip onayını** al (dördü de henüz onaylanmadı).
-2. Onay gelirse `curriculum.md` §1'deki Ünite 9'a (My Family — mommy, daddy, baby, grandma, grandpa, family) geçiş öner.
-3. Kullanıcının sorduğu "ezberleme riski" konusunu (üretim-ağırlıklı oyunların payını artırma) birkaç ünite sonra tekrar gündeme getir — kullanıcı "sonra değerlendirebiliriz" dedi, kapatılmadı.
-4. Bu dosyayı sık güncellemeye devam et.
+1. Kullanıcıdan **Ünite 5, 6, 7, 8 VE 9'u Nehir'le deneyip onayını** al (beşi de henüz onaylanmadı).
+2. Özellikle Ünite 9'daki "mommy" sesinin proaktif düzeltmesinin (bkz. yukarı) işe yarayıp yaramadığını sor.
+3. Onay gelirse `curriculum.md` §1'deki Ünite 10'a (Get Dressed! — shirt, hat, shoes, socks, jacket) geçiş öner.
+4. Kullanıcının sorduğu "ezberleme riski" konusunu (üretim-ağırlıklı oyunların payını artırma) birkaç ünite sonra tekrar gündeme getir — kullanıcı "sonra değerlendirebiliriz" dedi, kapatılmadı.
+5. Bu dosyayı sık güncellemeye devam et.
 
 ## Bekleyen sorular
 _(şu an yok — GitHub repo adı/görünürlüğü dahil tüm açık sorular yanıtlandı)_
