@@ -1,0 +1,21 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect x="4" y="4" width="192" height="192" rx="32" fill="#fde3df"/>
+  <g fill="#d9483f">
+    <ellipse cx="72" cy="140" rx="36" ry="26"/>
+    <circle cx="110" cy="100" r="30"/>
+    <ellipse cx="46" cy="158" rx="11" ry="8"/>
+    <ellipse cx="88" cy="162" rx="11" ry="8"/>
+  </g>
+  <ellipse cx="138" cy="106" rx="34" ry="26" fill="#7a2420"/>
+  <g fill="#fff">
+    <polygon points="110,92 118,104 102,104"/>
+    <polygon points="140,86 148,98 132,98"/>
+    <polygon points="166,96 174,108 158,108"/>
+  </g>
+  <circle cx="122" cy="80" r="4" fill="#1a1a1a"/>
+  <g stroke="#f3a89e" stroke-width="7" fill="none" stroke-linecap="round">
+    <path d="M172 60 Q194 56 198 36"/>
+    <path d="M180 92 Q204 92 210 74"/>
+    <path d="M172 124 Q194 128 198 148"/>
+  </g>
+</svg>

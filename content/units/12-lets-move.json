@@ -1,0 +1,101 @@
+{
+  "id": "12-lets-move",
+  "titleEn": "Let's Move!",
+  "mapRegion": "dino-playground",
+  "words": [
+    {
+      "id": "jump",
+      "en": "jump",
+      "tr": "zıpla",
+      "image": "units/12-lets-move/jump.svg",
+      "imageVariants": ["units/12-lets-move/jump.svg", "units/12-lets-move/jump-alt.svg"],
+      "audioEn": "en/12-lets-move/jump.mp3",
+      "introTr": "Dinozor zıplıyor. İngilizce'de zıplamaya 'jump' deriz."
+    },
+    {
+      "id": "run",
+      "en": "run",
+      "tr": "koş",
+      "image": "units/12-lets-move/run.svg",
+      "imageVariants": ["units/12-lets-move/run.svg", "units/12-lets-move/run-alt.svg"],
+      "audioEn": "en/12-lets-move/run.mp3",
+      "introTr": "Dinozor koşuyor. İngilizce'de koşmaya 'run' deriz."
+    },
+    {
+      "id": "walk",
+      "en": "walk",
+      "tr": "yürü",
+      "image": "units/12-lets-move/walk.svg",
+      "imageVariants": ["units/12-lets-move/walk.svg", "units/12-lets-move/walk-alt.svg"],
+      "audioEn": "en/12-lets-move/walk.mp3",
+      "introTr": "Dinozor yürüyor. İngilizce'de yürümeye 'walk' deriz."
+    },
+    {
+      "id": "fly",
+      "en": "fly",
+      "tr": "uç",
+      "image": "units/12-lets-move/fly.svg",
+      "imageVariants": ["units/12-lets-move/fly.svg", "units/12-lets-move/fly-alt.svg"],
+      "audioEn": "en/12-lets-move/fly.mp3",
+      "introTr": "Dinozor uçuyor. İngilizce'de uçmaya 'fly' deriz."
+    },
+    {
+      "id": "roar",
+      "en": "roar",
+      "tr": "kükre",
+      "image": "units/12-lets-move/roar.svg",
+      "imageVariants": ["units/12-lets-move/roar.svg", "units/12-lets-move/roar-alt.svg"],
+      "audioEn": "en/12-lets-move/roar.mp3",
+      "introTr": "Dinozor kükrüyor. İngilizce'de kükremeye 'roar' deriz."
+    },
+    {
+      "id": "sleep",
+      "en": "sleep",
+      "tr": "uyu",
+      "image": "units/12-lets-move/sleep.svg",
+      "imageVariants": ["units/12-lets-move/sleep.svg", "units/12-lets-move/sleep-alt.svg"],
+      "audioEn": "en/12-lets-move/sleep.mp3",
+      "introTr": "Dinozor uyuyor. İngilizce'de uyumaya 'sleep' deriz."
+    },
+    {
+      "id": "up",
+      "en": "up",
+      "tr": "yukarı",
+      "image": "units/12-lets-move/up.svg",
+      "imageVariants": ["units/12-lets-move/up.svg", "units/12-lets-move/up-alt.svg"],
+      "audioEn": "en/12-lets-move/up.mp3",
+      "introTr": "Dinozor yukarıda. İngilizce'de yukarıya 'up' deriz."
+    },
+    {
+      "id": "down",
+      "en": "down",
+      "tr": "aşağı",
+      "image": "units/12-lets-move/down.svg",
+      "imageVariants": ["units/12-lets-move/down.svg", "units/12-lets-move/down-alt.svg"],
+      "audioEn": "en/12-lets-move/down.mp3",
+      "introTr": "Dinozor aşağıda. İngilizce'de aşağıya 'down' deriz."
+    }
+  ],
+  "chunks": [
+    {
+      "id": "lets-move-like-dinos",
+      "en": "Let's move like dinosaurs!",
+      "audioEn": "en/12-lets-move/lets-move-like-dinos.mp3",
+      "placement": "intro"
+    },
+    {
+      "id": "great-moving-bye",
+      "en": "Great moving! Bye-bye!",
+      "audioEn": "en/12-lets-move/great-moving-bye.mp3",
+      "placement": "closing"
+    },
+    {
+      "id": "yay-word",
+      "en": "Yay, {word}!",
+      "audioEn": "en/12-lets-move/yay-{wordId}.mp3",
+      "template": true,
+      "placement": "correct-answer"
+    }
+  ],
+  "games": ["listen-touch", "tpr", "record"]
+}

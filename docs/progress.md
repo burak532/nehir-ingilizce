@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello! — Get Dressed! (Ünite 1-10) kullanıcı tarafından Nehir'le denenip onaylandı (2026-10-18: "5-10 arasını onaylıyorum"). Aşama 8 (kalite kontrolü) tamamlandı. **Ünite 11 (How Do You Feel?) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
+**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello! — Get Dressed! (Ünite 1-10) kullanıcı tarafından Nehir'le denenip onaylandı (2026-10-18: "5-10 arasını onaylıyorum"). Aşama 8 (kalite kontrolü) tamamlandı. Ünite 11 (How Do You Feel?) içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le onaylanmadı. **Ünite 12 (Let's Move!) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
 
 **Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
@@ -198,6 +198,14 @@ Kullanıcı Ünite 5-10'u onaylayıp toplu test istedi (bkz. yukarı); sorun bul
 - 17 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi). "scared.mp3" iki kez üretilmesine rağmen (2.06sn, sonra 2.35sn) diğer kelimelere göre belirgin uzun kaldı — `banana`/`mommy`'nin aksine yeniden üretimde KISALMADI (uzadı), bu yüzden muhtemelen tek seferlik bir TTS tuhaflığı değil, kelimenin kendi doğal telaffuz uzunluğu; dosya bütünlüğü (bit hızı) doğrulandı, bozuk değil. **Kullanıcıdan özellikle "scared" sesini dinlerken dikkat etmesi istenecek.**
 - Canlı tarayıcıda uçtan uca doğrulandı: tanıtma ekranı ve dinle-dokun'da "happy/scared/tired/excited" gibi karışık turlarda tüm ifadeler net ayrışıyor. TPR ünite-bağımsız olduğundan ve Playwright'ın Hello! testi zaten TPR'ı kapsadığından ayrıca manuel doğrulanmadı. Playwright paketi (Chromium) 5/5 geçti.
 
+## Ünite 12 (Let's Move!) — tamamlandı
+Kullanıcı "12'ye geç" dedi.
+
+- `content/units/12-lets-move.json`: 8 kelime (jump, run, walk, fly, roar, sleep, up, down — curriculum.md §1'deki tanım birebir). Curriculum bu üniteyi "TPR-yoğun hareket ünitesi" diye tanımlıyor, ama `tpr.ts`'nin ünite-bağımsız jenerik olduğu zaten biliniyordu (Ünite 7/11) — bu yüzden kelimeler sadece dinle-dokun/kaydet-dinle ile test ediliyor, TPR molası içerik olarak bağlı değil (bilinen/kabul edilen sınırlama). 6 eylem fiili (jump-sleep) + 2 yön/soyut kavram (up/down) — up/down için Ünite 5/6'daki "sayı = soyut sembol" dersi tekrar uygulandı: nesne/poz temsili yerine büyük, net bir OK sembolü kullanıldı (ana=dolu ok, alt=çift şevron ^^/vv), tıpkı rakamların nesne yerine rakam sembolüyle çözülmesi gibi.
+- 16 özgün SVG ikon. Eylem fiilleri jenerik bir "blob dinozor" gövdesinin farklı pozlarda+aksesuarlarla (hareket çizgileri, ses dalgaları, Z harfleri, kanatlar) çizilmesiyle ayrıştırıldı. **İlk taslakta bulunup düzeltilen hatalar:** `fly-alt.svg`'nin kanat path'leri bozuk render oluyordu (sadece iki ince çizgi görünüyordu, uçan bir yaratığa hiç benzemiyordu) — dört parçalı kanat siluetiyle yeniden çizildi. `roar`/`roar-alt` ilk halinde açık ağız+ses dalgaları çok soluk/belirsizdi — ağız büyütülüp beyaz diş üçgenleri ve kalın ses çizgileri eklenerek netleştirildi. `jump`/`jump-alt` gövdesi yükseltilip bacaklar daha belirgin kıvrılarak havada olma hissi güçlendirildi.
+- 26 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi). "walk.mp3" ilk üretimde (1.97sn) benzer tek heceli "run" (1.46sn) kelimesine göre belirgin uzundu — proaktif olarak yeniden üretildi, yeni süre (1.32sn) diğerleriyle tutarlı.
+- Canlı tarayıcıda uçtan uca doğrulandı: tanıtma ekranı ve dinle-dokun'da "up/jump/run/sleep" gibi karışık bir turda seçenekler net ayrışıyor. TPR ünite-bağımsız olduğundan ayrıca manuel doğrulanmadı (Playwright'ın Hello! testi zaten kapsıyor). Playwright paketi (Chromium) 5/5 geçti.
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
@@ -244,8 +252,8 @@ MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aş
 Kullanıcı Ünite 5-10'un hepsini onayladı ("5-10 arasını onaylıyorum") ve isteğe bağlı toplu test teklif etti ("toplu bir test yapmak istiyorsan yapabilirsin... sorun yoksa bir sonraki üniteye geçebilirsin"). Yapılan doğrulama: Playwright paketi (Chromium) 5/5 geçti; canlı sitede (production URL, gerçek SW güncelleme döngüsüyle) tüm 10 ünite haritada doğru görünüyor, konsol hatası yok, My Family ünitesinde ağ istekleri izlenip tüm ses/görsel dosyalarının 200 döndüğü doğrulandı (özellikle önceki tur proaktif düzeltilen `mommy.mp3` canlıda da doğru dosyayı veriyor). Sorun bulunmadığı için doğrudan Ünite 11'e geçildi.
 
 ## Sıradaki adımlar
-1. Kullanıcıdan **Ünite 11'i (How Do You Feel?) Nehir'le deneyip onayını** al; özellikle "scared" sesinin doğal mı abartılı mı geldiğini sor (bkz. yukarı).
-2. Onay gelirse `curriculum.md` §1'deki Ünite 12'ye (Let's Move! — jump, run, walk, fly, roar, sleep, up, down) geçiş öner.
+1. Kullanıcıdan **Ünite 11 VE 12'yi Nehir'le deneyip onayını** al; özellikle Ünite 11'deki "scared" ve Ünite 12'deki eylem pozlarının (jump/run/walk gibi birbirine görece yakın pozların) anlaşılır olup olmadığını sor.
+2. **Ünite 13 (Mix & Match) özel bir durum** — curriculum.md'ye göre sabit kelime listesi yok, önceki tüm ünitelerden karışık çekiliyor; bu muhtemelen var olan "Tekrar" (aralıklı tekrar) ekranıyla kavramsal olarak örtüşüyor. Standart "yeni ünite ekle" akışıyla (içerik JSON+ikon+ses) ilerlemeden ÖNCE kullanıcıyla bunun tam olarak ne anlama geldiğini (yeni bir oyun mu, var olan Tekrar'ın bir varyasyonu mu) netleştir.
 3. Kullanıcının sorduğu "ezberleme riski" konusunu (üretim-ağırlıklı oyunların payını artırma) birkaç ünite sonra tekrar gündeme getir — kullanıcı "sonra değerlendirebiliriz" dedi, kapatılmadı.
 4. Bu dosyayı sık güncellemeye devam et.
 
