@@ -3,7 +3,7 @@
 > Her yeni oturum önce `CLAUDE.md` ve bu dosyayı okumalı.
 
 ## Şu anki aşama
-**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello!, Dino Colors, Animal Friends ve Dino World (Ünite 1-4) kullanıcı tarafından Nehir'le denenip onaylandı. Aşama 8 (kalite kontrolü) tamamlandı. Ünite 5 (Count the Rockets!), 6 (Space Explorer), 7 (Animal Bodies), 8 (Dino Snack Time) ve 9 (My Family) içerik olarak tamamlanıp canlıya alındı, kullanıcı henüz Nehir'le onaylamadı. **Ünite 10 (Get Dressed!) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
+**Canlı site: https://burak532.github.io/nehir-ingilizce/.** Hello! — Get Dressed! (Ünite 1-10) kullanıcı tarafından Nehir'le denenip onaylandı (2026-10-18: "5-10 arasını onaylıyorum"). Aşama 8 (kalite kontrolü) tamamlandı. **Ünite 11 (How Do You Feel?) içerik olarak tamamlandı**, canlıya alındı, Nehir'in denemesi bekleniyor.
 
 **Önemli not (güncelleme davranışı):** Kullanıcı ilk düzeltmeden sonra "hâlâ eski sürüm görünüyor" dedi — sebep PWA'nın service worker güncellemesini uygulaması için uygulamanın **tamamen kapatılıp yeniden açılması** gerekmesiydi (arka planda askıda kalan bir sekme güncellemeyi yakalamıyor). Tam kapat-aç ile çözüldü. Gelecekte benzer şikayet gelirse önce bunu söyle.
 
@@ -190,6 +190,14 @@ Kullanıcı "10'a geç" dedi.
 - 22 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi); süreler birbirine yakın çıktı (0.86-1.51sn), Ünite 8/9'daki gibi bir aykırı değer yoktu — ek düzeltme gerekmedi.
 - Canlı tarayıcıda uçtan uca doğrulandı: tanıtma ekranı ve dinle-dokun'da "hat/shoes/shirt/socks" gibi karışık bir turda seçenekler net ayrışıyor. Playwright paketi (Chromium) 5/5 geçti.
 
+## Ünite 11 (How Do You Feel?) — tamamlandı
+Kullanıcı Ünite 5-10'u onaylayıp toplu test istedi (bkz. yukarı); sorun bulunmadı, "10'a geç" sonrası doğrudan bu üniteye geçildi.
+
+- `content/units/11-how-do-you-feel.json`: 5 kelime (happy, sad, scared, excited, tired — curriculum.md §1'deki tanım birebir). **İlk DUYGU/sıfat ünitesi** (big/small'dan sonraki ikinci soyut kavram kategorisi). Curriculum'un "dinozor yüz ifadeleri" çerçevesi ve kelimelerin SOMUT bir "yerleştirme" eylemine uygun olmaması nedeniyle sürükle-bırak yerine Ünite 1 (Hello!) ile aynı oyun üçlüsü kullanıldı: `games: ["listen-touch","tpr","record"]` — TPR'ın ünite içeriğinden bağımsız jenerik (wave/jump/spin) olduğu zaten Ünite 7'de teyit edilmişti. `introTr` kalıbı big/small ile aynı sıfat-dative yapısını kullanıyor ("Bu dinozor mutlu. İngilizce'de mutluya 'happy' deriz.").
+- 10 özgün SVG ikon — aynı dino-yüz tabanı (Ünite 7/9'dan miras) korunup her duygu GÖZ+AĞIZ ŞEKLİYLE ayrıştırıldı (happy: geniş gülümseme; sad: aşağı ağız+gözyaşı; scared: iri gözler+"o" ağız+titreme çizgileri; excited: geniş sırıtış+parıltı aksanları; tired: yarı kapalı/kapalı gözler+esneme). Her duygu için main/alt varyant, AYNI duygunun farklı ifade biçimlerini gösteriyor (ör. happy=açık-gözlü gülümseme, happy-alt=kapalı-gözlü kahkaha) — genelleme testi + pedagojik olarak "bu duygu farklı yüzlerde de olabilir" öğretisi.
+- 17 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi). "scared.mp3" iki kez üretilmesine rağmen (2.06sn, sonra 2.35sn) diğer kelimelere göre belirgin uzun kaldı — `banana`/`mommy`'nin aksine yeniden üretimde KISALMADI (uzadı), bu yüzden muhtemelen tek seferlik bir TTS tuhaflığı değil, kelimenin kendi doğal telaffuz uzunluğu; dosya bütünlüğü (bit hızı) doğrulandı, bozuk değil. **Kullanıcıdan özellikle "scared" sesini dinlerken dikkat etmesi istenecek.**
+- Canlı tarayıcıda uçtan uca doğrulandı: tanıtma ekranı ve dinle-dokun'da "happy/scared/tired/excited" gibi karışık turlarda tüm ifadeler net ayrışıyor. TPR ünite-bağımsız olduğundan ve Playwright'ın Hello! testi zaten TPR'ı kapsadığından ayrıca manuel doğrulanmadı. Playwright paketi (Chromium) 5/5 geçti.
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.
@@ -232,12 +240,14 @@ Kullanıcı "10'a geç" dedi.
 ## Yarım kalan iş / tam olarak nerede kalındı
 MVP (prompt Bölüm 7 kapsamı) **tamamen bitti ve GitHub Pages'te canlı**. Aşama 8 (kalite kontrolü) tamamlandı. Kullanıcı Hello!, Dino Colors, Animal Friends ve **Dino World (Ünite 4)** dördünü de Nehir'le deneyip onayladı (2026-10-18: "denedim, sorun yok"). Ünite 5-9 içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le onaylanmadı. Ünite 10 (Get Dressed!) az önce içerik olarak tamamlanıp canlıya alındı, henüz Nehir'le denenmedi. `npm run build`/`npm run test` temiz geçiyor.
 
+## Toplu onay ve toplu test (Ünite 5-10)
+Kullanıcı Ünite 5-10'un hepsini onayladı ("5-10 arasını onaylıyorum") ve isteğe bağlı toplu test teklif etti ("toplu bir test yapmak istiyorsan yapabilirsin... sorun yoksa bir sonraki üniteye geçebilirsin"). Yapılan doğrulama: Playwright paketi (Chromium) 5/5 geçti; canlı sitede (production URL, gerçek SW güncelleme döngüsüyle) tüm 10 ünite haritada doğru görünüyor, konsol hatası yok, My Family ünitesinde ağ istekleri izlenip tüm ses/görsel dosyalarının 200 döndüğü doğrulandı (özellikle önceki tur proaktif düzeltilen `mommy.mp3` canlıda da doğru dosyayı veriyor). Sorun bulunmadığı için doğrudan Ünite 11'e geçildi.
+
 ## Sıradaki adımlar
-1. Kullanıcıdan **Ünite 5-10'un hepsini Nehir'le deneyip onayını** al (altısı da henüz onaylanmadı).
-2. Özellikle Ünite 9'daki "mommy" sesinin proaktif düzeltmesinin işe yarayıp yaramadığını sor.
-3. Onay gelirse `curriculum.md` §1'deki Ünite 11'e (How Do You Feel? — happy, sad, scared, excited, tired) geçiş öner.
-4. Kullanıcının sorduğu "ezberleme riski" konusunu (üretim-ağırlıklı oyunların payını artırma) birkaç ünite sonra tekrar gündeme getir — kullanıcı "sonra değerlendirebiliriz" dedi, kapatılmadı.
-5. Bu dosyayı sık güncellemeye devam et.
+1. Kullanıcıdan **Ünite 11'i (How Do You Feel?) Nehir'le deneyip onayını** al; özellikle "scared" sesinin doğal mı abartılı mı geldiğini sor (bkz. yukarı).
+2. Onay gelirse `curriculum.md` §1'deki Ünite 12'ye (Let's Move! — jump, run, walk, fly, roar, sleep, up, down) geçiş öner.
+3. Kullanıcının sorduğu "ezberleme riski" konusunu (üretim-ağırlıklı oyunların payını artırma) birkaç ünite sonra tekrar gündeme getir — kullanıcı "sonra değerlendirebiliriz" dedi, kapatılmadı.
+4. Bu dosyayı sık güncellemeye devam et.
 
 ## Bekleyen sorular
 _(şu an yok — GitHub repo adı/görünürlüğü dahil tüm açık sorular yanıtlandı)_

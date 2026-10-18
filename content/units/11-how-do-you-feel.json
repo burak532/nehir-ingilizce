@@ -1,0 +1,74 @@
+{
+  "id": "11-how-do-you-feel",
+  "titleEn": "How Do You Feel?",
+  "mapRegion": "dino-feelings",
+  "words": [
+    {
+      "id": "happy",
+      "en": "happy",
+      "tr": "mutlu",
+      "image": "units/11-how-do-you-feel/happy.svg",
+      "imageVariants": ["units/11-how-do-you-feel/happy.svg", "units/11-how-do-you-feel/happy-alt.svg"],
+      "audioEn": "en/11-how-do-you-feel/happy.mp3",
+      "introTr": "Bu dinozor mutlu. İngilizce'de mutluya 'happy' deriz."
+    },
+    {
+      "id": "sad",
+      "en": "sad",
+      "tr": "üzgün",
+      "image": "units/11-how-do-you-feel/sad.svg",
+      "imageVariants": ["units/11-how-do-you-feel/sad.svg", "units/11-how-do-you-feel/sad-alt.svg"],
+      "audioEn": "en/11-how-do-you-feel/sad.mp3",
+      "introTr": "Bu dinozor üzgün. İngilizce'de üzgüne 'sad' deriz."
+    },
+    {
+      "id": "scared",
+      "en": "scared",
+      "tr": "korkmuş",
+      "image": "units/11-how-do-you-feel/scared.svg",
+      "imageVariants": ["units/11-how-do-you-feel/scared.svg", "units/11-how-do-you-feel/scared-alt.svg"],
+      "audioEn": "en/11-how-do-you-feel/scared.mp3",
+      "introTr": "Bu dinozor korkmuş. İngilizce'de korkmuşa 'scared' deriz."
+    },
+    {
+      "id": "excited",
+      "en": "excited",
+      "tr": "heyecanlı",
+      "image": "units/11-how-do-you-feel/excited.svg",
+      "imageVariants": ["units/11-how-do-you-feel/excited.svg", "units/11-how-do-you-feel/excited-alt.svg"],
+      "audioEn": "en/11-how-do-you-feel/excited.mp3",
+      "introTr": "Bu dinozor heyecanlı. İngilizce'de heyecanlıya 'excited' deriz."
+    },
+    {
+      "id": "tired",
+      "en": "tired",
+      "tr": "yorgun",
+      "image": "units/11-how-do-you-feel/tired.svg",
+      "imageVariants": ["units/11-how-do-you-feel/tired.svg", "units/11-how-do-you-feel/tired-alt.svg"],
+      "audioEn": "en/11-how-do-you-feel/tired.mp3",
+      "introTr": "Bu dinozor yorgun. İngilizce'de yorguna 'tired' deriz."
+    }
+  ],
+  "chunks": [
+    {
+      "id": "how-do-you-feel-today",
+      "en": "How do you feel today?",
+      "audioEn": "en/11-how-do-you-feel/how-do-you-feel-today.mp3",
+      "placement": "intro"
+    },
+    {
+      "id": "feel-great-bye",
+      "en": "I feel great! Bye-bye!",
+      "audioEn": "en/11-how-do-you-feel/feel-great-bye.mp3",
+      "placement": "closing"
+    },
+    {
+      "id": "yay-word",
+      "en": "Yay, {word}!",
+      "audioEn": "en/11-how-do-you-feel/yay-{wordId}.mp3",
+      "template": true,
+      "placement": "correct-answer"
+    }
+  ],
+  "games": ["listen-touch", "tpr", "record"]
+}

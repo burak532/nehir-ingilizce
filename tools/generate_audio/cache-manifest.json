@@ -298,5 +298,22 @@
   "10-get-dressed:put-on-word:hat:en": "b2250b2a13973a4a",
   "10-get-dressed:put-on-word:shoes:en": "dee8e0b3a9c6516d",
   "10-get-dressed:put-on-word:socks:en": "5e2a7ffec67aab3c",
-  "10-get-dressed:put-on-word:jacket:en": "e4082f28f2038e52"
+  "10-get-dressed:put-on-word:jacket:en": "e4082f28f2038e52",
+  "11-how-do-you-feel:happy:en": "e9fb8540828ccc29",
+  "11-how-do-you-feel:happy:tr-intro": "a799573e5cf392c7",
+  "11-how-do-you-feel:sad:en": "3db23c88e22be564",
+  "11-how-do-you-feel:sad:tr-intro": "2d7f930243ec412e",
+  "11-how-do-you-feel:scared:tr-intro": "0769393911598558",
+  "11-how-do-you-feel:excited:en": "8079ec7e478a6057",
+  "11-how-do-you-feel:excited:tr-intro": "54cbc2914aa608fb",
+  "11-how-do-you-feel:tired:en": "58b1ed6d2060e2c0",
+  "11-how-do-you-feel:tired:tr-intro": "52d442413e278f24",
+  "11-how-do-you-feel:how-do-you-feel-today:en": "0700b38311cf48d7",
+  "11-how-do-you-feel:feel-great-bye:en": "f1c9e0692884ad4a",
+  "11-how-do-you-feel:yay-word:happy:en": "733d9171a9584344",
+  "11-how-do-you-feel:yay-word:sad:en": "0dc36820749735a5",
+  "11-how-do-you-feel:yay-word:scared:en": "ca1a9d2d5cad08fc",
+  "11-how-do-you-feel:yay-word:excited:en": "97798d4beb0d50d1",
+  "11-how-do-you-feel:yay-word:tired:en": "5b53866702c43631",
+  "11-how-do-you-feel:scared:en": "c5ccb5824c297259"
 }
