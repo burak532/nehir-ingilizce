@@ -1,0 +1,91 @@
+{
+  "id": "08-dino-snack-time",
+  "titleEn": "Dino Snack Time",
+  "mapRegion": "dino-kitchen",
+  "words": [
+    {
+      "id": "apple",
+      "en": "apple",
+      "tr": "elma",
+      "image": "units/08-dino-snack-time/apple.svg",
+      "imageVariants": ["units/08-dino-snack-time/apple.svg", "units/08-dino-snack-time/apple-alt.svg"],
+      "audioEn": "en/08-dino-snack-time/apple.mp3",
+      "introTr": "Bu bir elma. İngilizce'de elmaya 'apple' deriz."
+    },
+    {
+      "id": "banana",
+      "en": "banana",
+      "tr": "muz",
+      "image": "units/08-dino-snack-time/banana.svg",
+      "imageVariants": ["units/08-dino-snack-time/banana.svg", "units/08-dino-snack-time/banana-alt.svg"],
+      "audioEn": "en/08-dino-snack-time/banana.mp3",
+      "introTr": "Bu bir muz. İngilizce'de muza 'banana' deriz."
+    },
+    {
+      "id": "egg",
+      "en": "egg",
+      "tr": "yumurta",
+      "image": "units/08-dino-snack-time/egg.svg",
+      "imageVariants": ["units/08-dino-snack-time/egg.svg", "units/08-dino-snack-time/egg-alt.svg"],
+      "audioEn": "en/08-dino-snack-time/egg.mp3",
+      "introTr": "Bu bir yumurta. İngilizce'de yumurtaya 'egg' deriz."
+    },
+    {
+      "id": "leaf",
+      "en": "leaf",
+      "tr": "yaprak",
+      "image": "units/08-dino-snack-time/leaf.svg",
+      "imageVariants": ["units/08-dino-snack-time/leaf.svg", "units/08-dino-snack-time/leaf-alt.svg"],
+      "audioEn": "en/08-dino-snack-time/leaf.mp3",
+      "introTr": "Bu bir yaprak. İngilizce'de yaprağa 'leaf' deriz."
+    },
+    {
+      "id": "water",
+      "en": "water",
+      "tr": "su",
+      "image": "units/08-dino-snack-time/water.svg",
+      "imageVariants": ["units/08-dino-snack-time/water.svg", "units/08-dino-snack-time/water-alt.svg"],
+      "audioEn": "en/08-dino-snack-time/water.mp3",
+      "introTr": "Bu su. İngilizce'de suya 'water' deriz."
+    },
+    {
+      "id": "meat",
+      "en": "meat",
+      "tr": "et",
+      "image": "units/08-dino-snack-time/meat.svg",
+      "imageVariants": ["units/08-dino-snack-time/meat.svg", "units/08-dino-snack-time/meat-alt.svg"],
+      "audioEn": "en/08-dino-snack-time/meat.mp3",
+      "introTr": "Bu et. İngilizce'de ete 'meat' deriz."
+    }
+  ],
+  "chunks": [
+    {
+      "id": "lets-eat",
+      "en": "Let's eat dino snacks!",
+      "audioEn": "en/08-dino-snack-time/lets-eat.mp3",
+      "placement": "intro"
+    },
+    {
+      "id": "yummy-bye",
+      "en": "Yummy! Bye-bye!",
+      "audioEn": "en/08-dino-snack-time/yummy-bye.mp3",
+      "placement": "closing"
+    },
+    {
+      "id": "yay-word",
+      "en": "Yay, {word}!",
+      "audioEn": "en/08-dino-snack-time/yay-{wordId}.mp3",
+      "template": true,
+      "placement": "correct-answer"
+    },
+    {
+      "id": "feed-dino",
+      "en": "Give {word} to the dino!",
+      "audioEn": "en/08-dino-snack-time/feed-dino-{wordId}.mp3",
+      "template": true,
+      "placement": "drop-target"
+    }
+  ],
+  "games": ["listen-touch", "drag-drop", "record"],
+  "dropZoneLabel": "Dinozor"
+}
