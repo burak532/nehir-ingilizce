@@ -171,6 +171,9 @@ Kullanıcı "8'e geç" dedi.
 - 26 satır ses üretildi (~$0.01, kullanıcı onayıyla, cedar sesi); "meat" kelimesinin süresi (0.65sn) diğerlerine göre kısa görünse de bit hızı diğer dosyalarla birebir aynı çıktı (kesilme/bozukluk değil, gerçekten tek heceli kısa bir kelime) — `three.mp3` hatasından sonra benimsenen doğrulama alışkanlığıyla kontrol edildi.
 - Canlı tarayıcıda uçtan uca doğrulandı: tanıtma ekranı ve dinle-dokun'da "water/leaf/meat/apple" gibi karışık bir turda seçenekler net ayrışıyor. Playwright paketi (Chromium) 5/5 geçti.
 
+## Ünite 8 — düzeltme: "banana" sesinde abartılı aksan
+Kullanıcı: **"banana deriz dedikten sonra 'baaaaaanana' diye aşırı bir aksan kullanımı var, oyunda da geliyor."** Aynı `banana.mp3` dosyası tanıtma ekranı, dinle-dokun'daki "Dinle" düğmesi ve kaydet-dinle'deki model sesi için tek kaynak olduğundan, dosyayı bir kez düzeltmek tüm ekranları düzeltiyor. Kök neden muhtemelen `three.mp3`'teki gibi TTS'in tek seferlik bir tuhaflığı (bu kez sessizlik değil, abartılı/gerilmiş telaffuz) — `EN_INSTRUCTIONS` zaten "Not exaggerated or cartoonish" talimatını içeriyor, talimat metninde değişiklik gerekmedi. Cache kaydı silinip dosya yeniden üretildi (~$0.00); yeni süre (1.06sn) öncekinden (1.61sn) belirgin kısa, abartılı uzatmanın gittiğine işaret ediyor.
+
 ## Tamamlanan işler
 - [x] `ingilizce-uygulama-prompt.md` okundu.
 - [x] Plan modunda Aşama 0 + Aşama 1 planı sunuldu ve onaylandı.

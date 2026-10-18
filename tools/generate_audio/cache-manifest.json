@@ -227,7 +227,6 @@
   "07-animal-bodies:put-on-animal:wings:en": "cb9e8776b9cbce0c",
   "08-dino-snack-time:apple:en": "ecb2d2976d6430c7",
   "08-dino-snack-time:apple:tr-intro": "985e989e2da718ad",
-  "08-dino-snack-time:banana:en": "a5921625d986ee2a",
   "08-dino-snack-time:banana:tr-intro": "f58e7a6c14f8291e",
   "08-dino-snack-time:egg:en": "1ee94297c02072cc",
   "08-dino-snack-time:egg:tr-intro": "9dfa33af5692fd6c",
@@ -250,5 +249,6 @@
   "08-dino-snack-time:feed-dino:egg:en": "005cc1bb585e7ee3",
   "08-dino-snack-time:feed-dino:leaf:en": "78d36c2b4f250f6b",
   "08-dino-snack-time:feed-dino:water:en": "963b66a1aca71eb2",
-  "08-dino-snack-time:feed-dino:meat:en": "315182cb8e5e4f12"
+  "08-dino-snack-time:feed-dino:meat:en": "315182cb8e5e4f12",
+  "08-dino-snack-time:banana:en": "a5921625d986ee2a"
 }
