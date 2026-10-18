@@ -21,6 +21,27 @@
       "audioEn": "en/shared/tpr-spin.mp3",
       "tr": "Dön!",
       "audioTr": "tr/shared/tpr-spin-intro.mp3"
+    },
+    {
+      "id": "clap",
+      "en": "Clap your hands!",
+      "audioEn": "en/shared/tpr-clap.mp3",
+      "tr": "Ellerini çırp!",
+      "audioTr": "tr/shared/tpr-clap-intro.mp3"
+    },
+    {
+      "id": "stomp",
+      "en": "Stomp your feet!",
+      "audioEn": "en/shared/tpr-stomp.mp3",
+      "tr": "Ayaklarını yere vur!",
+      "audioTr": "tr/shared/tpr-stomp-intro.mp3"
+    },
+    {
+      "id": "freeze",
+      "en": "Freeze!",
+      "audioEn": "en/shared/tpr-freeze.mp3",
+      "tr": "Dur!",
+      "audioTr": "tr/shared/tpr-freeze-intro.mp3"
     }
   ]
 }

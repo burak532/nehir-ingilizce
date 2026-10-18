@@ -357,5 +357,21 @@
   "12-lets-move:tpr-command:up:en": "000a2bc159b6284e",
   "12-lets-move:tpr-command:up:tr": "da5dc8c2efed527e",
   "12-lets-move:tpr-command:down:en": "045a2a3588844acf",
-  "12-lets-move:tpr-command:down:tr": "2de39d3e09e7bae6"
+  "12-lets-move:tpr-command:down:tr": "2de39d3e09e7bae6",
+  "11-how-do-you-feel:tpr-command:happy:en": "a716e0aeb5d0eaec",
+  "11-how-do-you-feel:tpr-command:happy:tr": "ca73ed824475b210",
+  "11-how-do-you-feel:tpr-command:sad:en": "6b015160a91fbc48",
+  "11-how-do-you-feel:tpr-command:sad:tr": "f130900b7a7ffd6c",
+  "11-how-do-you-feel:tpr-command:scared:en": "11457ef0afe301d6",
+  "11-how-do-you-feel:tpr-command:scared:tr": "9172f928415bcf9c",
+  "11-how-do-you-feel:tpr-command:excited:en": "c28caa643d5a3bd1",
+  "11-how-do-you-feel:tpr-command:excited:tr": "26811d4cdf722d0e",
+  "11-how-do-you-feel:tpr-command:tired:en": "6bb93f9e03b009fa",
+  "11-how-do-you-feel:tpr-command:tired:tr": "82dfed0605400bbf",
+  "shared:clap:en": "0296b90d8005ba2e",
+  "shared:clap:tr": "0d609ba301977b2d",
+  "shared:stomp:tr": "8f48d6d1e3df12aa",
+  "shared:freeze:en": "b9ec51b671385b63",
+  "shared:freeze:tr": "dbec98e345239779",
+  "shared:stomp:en": "c28ec72c395d6bc5"
 }

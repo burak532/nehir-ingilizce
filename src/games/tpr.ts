@@ -2,7 +2,7 @@ import { store } from "../core/store";
 import { audioManager } from "../audio/audio-manager";
 import { imagePath } from "../core/image-path";
 import { getUnit } from "../core/content";
-import { nextAfterGame } from "../core/game-flow";
+import { nextAfterGame, shuffle } from "../core/game-flow";
 import { renderGameIntroOverlay, shouldShowGameIntro } from "../core/game-intro";
 
 interface TprCommand {
@@ -18,12 +18,14 @@ interface TprCommand {
 }
 
 /**
- * Ünite-bağımsız jenerik TPR komutları — bir ünite kendi kelimelerini TPR
+ * Ünite-bağımsız jenerik TPR komut havuzu — bir ünite kendi kelimelerini TPR
  * komutu olarak kullanmak istemezse (ör. kelimeleri fiziksel bir eyleme
- * doğal olarak karşılık gelmiyorsa, bkz. Hello!/How Do You Feel?) bu listeye
- * düşülür (bkz. curriculum.md §2, §6).
+ * doğal olarak karşılık gelmiyorsa, bkz. Hello!) bu havuza düşülür (bkz.
+ * curriculum.md §2, §6). Her turda havuzdan rastgele 3 tanesi seçilir
+ * (bkz. `pickGenericCommands`) — havuz büyüdükçe (bkz. content/shared/tpr.json)
+ * mola kısa kalırken art arda oturumlarda tekrar çeşitleniyor.
  */
-const GENERIC_COMMANDS: TprCommand[] = [
+const GENERIC_COMMAND_POOL: TprCommand[] = [
   {
     id: "wave",
     en: "Wave your hands!",
@@ -47,31 +49,61 @@ const GENERIC_COMMANDS: TprCommand[] = [
     emoji: "🔄",
     audioEn: "en/shared/tpr-spin.mp3",
     audioTr: "tr/shared/tpr-spin-intro.mp3"
+  },
+  {
+    id: "clap",
+    en: "Clap your hands!",
+    tr: "Ellerini çırp!",
+    emoji: "👏",
+    audioEn: "en/shared/tpr-clap.mp3",
+    audioTr: "tr/shared/tpr-clap-intro.mp3"
+  },
+  {
+    id: "stomp",
+    en: "Stomp your feet!",
+    tr: "Ayaklarını yere vur!",
+    emoji: "🦶",
+    audioEn: "en/shared/tpr-stomp.mp3",
+    audioTr: "tr/shared/tpr-stomp-intro.mp3"
+  },
+  {
+    id: "freeze",
+    en: "Freeze!",
+    tr: "Dur!",
+    emoji: "🛑",
+    audioEn: "en/shared/tpr-freeze.mp3",
+    audioTr: "tr/shared/tpr-freeze-intro.mp3"
   }
 ];
 
-function capitalize(text: string): string {
+const GENERIC_COMMANDS_PER_ROUND = 3;
+
+function pickGenericCommands(): TprCommand[] {
+  return shuffle(GENERIC_COMMAND_POOL).slice(0, GENERIC_COMMANDS_PER_ROUND);
+}
+
+function capitalizeFirst(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
 /**
  * Ünite kendi kelimelerini TPR komutu olarak sunmak için `chunks` içinde
  * `placement: "tpr"` + `template: true` + `tr`/`audioTr` tanımlayabilir
- * (bkz. CLAUDE.md İçerik/veri yapısı). Tanımlanmamışsa jenerik komutlara
- * düşülür — bu yüzden var olan üniteler (Hello!, How Do You Feel?) kod
- * değişikliği olmadan eskisi gibi çalışmaya devam eder.
+ * (bkz. CLAUDE.md İçerik/veri yapısı, örnek: Let's Move!, How Do You Feel?).
+ * Tanımlanmamışsa jenerik havuza düşülür (ör. Hello! — "please"/"thank you"
+ * gibi kelimeler tek bir fiziksel komut kalıbına doğal olarak uymuyor).
  */
 function buildCommands(unitId: string): TprCommand[] {
   const unit = getUnit(unitId);
   const tprChunk = unit?.chunks.find(
     (c) => c.placement === "tpr" && c.template && c.tr && c.audioTr
   );
-  if (!unit || !tprChunk) return GENERIC_COMMANDS;
+  if (!unit || !tprChunk) return pickGenericCommands();
 
   return unit.words.map((word) => ({
     id: word.id,
-    en: `${capitalize(word.en)}!`,
-    tr: `${capitalize(word.tr)}!`,
+    en: capitalizeFirst(tprChunk.en.replace("{word}", word.en)),
+    tr: capitalizeFirst(tprChunk.tr!.replace("{word}", word.tr)),
     audioEn: tprChunk.audioEn.replace("{wordId}", word.id),
     audioTr: tprChunk.audioTr!.replace("{wordId}", word.id),
     image: word.image

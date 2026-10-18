@@ -221,6 +221,21 @@ Kullanıcı: "TPR'ı ünite-bağımsız olmaktan çıkarıp önce onu düzelt." 
 
 **Doğrulama:** Canlı tarayıcıda hem Ünite 12'nin TPR ekranı (jump/run/walk ikonlarıyla "Jump!"/"Zıpla!" vb. doğru gösterildi) hem de Hello!'nin TPR ekranı (eski jenerik "👋 Wave your hands!" aynen çalışıyor) tek tek doğrulandı. Playwright paketi (Chromium) 5/5 geçti — Hello! testi zaten TPR akışının tamamından geçtiği için jenerik yol regresyonsuz doğrulanmış oldu.
 
+## TPR genişletmesi: Ünite 11'e uygulandı + jenerik havuz zenginleştirildi
+Kullanıcı: "uygun olan diğer ünitelere uygulayabilirsin. uygun olmayanlarda ise jump, spin gibi başka şeyler ekleyebilirsin, belki clap your hands gibi."
+
+**Ünite 11 (How Do You Feel?) kendi TPR komutlarına geçirildi:** tpr oyunu kullanan 3 üniteden (1, 11, 12) sadece 12 opt-in yapılmıştı. How Do You Feel?'in kelimeleri (happy/sad/scared/excited/tired) sıfat olduğundan Ünite 12'nin "{word}!" kalıbı buraya uymuyordu (ör. "Happy!" tek başına komut gibi değil durum gibi okunur) — bunun yerine her iki dilde de gramer açısından tüm kelimelere eşit uyan bir kalıp seçildi: `en: "Be {word}!"` → "Be happy!", `tr: "{word} ol!"` → "Mutlu ol!". Curriculum.md'nin bu ünite için zaten önerdiği "Duygu yüzleri çizme/gösterme" fikriyle de örtüşüyor — TPR artık duyguyu fiziksel olarak göstermeyi istiyor.
+
+**Hello! bilinçli olarak jenerik bırakıldı:** 7 kelimesi (hello/bye-bye/yes/no/please/thank-you/good-morning) karışık — bazıları tek bir fiziksel harekete çevrilebilir (hello/bye-bye→el sallama, yes/no→baş sallama) ama "please"/"thank you" gibi görgü kelimeleri TEK bir şablon kalıbına uymuyor, her biri FARKLI bir özel ifade gerektirir ki bu mevcut "tek şablon, tüm kelimeler" mimarisiyle (kasıtlı olarak basit tutulan) uyuşmuyor. Bunun yerine jenerik havuz zenginleştirildi.
+
+**Jenerik TPR havuzu 3'ten 6'ya çıkarıldı:** clap (Ellerini çırp!), stomp (Ayaklarını yere vur!), freeze (Dur!) eklendi — `content/shared/tpr.json` + `tpr.ts`'teki `GENERIC_COMMAND_POOL`. Mola süresi sabit kalsın diye her turda havuzdan rastgele 3 tanesi seçiliyor (`shuffle().slice(0,3)`) — oturumlar arası çeşitlilik artıyor, tek bir oturumun uzunluğu değişmiyor.
+
+**Bulunup düzeltilen hata:** İlk uygulamada `tpr.ts`, gösterilen metni (`en`/`tr`) chunk'ın gerçek şablonundan değil, doğrudan `kelime + "!"` kalıbından üretiyordu — Ünite 12'de şablon zaten `"{word}!"` olduğu için fark edilmedi, ama Ünite 11'de ekranda "Happy!" yazıp sesli olarak "Be happy!" çalıyordu (metin/ses uyuşmazlığı). `capitalizeFirst()` ile düzeltildi: artık şablon metni ({word} dolduruldu) baştan büyütülüyor, hem İngilizce hem Türkçe için doğru kalıp (ör. "Be happy!"/"Mutlu ol!") hem ekranda hem seste tutarlı.
+
+**Ses:** 16 yeni satır üretildi (~$0.00). "stomp.mp3" ilk üretimde (2.66sn) "clap" (1.25sn) gibi benzer uzunluktaki bir komuta göre belirgin uzundu — proaktif yeniden üretildi (1.61sn).
+
+**Doğrulama:** Canlı tarayıcıda Ünite 11'in TPR ekranı ("Mutlu ol!"/"Be happy!" doğru eşleşiyor) ve düzeltme sonrası yeniden doğrulandı. Playwright paketi (Chromium) 5/5 geçti — Hello! testi rastgele seçilen 3 jenerik komutla da sorunsuz tamamlandı.
+
 ## Ünite 13 kararı: Mix & Match ayrı eklenmedi
 Kullanıcı: **"sen karar ver, uygun olanı yap. sanki tekrar daha iyi geldi bana emin değilim."** Karar verme sürecim: `src/games/review.ts`'yi (Aşama 8'de eklenen "🔁 Tekrar" ekranı) tekrar okudum — curriculum.md'nin Ünite 13 tanımıyla ("Mix & Match", kavram alanı "— (tekrar ünitesi)", "sabit kelime yok, önceki ünitelerden karışık çekilir", kalıp ifade yok) karşılaştırdığımda bunların aynı özelliği tarif ettiğini gördüm: Tekrar zaten tüm ünitelerden kelimeleri karıştırıp (`units.flatMap`) dinle-dokun mekaniğiyle soruyor, hiçbir sabit kelime listesi yok. Tek fark, Tekrar'ın `isDue()` ile sadece VADESİ GELEN kelimeleri göstermesi — bu, "her zaman tüm kelimeler karışık" yerine aralıklı tekrar pedagojisine daha uygun bir YUKARI yönlü iyileştirme, aşağı değil. Haritada zaten ayrı, her zaman erişilebilir bir kart olarak duruyor.
 
